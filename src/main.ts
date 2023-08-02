@@ -1,3 +1,4 @@
+import Card from './components/card.vue';
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
@@ -6,7 +7,7 @@ import router from './router';
 const app = createApp(App);
 
 // Register global components
-// app.component('');
+app.component('Card', Card);
 
 // Register plugins
 app.use(router);

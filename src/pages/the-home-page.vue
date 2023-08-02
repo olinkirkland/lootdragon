@@ -1,6 +1,8 @@
 <template>
-  <p>home page</p>
-  <button @click="goToLoginPage">Login</button>
+  <card>
+    <p>home page</p>
+    <button @click="goToLoginPage">Login</button>
+  </card>
 </template>
 
 <script setup lang="ts">

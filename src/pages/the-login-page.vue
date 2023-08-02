@@ -1,12 +1,19 @@
 <template>
-  <p>login page</p>
-  <input type="text" placeholder="username" />
-  <input type="password" placeholder="password" />
-  <button>Login</button>
+  <card>
+    <div class="login-container">
+      <p>login page</p>
+      <input type="text" placeholder="username" />
+      <input type="password" placeholder="password" />
+      <button>Login</button>
+    </div>
+  </card>
 </template>
 
-<script setup lang="ts">
-console.log('test');
-</script>
-
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+}
+</style>

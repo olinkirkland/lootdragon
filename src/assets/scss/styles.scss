@@ -35,3 +35,13 @@ label,
 input {
   font-size: 1.6rem;
 }
+
+input[type='text'],
+input[type='password'] {
+  padding: 0.4rem 0.8rem;
+  border-radius: 0;
+
+  &:focus {
+    outline: none;
+  }
+}
