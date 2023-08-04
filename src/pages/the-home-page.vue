@@ -1,12 +1,22 @@
 <template>
   <card>
-    <p>home page</p>
-    <button @click="goToLoginPage">Login</button>
+    <div class="home-container">
+      <p>home page</p>
+      <button @click="router.push({ name: 'register' })">register</button>
+      <button @click="router.push({ name: 'login' })">login</button>
+    </div>
   </card>
 </template>
 
 <script setup lang="ts">
-function goToLoginPage() {}
+import router from '@/router';
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+}
+</style>

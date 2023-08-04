@@ -1,15 +1,12 @@
 import Home from '@/pages/the-home-page.vue';
 import Login from '@/pages/the-login-page.vue';
+import Register from '@/pages/the-register-page.vue';
 import Lost from '@/pages/the-lost-page.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
   {
     path: '/',
-    redirect: '/home'
-  },
-  {
-    path: '/home',
     components: {
       app: Home
     },
@@ -23,6 +20,13 @@ const routes = [
     name: 'login'
   },
   {
+    path: '/register',
+    components: {
+      app: Register
+    },
+    name: 'register'
+  },
+  {
     path: '/:pathMatch(.*)*',
     components: {
       app: Lost
@@ -34,7 +38,7 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   //@ts-ignore
-  routes  
+  routes
 });
 
 // router.beforeEach(async (to, from, next) => {
