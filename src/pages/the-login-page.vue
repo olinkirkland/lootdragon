@@ -4,7 +4,7 @@
       <p>login page</p>
       <input type="text" placeholder="username" />
       <input type="password" placeholder="password" />
-      <button>login</button>
+      <button @click="router.push({name: 'library'})">login</button>
       <button @click="router.push({ name: 'home' })">home</button>
     </div>
   </card>
@@ -22,3 +22,4 @@ import router from '@/router';
   gap: 0.8rem;
 }
 </style>
+@/router/router

@@ -23,3 +23,4 @@ function goToHomePage() {
   gap: 0.8rem;
 }
 </style>
+@/router/router

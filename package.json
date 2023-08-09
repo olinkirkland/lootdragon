@@ -8,13 +8,12 @@
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
-  "dependencies": {
+  "devDependencies": {
     "sass-colors": "^1.0.14",
     "vue": "^3.3.4",
-    "vue-router": "^4.2.4"
-  },
-  "devDependencies": {
+    "vue-router": "^4.2.4",
     "@types/node": "^20.4.5",
+    "@types/vue-router": "^2.0.0",
     "@vitejs/plugin-vue": "^4.2.3",
     "sass": "^1.64.2",
     "typescript": "^5.0.2",

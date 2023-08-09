@@ -1,7 +1,8 @@
 import Home from '@/pages/the-home-page.vue';
+import Library from '@/pages/the-library-page.vue';
 import Login from '@/pages/the-login-page.vue';
-import Register from '@/pages/the-register-page.vue';
 import Lost from '@/pages/the-lost-page.vue';
+import Register from '@/pages/the-register-page.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
@@ -25,6 +26,27 @@ const routes = [
       app: Register
     },
     name: 'register'
+  },
+  // {
+  //   path: '/games',
+  //   components: {
+  //     app: Games,
+  //   },
+  //   name: 'games'
+  // },
+  // {
+  //   path: '/games/:id',
+  //   components: {
+  //     app: Game,
+  //   },
+  //   name: 'game'
+  // },
+  {
+    path: '/library',
+    components: {
+      app: Library
+    },
+    name: 'library'
   },
   {
     path: '/:pathMatch(.*)*',

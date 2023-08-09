@@ -20,3 +20,4 @@ import router from '@/router';
   gap: 0.8rem;
 }
 </style>
+@/router/router
