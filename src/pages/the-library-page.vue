@@ -158,5 +158,19 @@ const filteredItems = computed(() => {
     gap: 0.6rem;
     overflow-y: auto;
   }
+
+  @media (max-width: 768px) {
+    .library-container  .filter-group {
+      width: 100%;
+      > ul.filter {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+
+        > li {
+          border: 2px dashed red !important;
+        }
+      }
+    }
+  }
 }
 </style>

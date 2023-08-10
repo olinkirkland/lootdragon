@@ -56,6 +56,7 @@ const item = props.item;
   }
 
   &--common {
+    background-color: #f1f1f1;
   }
 
   &--uncommon {
