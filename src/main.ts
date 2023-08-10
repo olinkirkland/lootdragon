@@ -17,5 +17,6 @@ app.use(router);
 app.mount('#app');
 
 // Initialize Mixpanel
+// TODO move the mixpanel token to an environment variable
 mixpanel.init('c270f1816c518d251d2b2414daf17d84');
 mixpanel.track('initial-load');
