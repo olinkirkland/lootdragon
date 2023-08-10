@@ -3,9 +3,6 @@
     <header>
       <h2>Pathfinder 2E Item Browser</h2>
 
-      <button @click="showFilters = !showFilters" class="filters-toggle">
-        {{ showFilters ? 'Hide' : 'Show' }} Filters
-      </button>
       <div v-if="showFilters" class="filters">
         <div class="filter-group">
           <p>Rarity</p>
@@ -23,7 +20,26 @@
         </div>
 
         <div class="filter-group">
-          <p>Value</p>
+          <p>
+            <span>Value</span>
+
+            <span class="coin-legend">
+              <span>
+                <img class="coin" src="@/assets/img/gold.png" />
+                <span>1 =</span>
+                <img class="coin" src="@/assets/img/silver.png" />
+                <span>10</span>
+              </span>
+              <span>|</span>
+              <span>
+                <img class="coin" src="@/assets/img/silver.png" />
+                <span>1 =</span>
+                <img class="coin" src="@/assets/img/copper.png" />
+                <span>10</span>
+              </span>
+            </span>
+          </p>
+
           <ul class="filter filter--value">
             <li v-for="value in values" :key="value">
               <input
@@ -32,11 +48,29 @@
                 :value="value"
                 v-model="valueFilter"
               />
-              <label :for="value">{{ value }}</label>
+              <label :for="value">
+                <span v-if="value === '0'">N/A</span>
+                <span v-if="value === '0-1'">
+                  <img class="coin" src="@/assets/img/copper.png" />1 -
+                  <img class="coin" src="@/assets/img/silver.png" />1
+                </span>
+                <span v-if="value === '1-2'">
+                  <img class="coin" src="@/assets/img/silver.png" />1 -
+                  <img class="coin" src="@/assets/img/gold.png" />1
+                </span>
+                <span v-if="value === '10+'">
+                  <img class="coin" src="@/assets/img/gold.png" />
+                  10+
+                </span>
+              </label>
             </li>
           </ul>
         </div>
       </div>
+
+      <button @click="showFilters = !showFilters" class="filters-toggle">
+        {{ showFilters ? 'Hide' : 'Show' }} Filters
+      </button>
 
       <p class="item-count">
         Showing {{ filteredItems.length }} / {{ items.length }} items
@@ -61,7 +95,7 @@ items.value = equipmentJson as Item[];
 const showFilters = ref<boolean>(false);
 
 const rarities = Array.from(new Set(items.value.map((item) => item.rarity)));
-const values = ['Unknown', '0.01-0.99', '1-9.99', '10+'];
+const values = ['0', '0-1', '1-2', '10+'];
 
 const rarityFilter = ref<string[]>(rarities);
 const valueFilter = ref<string[]>(values);
@@ -84,9 +118,9 @@ const filteredItems = computed(() => {
 
   // Filter by value
   sortedItems = sortedItems.filter((item) => {
-    if (!item.price) return valueFilter.value.includes('Unknown');
-    if (item.price < 1) return valueFilter.value.includes('0.01-0.99');
-    if (item.price < 10) return valueFilter.value.includes('1-9.99');
+    if (!item.price) return valueFilter.value.includes('0');
+    if (item.price < 1) return valueFilter.value.includes('0-1');
+    if (item.price < 10) return valueFilter.value.includes('1-2');
     return valueFilter.value.includes('10+');
   });
 
@@ -122,12 +156,35 @@ const filteredItems = computed(() => {
           color: grey;
           margin-bottom: 0.4rem;
           width: 100%;
+          display: flex;
+          justify-content: space-between;
+          .coin-legend {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            font-size: 1.2rem;
+            opacity: 0.6;
+
+            > span {
+              display: flex;
+              align-items: center;
+              gap: 0.2rem;
+            }
+          }
         }
         > ul.filter {
           display: flex;
           padding: 0.4rem;
           width: fit-content;
           gap: 1.2rem;
+
+          label {
+            > span {
+              display: flex;
+              align-items: center;
+              gap: 0.2rem;
+            }
+          }
 
           > li {
             display: flex;
