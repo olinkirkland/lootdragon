@@ -1,61 +1,47 @@
 <template>
   <div class="library-container">
-    <h2>Pathfinder 2E Item Browser</h2>
-    <p>
-      Showing <em>{{ filteredItems.length }}/{{ items.length }}</em> items
-    </p>
+    <header>
+      <h2>Pathfinder 2E Item Browser</h2>
 
-    <div class="filters">
-      <div class="filter-group">
-        <p>Rarity</p>
-        <ul class="filter filter--rarity">
-          <li v-for="rarity in rarities" :key="rarity">
-            <input
-              :id="rarity"
-              type="checkbox"
-              :value="rarity"
-              v-model="rarityFilter"
-            />
-            <label :for="rarity"
-              >{{ rarity }} ({{
-                items.filter((item) => item.rarity === rarity).length
-              }})</label
-            >
-          </li>
-        </ul>
+      <div class="filters">
+        <div class="filter-group">
+          <p>Rarity</p>
+          <ul class="filter filter--rarity">
+            <li v-for="rarity in rarities" :key="rarity">
+              <input
+                :id="rarity"
+                type="checkbox"
+                :value="rarity"
+                v-model="rarityFilter"
+              />
+              <label :for="rarity">{{ rarity }} </label>
+            </li>
+          </ul>
+        </div>
+
+        <div class="filter-group">
+          <p>Value</p>
+          <ul class="filter filter--value">
+            <li v-for="value in values" :key="value">
+              <input
+                :id="value"
+                type="checkbox"
+                :value="value"
+                v-model="valueFilter"
+              />
+              <label :for="value">{{ value }}</label>
+            </li>
+          </ul>
+        </div>
       </div>
 
-      <div class="filter-group">
-        <p>Value</p>
-        <ul class="filter filter--value">
-          <li v-for="value in values" :key="value">
-            <input
-              :id="value"
-              type="checkbox"
-              :value="value"
-              v-model="valueFilter"
-            />
-            <label :for="value"
-              >{{ value }} ({{
-                items.filter((item) => {
-                  if (!item.price) return value === 'Unknown';
-                  if (item.price < 1) return value === '0.01-0.99';
-                  if (item.price < 10) return value === '1-9.99';
-                  return value === '10+';
-                }).length
-              }})</label
-            >
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- <p>{{ rarityFilter }}</p> -->
+      <p class="item-count">
+        Showing {{ filteredItems.length }} / {{ items.length }} items
+      </p>
+    </header>
 
     <ul class="item-list">
-      <li v-for="item in filteredItems" :key="item.id">
-        <item-card :item="item" />
-      </li>
+      <item-card v-for="item in filteredItems" :key="item.id" :item="item" />
     </ul>
   </div>
 </template>
@@ -64,8 +50,7 @@
 import equipmentJson from '@/assets/equipment.json';
 import ItemCard from '@/components/item-card.vue';
 import { Item } from '@/types';
-import { ref } from 'vue';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 const items = ref<Item[]>([]);
 items.value = equipmentJson as Item[];
@@ -110,41 +95,49 @@ const filteredItems = computed(() => {
   width: 100%;
   height: 100vh;
   flex-direction: column;
-  gap: 0.8rem;
   padding: 2rem;
   overflow: hidden;
 
-  > .filters {
+  > header {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 0.8rem;
+    margin-bottom: 0.8rem;
 
-    > .filter-group {
-      padding: 0.8rem;
-      border: 1px solid black;
+    > .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
 
-      > p {
-        color: grey;
-      }
-      > ul.filter {
-        display: flex;
+      > .filter-group {
         padding: 0.4rem;
-        width: fit-content;
-        gap: 1.2rem;
+        border: 1px solid black;
 
-        > li {
+        > p {
+          color: grey;
+          margin-bottom: 0.4rem;
+          width: 100%;
+        }
+        > ul.filter {
           display: flex;
-          align-items: center;
-          gap: 0.4rem;
+          padding: 0.4rem;
+          width: fit-content;
+          gap: 1.2rem;
 
-          > input,
-          label {
-            cursor: pointer;
-          }
+          > li {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
 
-          > input {
-            width: 1.6rem;
-            height: 1.6rem;
+            > input,
+            label {
+              cursor: pointer;
+            }
+
+            > input {
+              width: 1.6rem;
+              height: 1.6rem;
+            }
           }
         }
       }
@@ -158,18 +151,40 @@ const filteredItems = computed(() => {
     gap: 0.6rem;
     overflow-y: auto;
   }
+}
 
-  @media (max-width: 768px) {
-    .library-container  .filter-group {
-      width: 100%;
-      > ul.filter {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
+@media (max-width: 768px) {
+  .library-container {
+    padding: 0;
 
-        > li {
-          border: 2px dashed red !important;
+    > header {
+      padding: 1.2rem 1.2rem 0rem 1.2rem;
+      .filters {
+        > .filter-group {
+          width: 100%;
+
+          > p {
+            // text-align: center;
+          }
+          > ul.filter {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+
+            > li {
+            }
+          }
         }
       }
+
+      > p.item-count {
+        font-size: 1.2rem;
+      }
+    }
+
+    > ul.item-list {
+      width: 100%;
+      display: block;
     }
   }
 }

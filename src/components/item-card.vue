@@ -43,7 +43,7 @@ const item = props.item;
   height: 3.2rem;
   overflow: hidden;
   border-radius: 3px;
-  border: 1px solid black;
+  border: 1px solid rgba(0, 0, 0, 0.4);
 
   > a {
     display: flex;
@@ -69,6 +69,25 @@ const item = props.item;
 
   &--unique {
     background-color: #fff4b6;
+  }
+}
+
+@media (max-width: 768px) {
+  .item-card {
+    border-radius: 0;
+
+    &:not(:first-child) {
+      border-top: none;
+    }
+
+    position: relative;
+    &:nth-child(odd)::after {
+      content: '';
+      width: 100%;
+      position: absolute;
+      background-color: #00000010;
+      height: 100%;
+    }
   }
 }
 </style>
