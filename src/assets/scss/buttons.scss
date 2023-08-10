@@ -2,11 +2,15 @@ button {
   border-radius: 0;
   padding: 0.4rem 1.2rem;
   font-size: 1.6rem;
+  font-weight: bold;
+  color: white;
+  background-color: #222;
+  border: none;
   cursor: pointer;
 }
 
 a {
   display: inline-block;
   font-size: 1.6rem;
-  color: black;
+  color: #222;
 }
