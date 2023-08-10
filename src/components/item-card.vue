@@ -16,7 +16,7 @@
       <price-display v-if="!!item.price" :value="item.price" />
       <span>
         <span>{{ item.name.text }}</span>
-        <!-- <span>*{{ item.rarity.substring(0, 1).toLowerCase() }}</span> -->
+        <!-- <span> ({{ item.rarity }})</span> -->
       </span>
     </a>
   </div>
