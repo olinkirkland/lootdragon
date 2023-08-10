@@ -1,17 +1,32 @@
 <template>
   <p class="price">
-    <span v-if="platinum">{{ platinum / 1000 }}</span
-    ><img src="assets/img/platinum.png" alt="platinum" />
-    <span v-if="gold">{{ gold / 100 }}</span
-    ><img src="assets/img/gold.png" alt="gold" />
-    <span v-if="silver">{{ silver / 10 }}</span
-    ><img src="assets/img/silver.png" alt="silver" />
-    <span v-if="copper">{{ copper }}</span
-    ><img src="assets/img/copper.png" alt="copper" />
+    <span class="price__group" v-if="gold > 0">
+      <img :src="goldImg" />
+      <span>{{ formatNumber(gold) }}</span>
+    </span>
+    <span class="price__group" v-if="silver > 0">
+      <img :src="silverImg" />
+      <span>{{ formatNumber(silver) }}</span>
+    </span>
+    <span class="price__group" v-if="copper > 0">
+      <img :src="copperImg" />
+      <span>{{ formatNumber(copper) }}</span>
+    </span>
+    <span
+      class="price__group"
+      v-if="gold === 0 && silver === 0 && copper === 0"
+    >
+      <span>N/A</span>
+    </span>
   </p>
 </template>
 
 <script setup lang="ts">
+import copperImg from '@/assets/img/copper.png';
+import goldImg from '@/assets/img/gold.png';
+import silverImg from '@/assets/img/silver.png';
+import { formatNumber } from '@/utils';
+
 const props = defineProps({
   value: {
     type: Number,
@@ -22,12 +37,35 @@ const props = defineProps({
 // copper = 0.01
 // silver = 0.1
 // gold = 1
-// platinum = 10
 
-const copper = props.value % 10;
-const silver = (props.value - copper) % 100;
-const gold = (props.value - silver - copper) % 1000;
-const platinum = (props.value - gold - silver - copper) % 10000;
+// 3.45 = 3 gold, 4 silver, 5 copper
+// 35 = 35 gold
+// 0.5 = 5 silver
+// 0.52 = 5 silver, 2 copper
+
+const gold = Math.floor(props.value);
+const silver = Math.floor((props.value - gold) * 10);
+const copper = Math.floor((props.value - gold - silver) * 100);
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.price {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0 0.8rem;
+  height: 100%;
+  background-color: #333;
+  color: white;
+
+  > .price__group {
+    display: flex;
+    align-items: center;
+
+    img {
+      height: 1.4rem;
+      margin-right: 0.4rem;
+    }
+  }
+}
+</style>
