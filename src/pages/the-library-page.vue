@@ -3,7 +3,10 @@
     <header>
       <h2>Pathfinder 2E Item Browser</h2>
 
-      <div class="filters">
+      <button @click="showFilters = !showFilters" class="filters-toggle">
+        {{ showFilters ? 'Hide' : 'Show' }} Filters
+      </button>
+      <div v-if="showFilters" class="filters">
         <div class="filter-group">
           <p>Rarity</p>
           <ul class="filter filter--rarity">
@@ -54,6 +57,8 @@ import { computed, ref } from 'vue';
 
 const items = ref<Item[]>([]);
 items.value = equipmentJson as Item[];
+
+const showFilters = ref<boolean>(false);
 
 const rarities = Array.from(new Set(items.value.map((item) => item.rarity)));
 const values = ['Unknown', '0.01-0.99', '1-9.99', '10+'];
