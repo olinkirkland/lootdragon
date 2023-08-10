@@ -5,8 +5,9 @@ import vue from '@vitejs/plugin-vue';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/',
   plugins: [vue()],
-  server: { host: true }, // For external IP access
+  server: { host: false }, // For external IP access
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
