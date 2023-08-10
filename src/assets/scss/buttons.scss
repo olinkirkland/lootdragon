@@ -7,6 +7,15 @@ button {
   background-color: #222;
   border: none;
   cursor: pointer;
+  display: flex;
+  width: fit-content;
+}
+
+@media (max-width: 768px) {
+  button {
+    display: block;
+    width: 100%;
+  }
 }
 
 a {
