@@ -5,6 +5,8 @@ import Lost from '@/pages/the-lost-page.vue';
 import Register from '@/pages/the-register-page.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
+const base = process.env.NODE_ENV === 'production' ? '/stash-app/' : '/';
+
 const routes = [
   {
     path: '/',
@@ -58,7 +60,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(base),
   //@ts-ignore
   routes
 });

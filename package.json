@@ -13,6 +13,7 @@
     "@types/node": "^20.4.5",
     "@types/vue-router": "^2.0.0",
     "@vitejs/plugin-vue": "^4.2.3",
+    "gh-pages": "^5.0.0",
     "sass": "^1.64.2",
     "sass-colors": "^1.0.14",
     "typescript": "^5.0.2",

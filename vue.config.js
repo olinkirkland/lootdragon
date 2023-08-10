@@ -1,3 +1,3 @@
 module.exports = {
-  publicPath: 'https://olinkirk.land/stash-app/'
+  publicPath: '/stash-app/'
 };
