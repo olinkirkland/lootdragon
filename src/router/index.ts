@@ -42,11 +42,15 @@ const routes = [
   //   name: 'game'
   // },
   {
-    path: '/library',
+    path: '/item-browser',
     components: {
       app: Library
     },
-    name: 'library'
+    name: 'item-browser'
+  },
+  {
+    path: '/library',
+    redirect: '/item-browser' // Redirect from '/library' to '/item-browser'
   },
   {
     path: '/:pathMatch(.*)*',

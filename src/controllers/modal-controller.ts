@@ -32,7 +32,7 @@ export class ModalController {
     this.subject.subscribe(callback);
   }
 
-  public removeEventListener(callback: (d: ModalDispatch) => void): void {
+  public removeEventListener(): void {
     this.subject.unsubscribe();
   }
 }
