@@ -112,7 +112,8 @@ function navigate(url: string) {
   flex-direction: column;
   background-color: white;
   width: 80%;
-  height: 80%;
+  max-width: 64rem;
+  max-height: 80%;
   border: 1px solid #222;
   overflow: auto;
 
@@ -197,6 +198,8 @@ function navigate(url: string) {
   .modal {
     width: 100%;
     height: 100%;
+    max-width: 100%;
+    max-height: 100%;
 
     section.actions {
       flex-direction: column;
