@@ -14,10 +14,16 @@
                   'fa-caret-right': !showRarityFilter
                 }"
               ></i>
-              <span
-                >Rarity ({{ rarityFilter.length }}/{{ rarities.length }})</span
-              >
+              <span>
+                Rarity ({{ rarityFilter.length }}/{{ rarities.length }})
+              </span>
             </p>
+            <button
+              class="icon light"
+              @click.stop="ModalController.open(RarityModal)"
+            >
+              <i class="fas fa-question-circle"></i>
+            </button>
           </header>
           <ul class="filter filter--rarity" v-if="showRarityFilter">
             <li class="checkbox-group" v-for="rarity in rarities" :key="rarity">
@@ -42,10 +48,16 @@
                   'fa-caret-right': !showSourcesFilter
                 }"
               ></i>
-              <span
-                >Sources ({{ sourceFilter.length }}/{{ sources.length }})</span
-              >
+              <span>
+                Sources ({{ sourceFilter.length }}/{{ sources.length }})
+              </span>
             </p>
+            <button
+              class="icon light"
+              @click.stop="ModalController.open(SourcesModal)"
+            >
+              <i class="fas fa-question-circle"></i>
+            </button>
           </header>
           <ul class="filter filter--source" v-if="showSourcesFilter">
             <li class="checkbox-group" v-for="source in sources" :key="source">
@@ -137,6 +149,8 @@ import { ModalController } from '@/controllers/modal-controller';
 import { Item } from '@/types';
 import { computed, ref } from 'vue';
 import PriceModal from '../components/modals/price-modal.vue';
+import RarityModal from '../components/modals/rarity-modal.vue';
+import SourcesModal from '../components/modals/sources-modal.vue';
 
 const items = ref<Item[]>([]);
 items.value = equipmentJson as Item[];
@@ -237,7 +251,7 @@ const filteredItems = computed(() => {
           > p {
             display: flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.6rem;
           }
         }
 
@@ -253,7 +267,7 @@ const filteredItems = computed(() => {
           padding: 0.8rem;
           width: fit-content;
           gap: 1.2rem;
-          max-height: 12rem;
+          max-height: 16rem;
           overflow-y: auto;
 
           &--source {
@@ -295,8 +309,12 @@ const filteredItems = computed(() => {
           ul.filter {
             width: 100%;
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
             grid-gap: 0.4rem;
+
+            &--source {
+              grid-template-columns: 1fr;
+            }
           }
         }
       }

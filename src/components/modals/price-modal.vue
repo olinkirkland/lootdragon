@@ -6,46 +6,51 @@
         <i class="fas fa-times"></i>
       </button>
     </header>
-    <section>
-      <p>
-        The most common currencies in the game are
-        <strong>gold pieces</strong> (gp) and
-        <strong>silver pieces</strong> (sp).
-      </p>
-      <p>One gold piece is worth 10 silver pieces.</p>
-      <p>
-        In addition, 1 silver piece is worth 10
-        <strong>copper pieces</strong> (cp), and 10 gold pieces are worth 1
-        platinum piece (pp).
-      </p>
-      <p>Characters begin play with 15 gp (or 150 sp) to spend on equipment.</p>
-      <p>
-        Platinum pieces are ignored in this item browser for the sake of
-        readability.
-      </p>
-    </section>
-    <section class="coin-legend-container">
-      <span class="coin-legend">
-        <span>
-          <img class="coin" src="@/assets/img/copper.png" />
-          <span>10 =</span>
-          <img class="coin" src="@/assets/img/silver.png" />
-          <span>1</span>
+    <div class="modal__content">
+      <section>
+        <p>
+          The most common currencies in the game are
+          <strong>gold pieces</strong> (gp) and
+          <strong>silver pieces</strong> (sp).
+        </p>
+        <p>One gold piece is worth 10 silver pieces.</p>
+        <p>
+          In addition, 1 silver piece is worth 10
+          <strong>copper pieces</strong> (cp), and 10 gold pieces are worth 1
+          platinum piece (pp).
+        </p>
+        <p>
+          Characters begin play with 15 gp (or 150 sp) to spend on equipment.
+        </p>
+        <p>
+          Platinum pieces are ignored in this item browser for the sake of
+          readability.
+        </p>
+      </section>
+      <section class="coin-legend-container">
+        <span class="coin-legend">
+          <span class="coin-legend__diagram">
+            <img class="coin" src="@/assets/img/copper.png" />
+            <span>10 =</span>
+            <img class="coin" src="@/assets/img/silver.png" />
+            <span>1</span>
+          </span>
+          <span>and</span>
+          <span class="coin-legend__diagram">
+            <img class="coin" src="@/assets/img/silver.png" />
+            <span>10 =</span>
+            <img class="coin" src="@/assets/img/gold.png" />
+            <span>1</span>
+          </span>
         </span>
-        <span>
-          <img class="coin" src="@/assets/img/silver.png" />
-          <span>10 =</span>
-          <img class="coin" src="@/assets/img/gold.png" />
-          <span>1</span>
-        </span>
-      </span>
-    </section>
-    <section>
-      <p>You can read more about this on the Archives of Nethys page.</p>
-      <a href="https://2e.aonprd.com/Rules.aspx?ID=25" target="_blank">
-        <span>Archives of Nethys: Coins and Currency</span>
-      </a>
-    </section>
+      </section>
+      <section>
+        <p>You can read more about currency on the Archives of Nethys page.</p>
+        <a href="https://2e.aonprd.com/Rules.aspx?ID=25" target="_blank">
+          <span>Archives of Nethys: Coins and Currency</span>
+        </a>
+      </section>
+    </div>
   </div>
 </template>
 
@@ -56,9 +61,13 @@ import { ModalController } from '@/controllers/modal-controller';
 <style scoped lang="scss">
 .modal {
   background-color: white;
-  width: 40rem;
-  height: 40rem;
+  min-width: 40%;
+  max-width: 64rem;
+  min-height: 40%;
+  max-height: 64rem;
   border: 1px solid black;
+  display: flex;
+  flex-direction: column;
 
   header {
     display: flex;
@@ -76,6 +85,11 @@ import { ModalController } from '@/controllers/modal-controller';
     }
   }
 
+  .modal__content {
+    overflow-y: scroll;
+    flex: 1;
+  }
+
   section {
     display: flex;
     flex-direction: column;
@@ -84,11 +98,18 @@ import { ModalController } from '@/controllers/modal-controller';
   }
 }
 
+.coin-legend-container {
+  border: 1px solid #ffebce;
+  margin: 0 auto;
+  width: fit-content;
+  background-color: #fff7ec;
+}
 .coin-legend {
   display: flex;
   align-items: center;
-  font-size: 2.4rem;
+  font-size: 1.6rem;
   gap: 1.2rem;
+  flex-wrap: wrap;
 
   img {
     height: 2.4rem;
@@ -98,8 +119,10 @@ import { ModalController } from '@/controllers/modal-controller';
     display: flex;
     align-items: center;
     gap: 0.4rem;
-    padding: 1.2rem 1.6rem;
-    background-color: #fafafa;
+  }
+
+  > span:not(.coin-legend__diagram) {
+    color: #adadad;
   }
 }
 

@@ -76,6 +76,7 @@ pre {
   display: flex;
   align-items: center;
   gap: 0.4rem;
+  user-select: none;
 
   > input,
   label {
