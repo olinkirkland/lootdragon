@@ -14,7 +14,9 @@
                   'fa-caret-right': !showRarityFilter
                 }"
               ></i>
-              <span>Rarity</span>
+              <span
+                >Rarity ({{ rarityFilter.length }}/{{ rarities.length }})</span
+              >
             </p>
           </header>
           <ul class="filter filter--rarity" v-if="showRarityFilter">
@@ -40,7 +42,9 @@
                   'fa-caret-right': !showSourcesFilter
                 }"
               ></i>
-              <span>Sources</span>
+              <span
+                >Sources ({{ sourceFilter.length }}/{{ sources.length }})</span
+              >
             </p>
           </header>
           <ul class="filter filter--source" v-if="showSourcesFilter">
@@ -66,7 +70,7 @@
                   'fa-caret-right': !showPriceFilter
                 }"
               ></i>
-              <span>Price</span>
+              <span>Price ({{ priceFilter.length }}/{{ prices.length }})</span>
             </p>
             <button
               class="icon light"
