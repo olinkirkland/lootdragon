@@ -5,10 +5,19 @@
 
       <div v-if="showFilters" class="filters">
         <div class="filter-group">
-          <header>
-            <p>Rarity</p>
+          <header @click="showRarityFilter = !showRarityFilter">
+            <p>
+              <i
+                class="fas"
+                :class="{
+                  'fa-caret-down': showRarityFilter,
+                  'fa-caret-right': !showRarityFilter
+                }"
+              ></i>
+              <span>Rarity</span>
+            </p>
           </header>
-          <ul class="filter filter--rarity">
+          <ul class="filter filter--rarity" v-if="showRarityFilter">
             <li class="checkbox-group" v-for="rarity in rarities" :key="rarity">
               <input
                 :id="rarity"
@@ -22,10 +31,19 @@
         </div>
 
         <div class="filter-group">
-          <header>
-            <p>Sources</p>
+          <header @click="showSourcesFilter = !showSourcesFilter">
+            <p>
+              <i
+                class="fas"
+                :class="{
+                  'fa-caret-down': showSourcesFilter,
+                  'fa-caret-right': !showSourcesFilter
+                }"
+              ></i>
+              <span>Sources</span>
+            </p>
           </header>
-          <ul class="filter filter--source">
+          <ul class="filter filter--source" v-if="showSourcesFilter">
             <li class="checkbox-group" v-for="source in sources" :key="source">
               <input
                 :id="source"
@@ -39,17 +57,26 @@
         </div>
 
         <div class="filter-group">
-          <header>
-            <p>Price</p>
+          <header @click="showPriceFilter = !showPriceFilter">
+            <p>
+              <i
+                class="fas"
+                :class="{
+                  'fa-caret-down': showPriceFilter,
+                  'fa-caret-right': !showPriceFilter
+                }"
+              ></i>
+              <span>Price</span>
+            </p>
             <button
               class="icon light"
-              @click="ModalController.open(PriceModal)"
+              @click.stop="ModalController.open(PriceModal)"
             >
               <i class="fas fa-question-circle"></i>
             </button>
           </header>
 
-          <ul class="filter filter--price">
+          <ul class="filter filter--price" v-if="showPriceFilter">
             <li class="checkbox-group" v-for="price in prices" :key="price">
               <input
                 :id="price"
@@ -111,6 +138,9 @@ const items = ref<Item[]>([]);
 items.value = equipmentJson as Item[];
 
 const showFilters = ref<boolean>(false);
+const showRarityFilter = ref<boolean>(false);
+const showSourcesFilter = ref<boolean>(false);
+const showPriceFilter = ref<boolean>(false);
 
 const rarities = Array.from(new Set(items.value.map((item) => item.rarity)));
 const prices = ['0', '0.01-0.09', '0.1-0.99', '1-99', '100+'];
@@ -198,6 +228,13 @@ const filteredItems = computed(() => {
           flex-wrap: wrap;
           justify-content: space-between;
           gap: 0.4rem;
+          cursor: pointer;
+
+          > p {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+          }
         }
 
         > p {
