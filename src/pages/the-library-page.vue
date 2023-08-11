@@ -1,66 +1,79 @@
 <template>
   <div class="library-container">
     <header>
-      <h2>Pathfinder 2E Item Browser</h2>
+      <h1>PF2E Item Browser</h1>
 
       <div v-if="showFilters" class="filters">
         <div class="filter-group">
-          <p>Rarity</p>
+          <header>
+            <p>Rarity</p>
+          </header>
           <ul class="filter filter--rarity">
-            <li v-for="rarity in rarities" :key="rarity">
+            <li class="checkbox-group" v-for="rarity in rarities" :key="rarity">
               <input
                 :id="rarity"
                 type="checkbox"
                 :value="rarity"
                 v-model="rarityFilter"
               />
-              <label :for="rarity">{{ rarity }} </label>
+              <label :for="rarity">{{ rarity }}</label>
             </li>
           </ul>
         </div>
 
         <div class="filter-group">
-          <p>
-            <span>Value</span>
-
-            <span class="coin-legend">
-              <span>
-                <img class="coin" src="@/assets/img/gold.png" />
-                <span>1 =</span>
-                <img class="coin" src="@/assets/img/silver.png" />
-                <span>10</span>
-              </span>
-              <span>|</span>
-              <span>
-                <img class="coin" src="@/assets/img/silver.png" />
-                <span>1 =</span>
-                <img class="coin" src="@/assets/img/copper.png" />
-                <span>10</span>
-              </span>
-            </span>
-          </p>
-
-          <ul class="filter filter--value">
-            <li v-for="value in values" :key="value">
+          <header>
+            <p>Sources</p>
+          </header>
+          <ul class="filter filter--source">
+            <li class="checkbox-group" v-for="source in sources" :key="source">
               <input
-                :id="value"
+                :id="source"
                 type="checkbox"
-                :value="value"
-                v-model="valueFilter"
+                :value="source"
+                v-model="sourceFilter"
               />
-              <label :for="value">
-                <span v-if="value === '0'">N/A</span>
-                <span v-if="value === '0-1'">
+              <label :for="source">{{ source }} </label>
+            </li>
+          </ul>
+        </div>
+
+        <div class="filter-group">
+          <header>
+            <p>Price</p>
+            <button
+              class="icon light"
+              @click="ModalController.open(PriceModal)"
+            >
+              <i class="fas fa-question-circle"></i>
+            </button>
+          </header>
+
+          <ul class="filter filter--price">
+            <li class="checkbox-group" v-for="price in prices" :key="price">
+              <input
+                :id="price"
+                type="checkbox"
+                :value="price"
+                v-model="priceFilter"
+              />
+              <label :for="price">
+                <span v-if="price === '0'">N/A</span>
+                <span v-if="price === '0.01-0.09'">
                   <img class="coin" src="@/assets/img/copper.png" />1 -
-                  <img class="coin" src="@/assets/img/silver.png" />1
+                  <img class="coin" src="@/assets/img/copper.png" />9
                 </span>
-                <span v-if="value === '1-2'">
+                <span v-if="price === '0.1-0.99'">
                   <img class="coin" src="@/assets/img/silver.png" />1 -
-                  <img class="coin" src="@/assets/img/gold.png" />1
+                  <img class="coin" src="@/assets/img/silver.png" />9
                 </span>
-                <span v-if="value === '10+'">
+                <span v-if="price === '1-99'">
+                  <img class="coin" src="@/assets/img/gold.png" />1 -
+                  <img class="coin" src="@/assets/img/gold.png" />99
+                </span>
+                <span v-if="price === '100+'">
                   <img class="coin" src="@/assets/img/gold.png" />
-                  10+
+                  100+
                 </span>
               </label>
             </li>
@@ -69,7 +82,8 @@
       </div>
 
       <button @click="showFilters = !showFilters" class="filters-toggle">
-        {{ showFilters ? 'Hide' : 'Show' }} Filters
+        <i class="fas fa-filter"></i>
+        <span>{{ showFilters ? 'Hide' : 'Show' }} Filters</span>
       </button>
 
       <p class="item-count">
@@ -77,17 +91,21 @@
       </p>
     </header>
 
-    <ul class="item-list">
-      <item-card v-for="item in filteredItems" :key="item.id" :item="item" />
-    </ul>
+    <div class="item-list-container">
+      <ul class="item-list">
+        <item-card v-for="item in filteredItems" :key="item.id" :item="item" />
+      </ul>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import equipmentJson from '@/assets/equipment.json';
 import ItemCard from '@/components/item-card.vue';
+import { ModalController } from '@/controllers/modal-controller';
 import { Item } from '@/types';
 import { computed, ref } from 'vue';
+import PriceModal from '../components/modals/price-modal.vue';
 
 const items = ref<Item[]>([]);
 items.value = equipmentJson as Item[];
@@ -95,10 +113,20 @@ items.value = equipmentJson as Item[];
 const showFilters = ref<boolean>(false);
 
 const rarities = Array.from(new Set(items.value.map((item) => item.rarity)));
-const values = ['0', '0-1', '1-2', '10+'];
-
+const prices = ['0', '0.01-0.09', '0.1-0.99', '1-99', '100+'];
+const sources = Array.from(
+  new Set(
+    items.value.reduce((accumulator: string[], item: Item) => {
+      item.source.forEach((sourceItem) => {
+        accumulator.push(sourceItem.text);
+      });
+      return accumulator;
+    }, [])
+  )
+);
 const rarityFilter = ref<string[]>(rarities);
-const valueFilter = ref<string[]>(values);
+const priceFilter = ref<string[]>(prices);
+const sourceFilter = ref<string[]>(sources);
 
 const filteredItems = computed(() => {
   let sortedItems = items.value.sort((a, b) => {
@@ -118,10 +146,20 @@ const filteredItems = computed(() => {
 
   // Filter by value
   sortedItems = sortedItems.filter((item) => {
-    if (!item.price) return valueFilter.value.includes('0');
-    if (item.price < 1) return valueFilter.value.includes('0-1');
-    if (item.price < 10) return valueFilter.value.includes('1-2');
-    return valueFilter.value.includes('10+');
+    if (!item.price) return priceFilter.value.includes('0');
+    if (item.price >= 0.01 && item.price <= 0.09)
+      return priceFilter.value.includes('0.01-0.09');
+    if (item.price >= 0.1 && item.price <= 0.99)
+      return priceFilter.value.includes('0.1-0.99');
+    if (item.price >= 1 && item.price <= 99)
+      return priceFilter.value.includes('1-99');
+    return priceFilter.value.includes('100+');
+  });
+
+  // Filter by source
+  sortedItems = sortedItems.filter((item) => {
+    const itemSources = item.source.map((sourceItem) => sourceItem.text);
+    return itemSources.some((source) => sourceFilter.value.includes(source));
   });
 
   return sortedItems;
@@ -134,14 +172,14 @@ const filteredItems = computed(() => {
   width: 100%;
   height: 100vh;
   flex-direction: column;
-  padding: 2rem;
   overflow: hidden;
 
   > header {
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
-    margin-bottom: 0.8rem;
+    padding: 2rem;
+    background-color: #eee;
 
     > .filters {
       display: flex;
@@ -149,8 +187,18 @@ const filteredItems = computed(() => {
       gap: 0.8rem;
 
       > .filter-group {
-        padding: 0.4rem;
         border: 1px solid black;
+        width: 100%;
+
+        > header {
+          padding: 0.8rem;
+          background-color: #575757;
+          color: white;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          gap: 0.4rem;
+        }
 
         > p {
           color: grey;
@@ -158,25 +206,18 @@ const filteredItems = computed(() => {
           width: 100%;
           display: flex;
           justify-content: space-between;
-          .coin-legend {
-            display: flex;
-            align-items: center;
-            gap: 1.2rem;
-            font-size: 1.2rem;
-            opacity: 0.6;
-
-            > span {
-              display: flex;
-              align-items: center;
-              gap: 0.2rem;
-            }
-          }
         }
         > ul.filter {
           display: flex;
-          padding: 0.4rem;
+          padding: 0.8rem;
           width: fit-content;
           gap: 1.2rem;
+          max-height: 12rem;
+          overflow-y: auto;
+
+          &--source {
+            flex-wrap: wrap;
+          }
 
           label {
             > span {
@@ -185,56 +226,36 @@ const filteredItems = computed(() => {
               gap: 0.2rem;
             }
           }
-
-          > li {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-
-            > input,
-            label {
-              cursor: pointer;
-            }
-
-            > input {
-              width: 1.6rem;
-              height: 1.6rem;
-            }
-          }
         }
       }
     }
   }
 
-  > ul.item-list {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
+  > .item-list-container {
+    padding: 1.6rem;
     overflow-y: auto;
+    > ul.item-list {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
   }
 }
 
 @media (max-width: 768px) {
   .library-container {
     padding: 0;
-
     > header {
-      padding: 1.2rem 1.2rem 0rem 1.2rem;
+      padding: 0.8rem;
       .filters {
         > .filter-group {
           width: 100%;
-
-          > p {
-            // text-align: center;
-          }
-          > ul.filter {
+          ul.filter {
             width: 100%;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-
-            > li {
-            }
+            grid-gap: 0.4rem;
           }
         }
       }
@@ -244,9 +265,12 @@ const filteredItems = computed(() => {
       }
     }
 
-    > ul.item-list {
-      width: 100%;
-      display: block;
+    > .item-list-container {
+      padding: 0;
+      > ul.item-list {
+        width: 100%;
+        display: block;
+      }
     }
   }
 }

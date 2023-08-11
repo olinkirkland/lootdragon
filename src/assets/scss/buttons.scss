@@ -1,6 +1,6 @@
 button {
-  border-radius: 0;
-  padding: 1.2rem 1.2rem;
+  border-radius: 5px;
+  padding: 1.2rem 2.4rem;
   font-size: 1.6rem;
   font-weight: bold;
   color: white;
@@ -12,9 +12,9 @@ button {
 
   &.icon {
     background-color: transparent;
-    aspect-ratio: 1;
     color: #222;
     width: fit-content;
+    padding: 0;
   }
 
   > i {

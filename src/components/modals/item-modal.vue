@@ -7,13 +7,13 @@
       </button>
     </header>
     <section class="actions">
+      <button @click="navigate('https://2e.aonprd.com' + item.name.url)">
+        <i class="fas fa-external-link-alt"></i>
+        <span>Archives of Nethys</span>
+      </button>
       <button @click="copyJSON">
         <i class="fas fa-copy"></i>
         <span> Copy JSON</span>
-      </button>
-      <button @click="navigate('https://2e.aonprd.com' + item.name.url)">
-        <i class="fas fa-link"></i>
-        <span>Archives of Nethys</span>
       </button>
     </section>
     <section>
@@ -125,6 +125,11 @@ function navigate(url: string) {
 
     h1 {
       color: #222;
+    }
+
+    button.icon {
+      margin-top: 1.2rem;
+      margin-right: 1.2rem;
     }
   }
 

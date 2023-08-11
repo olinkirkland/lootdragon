@@ -71,3 +71,23 @@ pre {
   display: flex;
   justify-content: space-between;
 }
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  > input,
+  label {
+    cursor: pointer;
+  }
+
+  > input {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+}
+
+.light {
+  color: #f5f5f5 !important;
+}
