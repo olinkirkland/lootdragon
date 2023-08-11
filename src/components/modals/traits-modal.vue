@@ -1,7 +1,7 @@
 <template>
   <div class="modal">
     <header>
-      <h2>Sources</h2>
+      <h2>Traits</h2>
       <button class="icon" @click="ModalController.close">
         <i class="fas fa-times"></i>
       </button>
@@ -9,23 +9,20 @@
     <div class="modal__content">
       <section>
         <p>
-          Paizo sources refer to the official material published by Paizo Inc.
-          for the Pathfinder Roleplaying Game, including rulebooks, adventure
-          paths, and supplementary content. These sources provide the foundation
-          for the Pathfinder game system, offering a wide range of character
-          options, spells, feats, and rich lore for players and Game Masters.
+          A trait is a keyword that conveys additional information about a rules
+          element, such as a school of magic or rarity. Often, a trait indicates
+          how other rules interact with an ability, creature, item, or another
+          rules element that has that trait.
         </p>
         <p>
-          If you're looking to explore and access these valuable resources, you
-          can find them conveniently organized and easily accessible on the
-          Archives of Nethys, a comprehensive online database dedicated to
-          Pathfinder content.
+          Common traits include magical, consumable, alchemical, transmutation,
+          and evocation.
         </p>
       </section>
       <section>
-        <p>You can read more about sources on the Archives of Nethys page.</p>
-        <a href="https://2e.aonprd.com/Sources.aspx" target="_blank">
-          <span>Archives of Nethys: Sources</span>
+        <p>You can read more about traits on the Archives of Nethys page.</p>
+        <a href="https://2e.aonprd.com/Traits.aspx" target="_blank">
+          <span>Archives of Nethys: Traits</span>
         </a>
       </section>
     </div>

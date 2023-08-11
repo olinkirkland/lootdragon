@@ -15,6 +15,7 @@ import ModalContainer from './components/modal-container.vue';
 <style lang="scss">
 @import './assets/css/styles.css';
 @import './assets/css/buttons.css';
+@import './assets/css/modals.css';
 
 .app-container {
   width: 100%;

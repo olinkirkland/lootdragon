@@ -1,9 +1,14 @@
 <template>
   <div class="library-container">
     <header>
-      <h1>PF2E Item Browser</h1>
-
+      <div class="spread">
+        <h1>PF2E Item Browser</h1>
+        <button @click="showFilters = !showFilters" class="icon filters-toggle">
+          <i class="fas fa-filter"></i>
+        </button>
+      </div>
       <div v-if="showFilters" class="filters">
+        <!-- Rarity -->
         <div class="filter-group">
           <header @click="showRarityFilter = !showRarityFilter">
             <p>
@@ -38,6 +43,7 @@
           </ul>
         </div>
 
+        <!-- Sources -->
         <div class="filter-group">
           <header @click="showSourcesFilter = !showSourcesFilter">
             <p>
@@ -60,18 +66,25 @@
             </button>
           </header>
           <ul class="filter filter--source" v-if="showSourcesFilter">
-            <li class="checkbox-group" v-for="source in sources" :key="source">
+            <li
+              class="checkbox-group"
+              v-for="source in sources"
+              :key="source.name"
+            >
               <input
-                :id="source"
+                :id="source.name"
                 type="checkbox"
-                :value="source"
+                :value="source.name"
                 v-model="sourceFilter"
               />
-              <label :for="source">{{ source }} </label>
+              <label :for="source.name">
+                {{ source.name }} ({{ source.count }})
+              </label>
             </li>
           </ul>
         </div>
 
+        <!-- Price -->
         <div class="filter-group">
           <header @click="showPriceFilter = !showPriceFilter">
             <p>
@@ -122,12 +135,87 @@
             </li>
           </ul>
         </div>
-      </div>
 
-      <button @click="showFilters = !showFilters" class="filters-toggle">
-        <i class="fas fa-filter"></i>
-        <span>{{ showFilters ? 'Hide' : 'Show' }} Filters</span>
-      </button>
+        <!-- Traits -->
+        <div class="filter-group">
+          <header @click="showTraitsFilter = !showTraitsFilter">
+            <p>
+              <i
+                class="fas"
+                :class="{
+                  'fa-caret-down': showTraitsFilter,
+                  'fa-caret-right': !showTraitsFilter
+                }"
+              ></i>
+              <span>
+                Traits ({{ traitsFilter.length }}/{{ traits.length }})
+              </span>
+            </p>
+            <button
+              class="icon light"
+              @click.stop="ModalController.open(TraitsModal)"
+            >
+              <i class="fas fa-question-circle"></i>
+            </button>
+          </header>
+          <ul class="filter filter--traits" v-if="showTraitsFilter">
+            <li
+              class="checkbox-group"
+              v-for="trait in traits"
+              :key="trait.name"
+            >
+              <input
+                :id="trait.name"
+                type="checkbox"
+                :value="trait.name"
+                v-model="traitsFilter"
+              />
+              <label :for="trait.name"
+                >{{ trait.name }} ({{ trait.count }})</label
+              >
+            </li>
+          </ul>
+        </div>
+
+        <!-- Category -->
+        <div class="filter-group">
+          <header @click="showCategoryFilter = !showCategoryFilter">
+            <p>
+              <i
+                class="fas"
+                :class="{
+                  'fa-caret-down': showCategoryFilter,
+                  'fa-caret-right': !showCategoryFilter
+                }"
+              ></i>
+              <span>
+                Category ({{ categoryFilter.length }}/{{ categories.length }})
+              </span>
+            </p>
+            <button
+              class="icon light"
+              @click.stop="ModalController.open(CategoryModal)"
+            >
+              <i class="fas fa-question-circle"></i>
+            </button>
+          </header>
+          <ul class="filter filter--category" v-if="showCategoryFilter">
+            <li
+              class="checkbox-group"
+              v-for="category in categories"
+              :key="category"
+            >
+              <input
+                :id="category"
+                type="checkbox"
+                :value="category"
+                v-model="categoryFilter"
+              />
+              <label :for="category">{{ category }}</label>
+            </li>
+          </ul>
+        </div>
+      </div>
 
       <p class="item-count">
         Showing {{ filteredItems.length }} / {{ items.length }} items
@@ -151,39 +239,88 @@ import { computed, ref } from 'vue';
 import PriceModal from '../components/modals/price-modal.vue';
 import RarityModal from '../components/modals/rarity-modal.vue';
 import SourcesModal from '../components/modals/sources-modal.vue';
+import TraitsModal from '../components/modals/traits-modal.vue';
+import CategoryModal from '../components/modals/category-modal.vue';
 
-const items = ref<Item[]>([]);
-items.value = equipmentJson as Item[];
+const items = equipmentJson as Item[];
 
 const showFilters = ref<boolean>(false);
 const showRarityFilter = ref<boolean>(false);
 const showSourcesFilter = ref<boolean>(false);
 const showPriceFilter = ref<boolean>(false);
+const showTraitsFilter = ref<boolean>(false);
+const showCategoryFilter = ref<boolean>(false);
 
-const rarities = Array.from(new Set(items.value.map((item) => item.rarity)));
+const rarities = Array.from(new Set(items.map((item) => item.rarity)));
 const prices = ['0', '0.01-0.09', '0.1-0.99', '1-99', '100+'];
-const sources = Array.from(
-  new Set(
-    items.value.reduce((accumulator: string[], item: Item) => {
-      item.source.forEach((sourceItem) => {
-        accumulator.push(sourceItem.text);
-      });
-      return accumulator;
-    }, [])
-  )
-);
-const rarityFilter = ref<string[]>(rarities);
-const priceFilter = ref<string[]>(prices);
-const sourceFilter = ref<string[]>(sources);
+const sourceCounts: { [key: string]: number } = {};
+items.forEach((item: Item) => {
+  item.source.forEach((sourceItem) => {
+    const sourceName = sourceItem.text;
+    sourceCounts[sourceName] = (sourceCounts[sourceName] || 0) + 1;
+  });
+});
+const sources = Object.entries(sourceCounts)
+  .map(([name, count]) => ({
+    name,
+    count
+  }))
+  .sort((a, b) => {
+    // if it contains '#', move it down
+    if (a.name.includes('#')) return 1;
+    if (b.name.includes('#')) return -1;
+    // Sort by count
+    if (a.count < b.count) return 1;
+    if (a.count > b.count) return -1;
+    // Sort by name
+    if (a.name < b.name) return -1;
+    if (a.name > b.name) return 1;
+    return 0;
+  });
+
+const traitsCounts: { [key: string]: number } = {};
+items.forEach((item: Item) => {
+  item.trait.forEach((traitItem) => {
+    const traitName = traitItem.text;
+    traitsCounts[traitName] = (traitsCounts[traitName] || 0) + 1;
+  });
+});
+const traits = Object.entries(traitsCounts)
+  .map(([name, count]) => ({
+    name,
+    count
+  }))
+  .sort((a, b) => {
+    // Sort by count
+    if (a.count < b.count) return 1;
+    if (a.count > b.count) return -1;
+    // Sort by name
+    if (a.name < b.name) return -1;
+    if (a.name > b.name) return 1;
+    return 0;
+  });
+
+const categories = Array.from(new Set(items.map((item) => item.itemCategory)));
+
+const initialRarityFilter = ['Common', 'Uncommon'];
+const initialPriceFilter = [...prices];
+const initialSourceFilter = [
+  ...sources.map((source) => source.name).filter((name) => !name.includes('#'))
+];
+const initialTraitsFilter = [...traits.map((trait) => trait.name)];
+const initialCategoryFilter = [...categories];
+
+const rarityFilter = ref<string[]>(initialRarityFilter);
+const priceFilter = ref<string[]>(initialPriceFilter);
+const sourceFilter = ref<string[]>(initialSourceFilter);
+const traitsFilter = ref<string[]>(initialTraitsFilter);
+const categoryFilter = ref<string[]>(initialCategoryFilter);
 
 const filteredItems = computed(() => {
-  let sortedItems = items.value.sort((a, b) => {
-    if (a.name.text < b.name.text) {
-      return -1;
-    }
-    if (a.name.text > b.name.text) {
-      return 1;
-    }
+  // Sort by name
+  let sortedItems = items.sort((a, b) => {
+    if (a.name.text < b.name.text) return -1;
+    if (a.name.text > b.name.text) return 1;
     return 0;
   });
 
@@ -210,6 +347,17 @@ const filteredItems = computed(() => {
     return itemSources.some((source) => sourceFilter.value.includes(source));
   });
 
+  // Filter by traits
+  sortedItems = sortedItems.filter((item) => {
+    const itemTraits = item.trait.map((traitItem) => traitItem.text);
+    return itemTraits.some((trait) => traitsFilter.value.includes(trait));
+  });
+
+  // Filter by category
+  sortedItems = sortedItems.filter((item) =>
+    categoryFilter.value.includes(item.itemCategory)
+  );
+
   return sortedItems;
 });
 </script>
@@ -228,11 +376,18 @@ const filteredItems = computed(() => {
     gap: 0.8rem;
     padding: 2rem;
     background-color: #eee;
+    box-shadow: 0 0 1.2rem 0rem rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid #ddd;
+    z-index: 1;
 
     > .filters {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.8rem;
+      gap: 0.4rem;
+      border: 1px solid #222;
+      background-color: #dddddd;
+      padding: 0.4rem;
+      box-shadow: 0 0 0.4rem 0.2rem rgba(0, 0, 0, 0.1);
 
       > .filter-group {
         border: 1px solid black;
@@ -269,14 +424,10 @@ const filteredItems = computed(() => {
         > ul.filter {
           display: flex;
           padding: 0.8rem;
-          width: fit-content;
           gap: 1.2rem;
           max-height: 16rem;
           overflow-y: auto;
-
-          &--source {
-            flex-wrap: wrap;
-          }
+          flex-wrap: wrap;
 
           label {
             > span {

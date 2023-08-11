@@ -1,7 +1,7 @@
 <template>
   <div class="modal">
     <header>
-      <h2>Sources</h2>
+      <h2>Item Categories</h2>
       <button class="icon" @click="ModalController.close">
         <i class="fas fa-times"></i>
       </button>
@@ -9,23 +9,22 @@
     <div class="modal__content">
       <section>
         <p>
-          Paizo sources refer to the official material published by Paizo Inc.
-          for the Pathfinder Roleplaying Game, including rulebooks, adventure
-          paths, and supplementary content. These sources provide the foundation
-          for the Pathfinder game system, offering a wide range of character
-          options, spells, feats, and rich lore for players and Game Masters.
+          Item categories play an important role in organizing and defining the
+          diverse range of items available within the game world.
         </p>
         <p>
-          If you're looking to explore and access these valuable resources, you
-          can find them conveniently organized and easily accessible on the
-          Archives of Nethys, a comprehensive online database dedicated to
-          Pathfinder content.
+          These categories provide a structured framework that helps describe
+          the unique properties, uses, and rules associated with different types
+          of equipment, consumables, and treasures.
         </p>
       </section>
       <section>
-        <p>You can read more about sources on the Archives of Nethys page.</p>
-        <a href="https://2e.aonprd.com/Sources.aspx" target="_blank">
-          <span>Archives of Nethys: Sources</span>
+        <p>
+          You can find more details about item categories on the Archives of
+          Nethys Equipment page.
+        </p>
+        <a href="https://2e.aonprd.com/Equipment.aspx" target="_blank">
+          <span>Archives of Nethys: Equipment</span>
         </a>
       </section>
     </div>

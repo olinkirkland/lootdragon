@@ -1,7 +1,7 @@
 <template>
   <div class="modal">
     <header>
-      <h1>{{ item.name.text }}</h1>
+      <h2>{{ item.name.text }}</h2>
       <button class="icon" @click="ModalController.close">
         <i class="fas fa-times"></i>
       </button>
@@ -108,25 +108,9 @@ function navigate(url: string) {
 
 <style scoped lang="scss">
 .modal {
-  display: flex;
-  flex-direction: column;
-  background-color: white;
   width: 80%;
   max-width: 64rem;
   max-height: 80%;
-  border: 1px solid #222;
-  overflow: auto;
-
-  header {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 2px dashed #222;
-    padding: 1.2rem;
-
-    h1 {
-      color: #222;
-    }
-  }
 
   section {
     display: flex;

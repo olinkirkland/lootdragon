@@ -10,10 +10,8 @@
   >
     <button @click="() => ModalController.open(ItemModal, { item: item })">
       <price-display v-if="!!item.price" :value="item.price" />
-      <span>
-        <span>{{ item.name.text }}</span>
-        <!-- <span> ({{ item.rarity }})</span> -->
-      </span>
+      <span>{{ item.name.text }}</span>
+      <!-- <span> ({{ item.rarity }})</span> -->
     </button>
   </div>
 </template>
@@ -83,7 +81,12 @@ const item = props.item;
   .item-card {
     border-radius: 0;
 
+    :deep(.price) {
+      min-width: 6.4rem;
+    }
+
     &:not(:first-child) {
+      border-top: 1px solid rgba(0, 0, 0, 0.4);
       border-top: none;
     }
 
@@ -97,9 +100,5 @@ const item = props.item;
       pointer-events: none;
     }
   }
-}
-
-:deep(.price) {
-  min-width: 6.4rem;
 }
 </style>

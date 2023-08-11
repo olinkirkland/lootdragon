@@ -1,7 +1,7 @@
 <template>
   <div class="modal">
     <header>
-      <h1>Coins & Currency</h1>
+      <h2>Coins & Currency</h2>
       <button class="icon" @click="ModalController.close">
         <i class="fas fa-times"></i>
       </button>
@@ -60,31 +60,6 @@ import { ModalController } from '@/controllers/modal-controller';
 
 <style scoped lang="scss">
 .modal {
-  background-color: white;
-  min-width: 40%;
-  max-width: 64rem;
-  min-height: 40%;
-  max-height: 64rem;
-  border: 1px solid black;
-  display: flex;
-  flex-direction: column;
-
-  header {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 2px dashed #222;
-    padding: 1.2rem;
-
-    h1 {
-      color: #222;
-    }
-  }
-
-  .modal__content {
-    overflow-y: scroll;
-    flex: 1;
-  }
-
   section {
     display: flex;
     flex-direction: column;
