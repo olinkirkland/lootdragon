@@ -1,15 +1,22 @@
 <template>
   <card>
     <div class="home-container">
-      <p>home page</p>
-      <button @click="router.push({ name: 'register' })">register</button>
-      <button @click="router.push({ name: 'login' })">login</button>
+      <!-- <p>home page</p> -->
+      <!-- <button @click="router.push({ name: 'register' })">register</button> -->
+      <!-- <button @click="router.push({ name: 'login' })">login</button> -->
+      <button @click="openModal">Open Modal</button>
     </div>
   </card>
 </template>
 
 <script setup lang="ts">
-import router from '@/router';
+import TestModal from '@/components/modals/test-modal.vue';
+import { ModalController } from '@/controllers/modal-controller';
+
+function openModal() {
+  //@ts-ignore
+  ModalController.open(TestModal, { title: 'Hello world' });
+}
 </script>
 
 <style scoped lang="scss">
@@ -20,4 +27,3 @@ import router from '@/router';
   gap: 0.8rem;
 }
 </style>
-@/router/router

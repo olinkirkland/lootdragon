@@ -1,0 +1,38 @@
+import { Subject } from 'rxjs';
+import { ComponentOptions } from 'vue';
+
+export interface ModalDispatch {
+  modal: ComponentOptions | null; // null means close
+  options?: Object;
+}
+
+export class ModalController {
+  private static instance: ModalController | null = null;
+  private subject: Subject<ModalDispatch> = new Subject<ModalDispatch>();
+
+  private constructor() {}
+
+  public static getInstance(): ModalController {
+    return this.instance || (this.instance = new this());
+  }
+
+  private dispatch(d: ModalDispatch): void {
+    this.subject.next(d);
+  }
+
+  public static open(modal: ComponentOptions, options?: Object): void {
+    this.getInstance().dispatch({ modal, options });
+  }
+
+  public static close(): void {
+    this.getInstance().dispatch({ modal: null });
+  }
+
+  public addEventListener(callback: (d: ModalDispatch) => void): void {
+    this.subject.subscribe(callback);
+  }
+
+  public removeEventListener(callback: (d: ModalDispatch) => void): void {
+    this.subject.unsubscribe();
+  }
+}
