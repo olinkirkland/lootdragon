@@ -248,6 +248,10 @@ const filteredItems = computed(() => {
           gap: 0.4rem;
           cursor: pointer;
 
+          :deep(button.icon) {
+            padding: 0 !important;
+          }
+
           > p {
             display: flex;
             align-items: center;
@@ -304,9 +308,6 @@ const filteredItems = computed(() => {
     > header {
       padding: 0.8rem;
 
-      :deep(button.icon) {
-        padding: 0 !important;
-      }
       .filters {
         > .filter-group {
           width: 100%;
