@@ -126,11 +126,6 @@ function navigate(url: string) {
     h1 {
       color: #222;
     }
-
-    button.icon {
-      margin-top: 1.2rem;
-      margin-right: 1.2rem;
-    }
   }
 
   section {
