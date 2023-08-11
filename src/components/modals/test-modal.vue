@@ -2,7 +2,9 @@
   <div class="modal">
     <header>
       <h1>{{ props.title }}</h1>
-      <button @click="ModalController.close">X</button>
+      <button class="icon" @click="ModalController.close">
+        <i class="fas fa-times"></i>
+      </button>
     </header>
     <section>
       <p>Props</p>

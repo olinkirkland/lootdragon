@@ -6,14 +6,30 @@ button {
   color: white;
   background-color: #222;
   border: none;
-  cursor: pointer;
   display: flex;
   width: fit-content;
+  cursor: pointer;
+
+  &.icon {
+    background-color: transparent;
+    aspect-ratio: 1;
+    color: #222;
+    width: fit-content;
+  }
+
+  > i {
+    &:not(:first-child) {
+      margin-left: 0.6rem;
+    }
+
+    &:not(:last-child) {
+      margin-right: 0.6rem;
+    }
+  }
 }
 
 @media (max-width: 768px) {
   button {
-    display: block;
     width: 100%;
   }
 }

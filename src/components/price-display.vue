@@ -54,9 +54,7 @@ const copper = Math.floor((props.value - gold - silver) * 100);
   align-items: center;
   gap: 0.4rem;
   padding: 0 0.8rem;
-  height: 100%;
-  background-color: #00000099;
-  color: white;
+  color: #222;
 
   > .price__group {
     display: flex;
@@ -66,12 +64,6 @@ const copper = Math.floor((props.value - gold - silver) * 100);
       height: 1.4rem;
       margin-right: 0.4rem;
     }
-  }
-}
-
-@media (max-width: 768px) {
-  .price {
-    min-width: 8rem;
   }
 }
 </style>

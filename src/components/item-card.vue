@@ -20,7 +20,7 @@
 
 <script setup lang="ts">
 import { Item } from '@/types';
-import PriceDisplay from '@/components/price.vue';
+import PriceDisplay from '@/components/price-display.vue';
 import { ModalController } from '@/controllers/modal-controller';
 import ItemModal from './modals/item-modal.vue';
 const props = defineProps({
@@ -57,20 +57,26 @@ const item = props.item;
   }
 
   &--common {
-    background-color: #f1f1f1;
+    background-color: var(--common-color);
   }
 
   &--uncommon {
-    background-color: #caffca;
+    background-color: var(--uncommon-color);
   }
 
   &--rare {
-    background-color: #cfe9f1;
+    background-color: var(--rare-color);
   }
 
   &--unique {
-    background-color: #fff4b6;
+    background-color: var(--unique-color);
   }
+}
+
+:deep(.price) {
+  color: white;
+  background-color: rgba(34, 34, 34, 0.8);
+  height: 100%;
 }
 
 @media (max-width: 768px) {
@@ -88,7 +94,12 @@ const item = props.item;
       position: absolute;
       background-color: #00000010;
       height: 100%;
+      pointer-events: none;
     }
   }
+}
+
+:deep(.price) {
+  min-width: 6.4rem;
 }
 </style>

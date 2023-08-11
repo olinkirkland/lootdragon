@@ -1,5 +1,12 @@
 @import 'resets';
 
+:root {
+  --common-color: #f1f1f1;
+  --uncommon-color: #caffca;
+  --rare-color: #cfe9f1;
+  --unique-color: #fff4b6;
+}
+
 body,
 * {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -58,4 +65,9 @@ pre {
   font-family: monospace;
   border-left: 0.4rem solid #ccc;
   overflow-x: auto;
+}
+
+.spread {
+  display: flex;
+  justify-content: space-between;
 }

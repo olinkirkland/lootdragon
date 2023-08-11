@@ -36,6 +36,7 @@ ModalController.getInstance().addEventListener(({ modal, options }) => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 99;
 
   > .modal-container__background {
     width: 100%;
