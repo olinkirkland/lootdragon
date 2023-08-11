@@ -20,7 +20,7 @@ export class ModalController {
     this.subject.next(d);
   }
 
-  public static open(modal: ComponentOptions, options?: Object): void {
+  public static open(modal: ComponentOptions<any>, options?: Object): void {
     this.getInstance().dispatch({ modal, options });
   }
 

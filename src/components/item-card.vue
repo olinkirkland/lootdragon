@@ -8,23 +8,21 @@
       'item-card--unique': item.rarity === 'Unique'
     }"
   >
-    <a
-      :href="'https://2e.aonprd.com' + item.name.url"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
+    <button @click="() => ModalController.open(ItemModal, { item: item })">
       <price-display v-if="!!item.price" :value="item.price" />
       <span>
         <span>{{ item.name.text }}</span>
         <!-- <span> ({{ item.rarity }})</span> -->
       </span>
-    </a>
+    </button>
   </div>
 </template>
 
 <script setup lang="ts">
 import { Item } from '@/types';
 import PriceDisplay from '@/components/price.vue';
+import { ModalController } from '@/controllers/modal-controller';
+import ItemModal from './modals/item-modal.vue';
 const props = defineProps({
   item: {
     type: Object as () => Item,
@@ -45,11 +43,14 @@ const item = props.item;
   border-radius: 3px;
   border: 1px solid rgba(0, 0, 0, 0.4);
 
-  > a {
+  > button {
     display: flex;
     align-items: center;
     height: 100%;
+    padding: 0;
     text-decoration: none;
+    background-color: transparent;
+    color: black;
     > span {
       padding: 0 0.8rem;
     }

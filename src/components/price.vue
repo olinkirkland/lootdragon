@@ -68,4 +68,10 @@ const copper = Math.floor((props.value - gold - silver) * 100);
     }
   }
 }
+
+@media (max-width: 768px) {
+  .price {
+    min-width: 8rem;
+  }
+}
 </style>

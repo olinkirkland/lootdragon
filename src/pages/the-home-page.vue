@@ -14,7 +14,6 @@ import TestModal from '@/components/modals/test-modal.vue';
 import { ModalController } from '@/controllers/modal-controller';
 
 function openModal() {
-  //@ts-ignore
   ModalController.open(TestModal, { title: 'Hello world' });
 }
 </script>
