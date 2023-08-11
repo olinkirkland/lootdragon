@@ -365,9 +365,9 @@ const filteredItems = computed(() => {
 <style scoped lang="scss">
 .library-container {
   display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100vh;
-  flex-direction: column;
   overflow: hidden;
 
   > header {
@@ -378,11 +378,14 @@ const filteredItems = computed(() => {
     background-color: #eee;
     box-shadow: 0 0 1.2rem 0rem rgba(0, 0, 0, 0.5);
     border-bottom: 1px solid #ddd;
-    z-index: 1;
+    max-height: 100vh;
 
     > .filters {
       display: flex;
       flex-wrap: wrap;
+      flex: 1;
+      overflow: auto;
+
       gap: 0.4rem;
       border: 1px solid #222;
       background-color: #dddddd;
@@ -442,6 +445,7 @@ const filteredItems = computed(() => {
   }
 
   > .item-list-container {
+    flex: 1;
     padding: 1.6rem;
     overflow-y: auto;
     > ul.item-list {
