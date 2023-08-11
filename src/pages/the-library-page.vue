@@ -303,6 +303,10 @@ const filteredItems = computed(() => {
     padding: 0;
     > header {
       padding: 0.8rem;
+
+      :deep(button.icon) {
+        padding: 0 !important;
+      }
       .filters {
         > .filter-group {
           width: 100%;
