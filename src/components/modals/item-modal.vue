@@ -115,7 +115,7 @@ function copyJSON() {
   max-height: 80%;
 
   .modal__content {
-    overflow-y: scroll;
+    overflow-y: auto;
     flex: 1;
   }
 
