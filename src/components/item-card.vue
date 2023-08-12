@@ -49,17 +49,14 @@ const item = props.item;
     text-decoration: none;
     background-color: transparent;
     color: black;
-    gap: 0.4rem;
 
     > span {
       white-space: nowrap;
       overflow: hidden;
-      &:nth-of-type(1) {
-        margin-right: 0.4rem;
-        text-align: left;
-        text-overflow: ellipsis;
-        flex: 1;
-      }
+      margin: 0 0.4rem;
+      text-align: left;
+      text-overflow: ellipsis;
+      flex: 1;
     }
   }
 
