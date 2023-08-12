@@ -55,15 +55,10 @@ const item = props.item;
       white-space: nowrap;
       overflow: hidden;
       &:nth-of-type(1) {
+        margin-right: 0.4rem;
         text-align: left;
         text-overflow: ellipsis;
         flex: 1;
-      }
-
-      &:nth-of-type(2) {
-        margin-right: 0.6rem;
-        color: #00000080;
-        letter-spacing: 2px;
       }
     }
   }

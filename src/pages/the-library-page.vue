@@ -324,7 +324,6 @@ const filteredItems = computed(() => {
   // Filter by search
   if (search.value.length > 0) {
     const searchText = search.value.toLowerCase().trim();
-    console.log('searching: ', searchText);
     sortedItems = sortedItems.filter((item) =>
       item.name.text.toLowerCase().includes(searchText)
     );
