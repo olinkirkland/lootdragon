@@ -10,8 +10,8 @@
   >
     <button @click="() => ModalController.open(ItemModal, { item: item })">
       <price-display v-if="!!item.price" :value="item.price" />
-      <span>{{ item.name.text }}</span>
-      <!-- <span> ({{ item.rarity }})</span> -->
+      <span class="single-line">{{ item.name.text }}</span>
+      <!-- <span>{{ item.id.substring(0, 4) }}</span> -->
     </button>
   </div>
 </template>
@@ -49,8 +49,22 @@ const item = props.item;
     text-decoration: none;
     background-color: transparent;
     color: black;
+    gap: 0.4rem;
+
     > span {
-      padding: 0 0.8rem;
+      white-space: nowrap;
+      overflow: hidden;
+      &:nth-of-type(1) {
+        text-align: left;
+        text-overflow: ellipsis;
+        flex: 1;
+      }
+
+      &:nth-of-type(2) {
+        margin-right: 0.6rem;
+        color: #00000080;
+        letter-spacing: 2px;
+      }
     }
   }
 

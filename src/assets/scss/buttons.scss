@@ -34,8 +34,19 @@ button {
   }
 }
 
-a {
-  display: inline-block;
+a,
+button.text {
+  background-color: transparent;
+  display: inline-flex;
   font-size: 1.6rem;
+  font-weight: normal;
+  text-decoration: underline;
+  padding: 0;
   color: #222;
+  gap: 0.4rem;
+  width: fit-content;
+
+  > i {
+    margin: 0;
+  }
 }

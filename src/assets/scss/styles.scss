@@ -46,8 +46,9 @@ input {
 
 input[type='text'],
 input[type='password'] {
-  padding: 0.4rem 0.8rem;
-  border-radius: 0;
+  padding: 0.8rem 1.2rem;
+  border-radius: 3px;
+  border: 1px solid #ccc;
 
   &:focus {
     outline: none;
@@ -59,15 +60,15 @@ img.coin {
 }
 
 pre {
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   background-color: #f5f5f5;
   padding: 1rem;
   font-family: monospace;
-  border-left: 0.4rem solid #ccc;
   overflow-x: auto;
 }
 
 .spread {
+  width: 100%;
   display: flex;
   justify-content: space-between;
 }
@@ -91,4 +92,9 @@ pre {
 
 .light {
   color: #f5f5f5 !important;
+}
+
+.flex {
+  display: flex;
+  gap: 0.8rem;
 }

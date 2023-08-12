@@ -7,6 +7,7 @@
           <i class="fas fa-filter"></i>
         </button>
       </div>
+      <input type="text" v-model="search" placeholder="Search..." />
       <div v-if="showFilters" class="filters">
         <!-- Rarity -->
         <div class="filter-group">
@@ -251,6 +252,7 @@ const showPriceFilter = ref<boolean>(false);
 const showTraitsFilter = ref<boolean>(false);
 const showCategoryFilter = ref<boolean>(false);
 
+const search = ref<string>('');
 const rarities = Array.from(new Set(items.map((item) => item.rarity)));
 const prices = ['0', '0.01-0.09', '0.1-0.99', '1-99', '100+'];
 const sourceCounts: { [key: string]: number } = {};
@@ -317,12 +319,16 @@ const traitsFilter = ref<string[]>(initialTraitsFilter);
 const categoryFilter = ref<string[]>(initialCategoryFilter);
 
 const filteredItems = computed(() => {
-  // Sort by name
-  let sortedItems = items.sort((a, b) => {
-    if (a.name.text < b.name.text) return -1;
-    if (a.name.text > b.name.text) return 1;
-    return 0;
-  });
+  let sortedItems = [...items];
+
+  // Filter by search
+  if (search.value.length > 0) {
+    const searchText = search.value.toLowerCase().trim();
+    console.log('searching: ', searchText);
+    sortedItems = sortedItems.filter((item) =>
+      item.name.text.toLowerCase().includes(searchText)
+    );
+  }
 
   // Filter by rarity
   sortedItems = sortedItems.filter((item) =>
@@ -358,7 +364,11 @@ const filteredItems = computed(() => {
     categoryFilter.value.includes(item.itemCategory)
   );
 
-  return sortedItems;
+  return sortedItems.sort((a, b) => {
+    if (a.name.text < b.name.text) return -1;
+    if (a.name.text > b.name.text) return 1;
+    return 0;
+  });
 });
 </script>
 

@@ -6,86 +6,90 @@
         <i class="fas fa-times"></i>
       </button>
     </header>
-    <section class="actions">
-      <button @click="navigate('https://2e.aonprd.com' + item.name.url)">
-        <i class="fas fa-external-link-alt"></i>
-        <span>Archives of Nethys</span>
-      </button>
-      <button @click="copyJSON">
-        <i class="fas fa-copy"></i>
-        <span> Copy JSON</span>
-      </button>
-    </section>
-    <section>
-      <div class="spread">
-        <p>
-          <strong>Name:</strong>
-          <span>{{ item.name.text }}</span>
+    <div class="modal__content">
+      <section class="actions">
+        <a :href="'https://2e.aonprd.com' + item.name.url" target="_blank">
+          <i class="fas fa-external-link-alt"></i>
+          <span>{{ 'https://2e.aonprd.com' + item.name.url }}</span>
+        </a>
+        <div class="flex">
+          <button class="text" @click="showJSON = !showJSON">
+            <i class="fas fa-file-code"></i>
+            <span>{{ showJSON ? 'Hide' : 'Show' }} JSON</span>
+          </button>
+          <button class="text" @click="copyJSON">
+            <i class="fas fa-copy"></i>
+            <span>Copy JSON</span>
+          </button>
+        </div>
+      </section>
+      <section class="json" v-if="showJSON">
+        <pre>{{ JSON.stringify(item, null, 2) }}</pre>
+      </section>
+      <section>
+        <div class="spread">
+          <p>
+            <strong>Name:</strong>
+            <span>{{ item.name.text }}</span>
+          </p>
+          <price-display v-if="!!item.price" :value="item.price" />
+        </div>
+        <div class="spread">
+          <p><strong>Level:</strong>{{ item.level }}</p>
+          <p>
+            <span :class="'rarity rarity--' + item.rarity.toLowerCase()">{{
+              item.rarity
+            }}</span>
+          </p>
+        </div>
+        <p v-if="!!item.description">{{ item.description }}</p>
+      </section>
+      <section>
+        <div class="detail-group">
+          <p><strong>Sources:</strong></p>
+          <ul class="text">
+            <li v-for="source in item.source" :key="source.text">
+              <a :href="'https://2e.aonprd.com' + source.url" target="_blank">{{
+                source.text
+              }}</a>
+              <span> (Page {{ source.page }})</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="detail-group">
+          <p><strong>Traits:</strong></p>
+          <ul class="text">
+            <li v-for="trait in item.trait">
+              <a :href="'https://2e.aonprd.com' + trait.url" target="_blank">{{
+                trait.text
+              }}</a>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <section>
+        <p v-if="!!item.itemCategory">
+          <strong>Category:</strong>{{ item.itemCategory }}
         </p>
-        <price-display v-if="!!item.price" :value="item.price" />
-      </div>
-      <div class="spread">
-        <p><strong>Level:</strong>{{ item.level }}</p>
+        <p v-if="!!item.itemSubcategory">
+          <strong>Subcategory:</strong>{{ item.itemSubcategory }}
+        </p>
         <p>
-          <span :class="'rarity rarity--' + item.rarity.toLowerCase()">{{
-            item.rarity
+          <strong>Bulk:</strong>
+          <span>{{
+            item.bulk.toString() === '0' ? 'Negligible' : item.bulk
           }}</span>
         </p>
-      </div>
-      <p v-if="!!item.description">{{ item.description }}</p>
-    </section>
-    <section>
-      <div class="detail-group">
-        <p>
-          <i class="fas fa-book"></i>
-          <strong>Sources:</strong>
-        </p>
-        <ul class="text">
-          <li v-for="source in item.source" :key="source.text">
-            <a :href="'https://2e.aonprd.com' + source.url" target="_blank">{{
-              source.text
-            }}</a>
-            <span> (Page {{ source.page }})</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="detail-group">
-        <p>
-          <i class="fas fa-tags"></i>
-          <strong>Traits:</strong>
-        </p>
-        <ul class="text">
-          <li v-for="trait in item.trait">
-            <a :href="'https://2e.aonprd.com' + trait.url" target="_blank">{{
-              trait.text
-            }}</a>
-          </li>
-        </ul>
-      </div>
-    </section>
-    <section>
-      <p v-if="!!item.itemCategory">
-        <strong>Category:</strong>{{ item.itemCategory }}
-      </p>
-      <p v-if="!!item.itemSubcategory">
-        <strong>Subcategory:</strong>{{ item.itemSubcategory }}
-      </p>
-      <p>
-        <i class="fas fa-weight-hanging"></i>
-        <strong>Bulk:</strong>
-        <span>{{
-          item.bulk.toString() === '0' ? 'Negligible' : item.bulk
-        }}</span>
-      </p>
-    </section>
+      </section>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ModalController } from '@/controllers/modal-controller';
 import { Item } from '@/types';
-import { PropType } from 'vue';
+import { PropType, ref } from 'vue';
 import PriceDisplay from '../price-display.vue';
 
 const props = defineProps({
@@ -95,14 +99,12 @@ const props = defineProps({
   }
 });
 
+const showJSON = ref(false);
+
 const item = props.item;
 
 function copyJSON() {
   navigator.clipboard.writeText(JSON.stringify(item, null, 2));
-}
-
-function navigate(url: string) {
-  window.open(url, '_blank');
 }
 </script>
 
@@ -111,6 +113,11 @@ function navigate(url: string) {
   width: 80%;
   max-width: 64rem;
   max-height: 80%;
+
+  .modal__content {
+    overflow-y: scroll;
+    flex: 1;
+  }
 
   section {
     display: flex;
@@ -132,9 +139,9 @@ function navigate(url: string) {
 
     p {
       display: flex;
+      width: fit-content;
       > i {
         align-self: center;
-        font-size: 1.2rem;
         margin-right: 0.4rem;
       }
 
@@ -142,15 +149,14 @@ function navigate(url: string) {
         margin-right: 0.4rem;
       }
     }
-  }
+    ul.text {
+      display: inline-flex;
+      flex-wrap: wrap;
 
-  ul.text {
-    display: flex;
-    flex-wrap: wrap;
-
-    li:not(:last-child)::after {
-      content: ', ';
-      margin-right: 0.2rem;
+      li:not(:last-child)::after {
+        content: ', ';
+        margin-right: 0.2rem;
+      }
     }
   }
 
