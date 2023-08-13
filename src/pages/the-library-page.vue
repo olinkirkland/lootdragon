@@ -82,10 +82,10 @@ import ItemCard from '@/components/item-card.vue';
 import LoadingModal from '@/components/modals/loading-modal.vue';
 import { ModalController } from '@/controllers/modal-controller';
 import {
-  getFiltersByKey,
-  getPriceFilters,
-  getSourcesFilters,
-  getTraitsFilters
+getFiltersByKey,
+getPriceFilters,
+getSourcesFilters,
+getTraitsFilters
 } from '@/filter-utils';
 import { Item } from '@/types';
 import { computed, ref } from 'vue';
@@ -95,7 +95,6 @@ import PriceModal from '../components/modals/price-modal.vue';
 import RarityModal from '../components/modals/rarity-modal.vue';
 import SourcesModal from '../components/modals/sources-modal.vue';
 import TraitsModal from '../components/modals/traits-modal.vue';
-import SettingsModal from '../components/modals/settings-modal.vue';
 
 const items = ref<Item[]>([]);
 
