@@ -30,16 +30,16 @@
       <section class="coin-legend-container">
         <span class="coin-legend">
           <span class="coin-legend__diagram">
-            <img class="coin" src="@/assets/img/copper.png" />
+            <img class="coin" src="/assets/images/copper.png" />
             <span>10 =</span>
-            <img class="coin" src="@/assets/img/silver.png" />
+            <img class="coin" src="/assets/images/silver.png" />
             <span>1</span>
           </span>
           <span>and</span>
           <span class="coin-legend__diagram">
-            <img class="coin" src="@/assets/img/silver.png" />
+            <img class="coin" src="/assets/images/silver.png" />
             <span>10 =</span>
-            <img class="coin" src="@/assets/img/gold.png" />
+            <img class="coin" src="/assets/images/gold.png" />
             <span>1</span>
           </span>
         </span>
