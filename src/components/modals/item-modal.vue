@@ -12,19 +12,6 @@
           <i class="fas fa-external-link-alt"></i>
           <span>{{ 'https://2e.aonprd.com' + item.name.url }}</span>
         </a>
-        <div class="flex">
-          <button class="text" @click="showJSON = !showJSON">
-            <i class="fas fa-file-code"></i>
-            <span>{{ showJSON ? 'Hide' : 'Show' }} JSON</span>
-          </button>
-          <button class="text" @click="copyJSON">
-            <i class="fas fa-copy"></i>
-            <span>Copy JSON</span>
-          </button>
-        </div>
-      </section>
-      <section class="json" v-if="showJSON">
-        <pre>{{ JSON.stringify(item, null, 2) }}</pre>
       </section>
       <section>
         <div class="spread">
@@ -82,6 +69,14 @@
           }}</span>
         </p>
       </section>
+      <section>
+        <div class="flex">
+          <button class="text" @click="copyJSON">
+            <i class="fas fa-copy"></i>
+            <span>Copy JSON</span>
+          </button>
+        </div>
+      </section>
     </div>
   </div>
 </template>
@@ -89,7 +84,7 @@
 <script setup lang="ts">
 import { ModalController } from '@/controllers/modal-controller';
 import { Item } from '@/types';
-import { PropType, ref } from 'vue';
+import { PropType } from 'vue';
 import PriceDisplay from '../price-display.vue';
 
 const props = defineProps({
@@ -98,8 +93,6 @@ const props = defineProps({
     required: true
   }
 });
-
-const showJSON = ref(false);
 
 const item = props.item;
 
