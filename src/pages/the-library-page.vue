@@ -71,6 +71,8 @@
 
 <script setup lang="ts">
 import ItemCard from '@/components/item-card.vue';
+import LoadingModal from '@/components/modals/loading-modal.vue';
+import { ModalController } from '@/controllers/modal-controller';
 import {
   getFiltersByKey,
   getPriceFilters,
@@ -89,12 +91,12 @@ import TraitsModal from '../components/modals/traits-modal.vue';
 const items = ref<Item[]>([]);
 
 // Load the items
-console.log('loading items');
+ModalController.open(LoadingModal);
 fetch('/assets/items.json')
   .then((response) => response.json())
   .then((data) => {
-    console.log(`loaded ${data.length} items`);
     items.value = data;
+    ModalController.close();
 
     // Set initial filters
     rarityFilter.value = initialRarityFilter.value;

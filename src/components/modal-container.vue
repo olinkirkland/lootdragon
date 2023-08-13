@@ -2,7 +2,6 @@
   <div v-if="!!currentModal" class="modal-container">
     <div
       class="modal-container__background"
-      @click="ModalController.close"
     ></div>
     <component :is="currentModal" v-bind="currentModalOptions" />
   </div>
