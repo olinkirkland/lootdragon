@@ -53,7 +53,7 @@ const item = props.item;
     > span {
       white-space: nowrap;
       overflow: hidden;
-      margin: 0 0.4rem;
+      margin: 0 0.8rem;
       text-align: left;
       text-overflow: ellipsis;
       flex: 1;
