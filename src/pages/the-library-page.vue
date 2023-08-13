@@ -2,12 +2,20 @@
   <div class="library-container">
     <header>
       <div class="spread">
-        <h1>PF2E Item Browser</h1>
+        <div class="logo-container">
+          <!-- <img src="/assets/images/logo.png" alt="logo" /> -->
+          <h1>PF2E Item Browser</h1>
+        </div>
+        <!-- <button class="icon" @click="ModalController.open(SettingsModal)">
+          <i class="fas fa-cog"></i>
+        </button> -->
+      </div>
+      <div class="search-container">
+        <input type="text" v-model="search" placeholder="Search..." />
         <button @click="showFilters = !showFilters" class="icon filters-toggle">
           <i class="fas fa-filter"></i>
         </button>
       </div>
-      <input type="text" v-model="search" placeholder="Search..." />
       <div v-if="showFilters" class="filters">
         <!-- Rarity -->
         <filter-block
@@ -87,6 +95,7 @@ import PriceModal from '../components/modals/price-modal.vue';
 import RarityModal from '../components/modals/rarity-modal.vue';
 import SourcesModal from '../components/modals/sources-modal.vue';
 import TraitsModal from '../components/modals/traits-modal.vue';
+import SettingsModal from '../components/modals/settings-modal.vue';
 
 const items = ref<Item[]>([]);
 
@@ -225,6 +234,18 @@ const filteredItems = computed(() => {
     border-bottom: 1px solid #ddd;
     max-height: 100vh;
 
+    > .search-container {
+      display: flex;
+      > input {
+        flex: 1;
+      }
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+
     > .filters {
       display: flex;
       flex-wrap: wrap;
@@ -307,7 +328,6 @@ const filteredItems = computed(() => {
     padding: 0;
     > header {
       padding: 0.8rem;
-
       .filters {
         > .filter-group {
           width: 100%;
