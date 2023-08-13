@@ -1,13 +1,11 @@
 <template>
   <div class="modal">
-    <div class="modal__content">
-      <section>
-        <p class="loading-text">
-          Loading
-          <i class="fas fa-spinner fa-spin"></i>
-        </p>
-      </section>
-    </div>
+    <section>
+      <p class="loading-text">
+        Loading
+        <i class="fas fa-spinner fa-spin"></i>
+      </p>
+    </section>
   </div>
 </template>
 
@@ -46,6 +44,14 @@
     height: 100%;
     max-width: 100%;
     max-height: 100%;
+
+    > section {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 }
 </style>
