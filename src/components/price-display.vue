@@ -1,15 +1,15 @@
 <template>
   <p class="price">
     <span class="price__group" v-if="gold > 0">
-      <img :src="goldImg" />
+      <img src="/assets/images/gold.png" />
       <span>{{ formatNumber(gold) }}</span>
     </span>
     <span class="price__group" v-if="silver > 0">
-      <img :src="silverImg" />
+      <img src="/assets/images/silver.png" />
       <span>{{ formatNumber(silver) }}</span>
     </span>
     <span class="price__group" v-if="copper > 0">
-      <img :src="copperImg" />
+      <img src="/assets/images/copper.png" />
       <span>{{ formatNumber(copper) }}</span>
     </span>
     <span
@@ -22,9 +22,6 @@
 </template>
 
 <script setup lang="ts">
-import copperImg from '@/assets/img/copper.png';
-import goldImg from '@/assets/img/gold.png';
-import silverImg from '@/assets/img/silver.png';
 import { formatNumber } from '@/utils';
 
 const props = defineProps({

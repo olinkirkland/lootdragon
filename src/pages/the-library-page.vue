@@ -70,7 +70,6 @@
 </template>
 
 <script setup lang="ts">
-import equipmentJson from '@/assets/equipment.json';
 import ItemCard from '@/components/item-card.vue';
 import {
   getFiltersByKey,
@@ -87,7 +86,23 @@ import RarityModal from '../components/modals/rarity-modal.vue';
 import SourcesModal from '../components/modals/sources-modal.vue';
 import TraitsModal from '../components/modals/traits-modal.vue';
 
-const items = equipmentJson as Item[];
+const items = ref<Item[]>([]);
+
+// Load the items
+console.log('loading items');
+fetch('/assets/items.json')
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(`loaded ${data.length} items`);
+    items.value = data;
+
+    // Set initial filters
+    rarityFilter.value = initialRarityFilter.value;
+    sourceFilter.value = initialSourceFilter.value;
+    traitsFilter.value = initialTraitsFilter.value;
+    categoryFilter.value = initialCategoryFilter.value;
+    priceFilter.value = initialPriceFilter.value;
+  });
 
 const showFilters = ref<boolean>(false);
 
@@ -95,36 +110,45 @@ const showFilters = ref<boolean>(false);
 const search = ref<string>('');
 
 // Rarity
-const rarities = getFiltersByKey(items, 'rarity');
-const initialRarityFilter = ['Common', 'Uncommon'];
+const rarities = computed(() => getFiltersByKey(items.value, 'rarity'));
+const initialRarityFilter = ref(['Common', 'Uncommon']);
 
 // Sources
-const sources = getSourcesFilters(items);
-const initialSourceFilter = sources
-  .filter((source) => !source.name.includes('#'))
-  .map((source) => source.name);
+const sources = computed(() => getSourcesFilters(items.value));
+const initialSourceFilter = computed(() =>
+  sources.value
+    .filter((source) => !source.name.includes('#'))
+    .map((source) => source.name)
+);
 
 // Traits
-const traits = getTraitsFilters(items);
-const initialTraitsFilter = traits.map((trait) => trait.name);
+const traits = computed(() => getTraitsFilters(items.value));
+const initialTraitsFilter = computed(() =>
+  traits.value.map((trait) => trait.name)
+);
 
 // Categories
-const categories = getFiltersByKey(items, 'itemCategory');
-const initialCategoryFilter = categories.map((category) => category.name);
+const categories = computed(() => getFiltersByKey(items.value, 'itemCategory'));
+const initialCategoryFilter = computed(() =>
+  categories.value.map((category) => category.name)
+);
 
 // Price
-const prices = getPriceFilters(items);
-const initialPriceFilter = prices.map((price) => price.name);
+const prices = computed(() => getPriceFilters(items.value));
+const initialPriceFilter = computed(() =>
+  prices.value.map((price) => price.name)
+);
 
 // Filter refs
-const rarityFilter = ref<string[]>(initialRarityFilter);
-const sourceFilter = ref<string[]>(initialSourceFilter);
-const traitsFilter = ref<string[]>(initialTraitsFilter);
-const categoryFilter = ref<string[]>(initialCategoryFilter);
-const priceFilter = ref<string[]>(initialPriceFilter);
+const rarityFilter = ref<string[]>(initialRarityFilter.value);
+const sourceFilter = ref<string[]>(initialSourceFilter.value);
+const traitsFilter = ref<string[]>(initialTraitsFilter.value);
+const categoryFilter = ref<string[]>(initialCategoryFilter.value);
+const priceFilter = ref<string[]>(initialPriceFilter.value);
 
 const filteredItems = computed(() => {
-  let sortedItems = [...items];
+  console.log('filtering items');
+  let sortedItems = [...items.value];
 
   // Filter by search
   if (search.value.length > 0) {

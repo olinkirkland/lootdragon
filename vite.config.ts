@@ -1,7 +1,7 @@
-import { fileURLToPath, URL } from 'node:url';
+import { URL } from 'node:url';
 
-import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import { defineConfig } from 'vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -10,7 +10,7 @@ export default defineConfig({
   server: { host: false }, // For external IP access
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': new URL('./src', import.meta.url).pathname
     }
   }
 });
