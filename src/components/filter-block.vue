@@ -17,6 +17,20 @@
     </header>
 
     <ul class="filter-list" v-if="showFilters">
+      <li class="checkbox-group checkbox-group--all">
+        <input
+          type="checkbox"
+          :id="props.name + '-all'"
+          v-model="selectAll"
+          @toggle="toggleAllChoices"
+        />
+        <label :for="props.name + '-all'">
+          <span class="flex">
+            <span>All</span>
+            <span class="count">({{ formatNumber(props.items.length) }})</span>
+          </span>
+        </label>
+      </li>
       <li class="checkbox-group" v-for="filter in filters" :key="filter.id">
         <input
           :id="filter.id"
@@ -38,9 +52,16 @@
 
 <script lang="ts" setup>
 import { ModalController } from '@/controllers/modal-controller';
-import { ComponentOptions, PropType, computed, ref, watch } from 'vue';
 import { Item } from '@/types';
 import { formatNumber } from '@/utils';
+import {
+  ComponentOptions,
+  PropType,
+  computed,
+  onMounted,
+  ref,
+  watch
+} from 'vue';
 
 const props = defineProps({
   name: {
@@ -93,6 +114,20 @@ const emit = defineEmits();
 watch(choices, (newChoices) => {
   emit('update:modelValue', newChoices);
 });
+
+const selectAll = computed({
+  get() {
+    return choices.value.length === props.filters.length;
+  },
+  set(value: boolean) {
+    if (value) choices.value = filters.value.map((filter) => filter.name);
+    else choices.value = [];
+  }
+});
+
+const toggleAllChoices = () => {
+  selectAll.value = !selectAll.value;
+};
 </script>
 
 <style lang="scss" scoped>
@@ -135,6 +170,13 @@ watch(choices, (newChoices) => {
     max-height: 16rem;
     overflow-y: auto;
     flex-wrap: wrap;
+
+    li.checkbox-group--all {
+      width: 100%;
+      padding-bottom: 0.8rem;
+      margin-bottom: -0.4rem;
+      border-bottom: 1px dashed rgba(87, 87, 87, 0.4);
+    }
 
     label {
       > span {
