@@ -12,8 +12,23 @@
       </div>
       <div class="search-container">
         <input type="text" v-model="search" placeholder="Search..." />
-        <button @click="showFilters = !showFilters" class="icon filters-toggle">
+        <button
+          class="icon"
+          @click="
+            showFilters = !showFilters;
+            showSorting = false;
+          "
+        >
           <i class="fas fa-filter"></i>
+        </button>
+        <button
+          class="icon"
+          @click="
+            showSorting = !showSorting;
+            showFilters = false;
+          "
+        >
+          <i class="fas fa-sort-amount-down"></i>
         </button>
       </div>
       <div v-if="showFilters" class="filters">
@@ -73,6 +88,37 @@
         />
       </div>
 
+      <div v-if="showSorting" class="sortings">
+        <div class="group">
+          <ul>
+            <li>
+              <input
+                id="sort-name-ascending"
+                type="radio"
+                name="sort-by"
+                value="name-ascending"
+              />
+              <label for="sort-name-ascending">
+                <i class="fas fa-sort-alpha-up-alt"></i>
+                <span>Name Ascending</span>
+              </label>
+            </li>
+            <li>
+              <input
+                id="sort-name-descending"
+                type="radio"
+                name="sort-by"
+                value="name-descending"
+              />
+              <label for="sort-name-descending">
+                <i class="fas fa-sort-alpha-down-alt"></i>
+                <span>Descending</span>
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
+
       <p class="item-count">
         Showing {{ filteredItems.length }} / {{ items.length }} items
       </p>
@@ -126,6 +172,7 @@ fetch('/assets/items.json')
   });
 
 const showFilters = ref<boolean>(false);
+const showSorting = ref<boolean>(false);
 
 // Search
 const search = ref<string>('');
@@ -264,6 +311,7 @@ const filteredItems = computed(() => {
       display: flex;
       > input {
         flex: 1;
+        margin-right: 0.8rem;
       }
     }
 
@@ -272,7 +320,8 @@ const filteredItems = computed(() => {
       align-items: center;
     }
 
-    > .filters {
+    > .filters,
+    .sortings {
       display: flex;
       flex-wrap: wrap;
       flex: 1;
@@ -283,7 +332,9 @@ const filteredItems = computed(() => {
       background-color: #dddddd;
       padding: 0.4rem;
       box-shadow: 0 0 0.4rem 0.2rem rgba(0, 0, 0, 0.1);
+    }
 
+    .filters {
       > .filter-group {
         border: 1px solid black;
         width: 100%;
@@ -334,6 +385,9 @@ const filteredItems = computed(() => {
         }
       }
     }
+  }
+
+  .sortings {
   }
 
   > .item-list-container {
