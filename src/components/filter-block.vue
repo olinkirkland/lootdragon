@@ -55,12 +55,11 @@ import { ModalController } from '@/controllers/modal-controller';
 import { Item } from '@/types';
 import { formatNumber } from '@/utils';
 import {
-  ComponentOptions,
-  PropType,
-  computed,
-  onMounted,
-  ref,
-  watch
+ComponentOptions,
+PropType,
+computed,
+ref,
+watch
 } from 'vue';
 
 const props = defineProps({

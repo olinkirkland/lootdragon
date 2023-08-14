@@ -6,12 +6,11 @@ export function getFiltersByKey(
 ): { name: string; count: number }[] {
   const filters: { name: string; count: number }[] = [];
   items.forEach((item) => {
-    const filterValue = item[key];
-    if (filterValue) {
-      const filter = filters.find((f) => filterValue === f.name);
-      if (filter) filter.count++;
-      else filters.push({ name: filterValue as string, count: 1 });
-    }
+    const filterValue = item[key]?.toString();
+    if (!filterValue) return;
+    const filter = filters.find((f) => filterValue === f.name);
+    if (filter) filter.count++;
+    else filters.push({ name: filterValue, count: 1 });
   });
 
   return filters;

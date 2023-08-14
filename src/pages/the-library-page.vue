@@ -62,6 +62,15 @@
           :filters="categories"
           v-model="categoryFilter"
         />
+
+        <!-- Level -->
+        <filter-block
+          name="Level"
+          :items="items"
+          :info-modal="LevelsModal"
+          :filters="levels"
+          v-model="levelFilter"
+        />
       </div>
 
       <p class="item-count">
@@ -82,10 +91,10 @@ import ItemCard from '@/components/item-card.vue';
 import LoadingModal from '@/components/modals/loading-modal.vue';
 import { ModalController } from '@/controllers/modal-controller';
 import {
-getFiltersByKey,
-getPriceFilters,
-getSourcesFilters,
-getTraitsFilters
+  getFiltersByKey,
+  getPriceFilters,
+  getSourcesFilters,
+  getTraitsFilters
 } from '@/filter-utils';
 import { Item } from '@/types';
 import { computed, ref } from 'vue';
@@ -95,6 +104,7 @@ import PriceModal from '../components/modals/price-modal.vue';
 import RarityModal from '../components/modals/rarity-modal.vue';
 import SourcesModal from '../components/modals/sources-modal.vue';
 import TraitsModal from '../components/modals/traits-modal.vue';
+import LevelsModal from '../components/modals/levels-modal.vue';
 
 const items = ref<Item[]>([]);
 
@@ -112,6 +122,7 @@ fetch('/assets/items.json')
     traitsFilter.value = initialTraitsFilter.value;
     categoryFilter.value = initialCategoryFilter.value;
     priceFilter.value = initialPriceFilter.value;
+    levelFilter.value = initialLevelFilter.value;
   });
 
 const showFilters = ref<boolean>(false);
@@ -149,12 +160,23 @@ const initialPriceFilter = computed(() =>
   prices.value.map((price) => price.name)
 );
 
+// Level
+const levels = computed(() =>
+  getFiltersByKey(items.value, 'level').sort(
+    (a, b) => parseInt(a.name) - parseInt(b.name)
+  )
+);
+const initialLevelFilter = computed(() =>
+  levels.value.map((level: { name: any }) => level.name.toString())
+);
+
 // Filter refs
 const rarityFilter = ref<string[]>(initialRarityFilter.value);
 const sourceFilter = ref<string[]>(initialSourceFilter.value);
 const traitsFilter = ref<string[]>(initialTraitsFilter.value);
 const categoryFilter = ref<string[]>(initialCategoryFilter.value);
 const priceFilter = ref<string[]>(initialPriceFilter.value);
+const levelFilter = ref<string[]>(initialLevelFilter.value);
 
 const filteredItems = computed(() => {
   console.log('filtering items');
@@ -205,6 +227,11 @@ const filteredItems = computed(() => {
   // Filter by category
   sortedItems = sortedItems.filter((item) =>
     categoryFilter.value.includes(item.itemCategory)
+  );
+
+  // Filter by level
+  sortedItems = sortedItems.filter((item) =>
+    levelFilter.value.includes(item.level.toString())
   );
 
   return sortedItems.sort((a, b) => {
