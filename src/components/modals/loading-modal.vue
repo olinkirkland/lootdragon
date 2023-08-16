@@ -3,7 +3,7 @@
     <section>
       <img src="/assets/images/logo.png" alt="logo" />
       <p class="loading-text">
-        Loading
+        <span>Loading</span>
         <i class="fas fa-spinner fa-spin"></i>
       </p>
     </section>
@@ -35,7 +35,9 @@
 
     p.loading-text {
       display: flex;
+      justify-content: center;
       align-items: center;
+      width: 100%;
       gap: 0.8rem;
       text-transform: uppercase;
       color: #fab44d;
