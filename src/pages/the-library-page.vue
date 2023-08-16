@@ -32,7 +32,7 @@
         </button>
       </div>
       <div v-if="showFilters" class="filters">
-        <p>Filter by</p>
+        <p>Filter</p>
 
         <!-- Rarity -->
         <filter-block
@@ -91,7 +91,7 @@
       </div>
 
       <div v-if="showSorting" class="sortings">
-        <p>Sort by</p>
+        <p>Sort</p>
         <ul>
           <!-- Ascending Name -->
           <li>
@@ -326,8 +326,10 @@ const filteredItems = computed(() => {
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
+    padding: 0.8rem;
     background-color: #eee;
-    box-shadow: 0 0 1.2rem 0rem rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    box-shadow: 0 0 0.8rem 0rem rgba(0, 0, 0, 0.3);
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     max-height: 100vh;
     .brand {
@@ -373,9 +375,12 @@ const filteredItems = computed(() => {
       overflow: auto;
 
       background-color: white;
+      border-radius: 5px;
+      border: 1px solid #ddd;
 
       > p {
-        padding: 0.6rem;
+        padding: 0.8rem;
+        text-transform: uppercase;
         color: #575757;
         width: 100%;
         text-align: center;
@@ -385,7 +390,6 @@ const filteredItems = computed(() => {
   }
 
   .sortings {
-    width: 100%;
     ul {
       width: 100%;
       li {
@@ -435,7 +439,6 @@ const filteredItems = computed(() => {
   .library-container {
     padding: 0;
     > header {
-      padding: 0.8rem;
       .filters {
         > .filter-group {
           width: 100%;
@@ -458,6 +461,7 @@ const filteredItems = computed(() => {
     }
 
     > .item-list-container {
+      padding: 0 0.8rem;
       padding: 0;
       > ul.item-list {
         width: 100%;
