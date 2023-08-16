@@ -75,7 +75,7 @@ pre {
 
 .checkbox-group {
   display: flex;
-  align-items: center;
+  align-items: top;
   gap: 0.4rem;
   user-select: none;
 
@@ -85,6 +85,7 @@ pre {
   }
 
   > input {
+    margin-top: 0.2rem;
     width: 1.6rem;
     height: 1.6rem;
   }

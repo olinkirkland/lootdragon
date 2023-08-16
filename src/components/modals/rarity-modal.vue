@@ -67,7 +67,7 @@ import { ModalController } from '@/controllers/modal-controller';
     padding: 1.2rem;
 
     &:not(:last-child) {
-      border-bottom: 1px solid #dddddd;
+      border-bottom: 1px solid #ddd;
     }
   }
 }

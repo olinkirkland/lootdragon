@@ -4,11 +4,11 @@
       <div class="spread">
         <div class="logo-container">
           <!-- <img src="/assets/images/logo.png" alt="logo" /> -->
-          <h1>PF2E Item Browser</h1>
+          <h1>Loot Dragon</h1>
         </div>
-        <!-- <button class="icon" @click="ModalController.open(SettingsModal)">
+        <button class="icon" @click="ModalController.open(SettingsModal)">
           <i class="fas fa-cog"></i>
-        </button> -->
+        </button>
       </div>
       <div class="search-container">
         <input type="text" v-model="search" placeholder="Search..." />
@@ -130,9 +130,17 @@
       </p>
     </header>
 
-    <div class="item-list-container">
+    <div
+      class="item-list-container"
+      :class="{ 'table-view': settingsStore.tableMode }"
+    >
       <ul class="item-list">
-        <item-card v-for="item in filteredItems" :key="item.id" :item="item" />
+        <item-card
+          v-for="item in filteredItems"
+          :key="item.id"
+          :item="item"
+          :class="{ 'table-view': settingsStore.tableMode }"
+        />
       </ul>
     </div>
   </div>
@@ -148,6 +156,7 @@ import {
   getSourcesFilters,
   getTraitsFilters
 } from '@/filter-utils';
+import { useSettingsStore } from '@/stores/settingsStore';
 import { Item } from '@/types';
 import { computed, ref } from 'vue';
 import FilterBlock from '../components/filter-block.vue';
@@ -155,9 +164,11 @@ import CategoryModal from '../components/modals/category-modal.vue';
 import LevelsModal from '../components/modals/levels-modal.vue';
 import PriceModal from '../components/modals/price-modal.vue';
 import RarityModal from '../components/modals/rarity-modal.vue';
+import SettingsModal from '../components/modals/settings-modal.vue';
 import SourcesModal from '../components/modals/sources-modal.vue';
 import TraitsModal from '../components/modals/traits-modal.vue';
 
+const settingsStore = useSettingsStore();
 const items = ref<Item[]>([]);
 
 // Load the items
@@ -318,7 +329,7 @@ const filteredItems = computed(() => {
     padding: 2rem;
     background-color: #eee;
     box-shadow: 0 0 1.2rem 0rem rgba(0, 0, 0, 0.5);
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     max-height: 100vh;
 
     > .search-container {
@@ -341,14 +352,14 @@ const filteredItems = computed(() => {
       flex: 1;
       overflow: auto;
 
-      background-color: #dddddd;
+      background-color: white;
 
       > p {
         padding: 0.6rem;
         color: #575757;
         width: 100%;
         text-align: center;
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid #ddd;
       }
     }
   }
@@ -363,7 +374,7 @@ const filteredItems = computed(() => {
         gap: 0.6rem;
         align-items: center;
         &:not(:last-child) {
-          border-bottom: 1px solid #ccc;
+          border-bottom: 1px solid #ddd;
         }
         > label {
           display: flex;
@@ -387,6 +398,15 @@ const filteredItems = computed(() => {
       display: flex;
       flex-wrap: wrap;
       gap: 0.6rem;
+    }
+
+    &.table-view {
+      padding: 0;
+
+      > ul.item-list {
+        gap: 0;
+        flex-wrap: none;
+      }
     }
   }
 }

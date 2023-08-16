@@ -11,15 +11,14 @@
     <button @click="() => ModalController.open(ItemModal, { item: item })">
       <price-display v-if="!!item.price" :value="item.price" />
       <span class="single-line">{{ item.name.text }}</span>
-      <!-- <span>{{ item.id.substring(0, 4) }}</span> -->
     </button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Item } from '@/types';
 import PriceDisplay from '@/components/price-display.vue';
 import { ModalController } from '@/controllers/modal-controller';
+import { Item } from '@/types';
 import ItemModal from './modals/item-modal.vue';
 const props = defineProps({
   item: {
@@ -32,7 +31,20 @@ const item = props.item;
 </script>
 
 <style scoped lang="scss">
+// Mixin
+@mixin alternating-shade() {
+  &:nth-child(odd)::after {
+    content: '';
+    width: 100%;
+    position: absolute;
+    background-color: #00000010;
+    height: 100%;
+    pointer-events: none;
+  }
+}
+
 .item-card {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 0.4rem;
@@ -40,6 +52,24 @@ const item = props.item;
   overflow: hidden;
   border-radius: 3px;
   border: 1px solid rgba(0, 0, 0, 0.4);
+
+  &.table-view {
+    width: 100%;
+    border-radius: 0;
+    border: none;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    @include alternating-shade();
+
+    :deep(.price) {
+      color: #222;
+      background-color: transparent;
+      border-right: 1px solid rgba(0, 0, 0, 0.2);
+    }
+  }
 
   > button {
     display: flex;
@@ -87,24 +117,18 @@ const item = props.item;
   .item-card {
     border-radius: 0;
 
-    :deep(.price) {
-      min-width: 6.4rem;
-    }
+    @include alternating-shade();
 
-    &:not(:first-child) {
-      border-top: 1px solid rgba(0, 0, 0, 0.4);
-      border-top: none;
+    &:not(:last-child) {
+      border: none;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     }
+  }
+}
 
-    position: relative;
-    &:nth-child(odd)::after {
-      content: '';
-      width: 100%;
-      position: absolute;
-      background-color: #00000010;
-      height: 100%;
-      pointer-events: none;
-    }
+.item-card.table-view {
+  :deep(.price) {
+    min-width: 10rem;
   }
 }
 </style>

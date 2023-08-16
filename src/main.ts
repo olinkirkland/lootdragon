@@ -4,6 +4,7 @@ import App from './App.vue';
 import Card from './components/card.vue';
 import TestModal from './components/modals/test-modal.vue';
 import router from './router';
+import { createPinia } from 'pinia';
 
 // Create the app
 const app = createApp(App);
@@ -16,6 +17,7 @@ app.component('TestModal', TestModal);
 
 // Register plugins
 app.use(router);
+app.use(createPinia());
 
 // Mount the app
 app.mount('#app');

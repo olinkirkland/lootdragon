@@ -4,7 +4,7 @@
   max-width: 64rem;
   min-height: 40%;
   max-height: 64rem;
-  border: 1px solid black;
+  border: 1px solid #ddd;
   display: flex;
   flex-direction: column;
 
@@ -12,8 +12,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 2px dashed #222;
-    padding: 0.8rem 1.6rem;
+    border-bottom: 1px solid #ddd;
+    background-color: #eee;
+    padding: 0.8rem 0.8rem 0.8rem 1.4rem !important;
 
     h1 {
       color: #222;

@@ -64,7 +64,7 @@ const copper = Math.floor((props.value - gold - silver) * 100);
 
     img {
       height: 1.4rem;
-      margin-right: 0.4rem;
+      margin-right: 0.6rem;
     }
   }
 }

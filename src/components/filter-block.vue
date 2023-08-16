@@ -125,8 +125,10 @@ const toggleAllChoices = () => {
 
 <style lang="scss" scoped>
 .filter-group {
-  // border: 1px solid black;
   width: 100%;
+  &:not(:last-child) {
+    border-bottom: 1px solid #dddddd;
+  }
 
   > header {
     padding: 0.8rem;
@@ -135,8 +137,6 @@ const toggleAllChoices = () => {
     justify-content: space-between;
     gap: 0.4rem;
     cursor: pointer;
-
-    border-bottom: 1px solid #ccc;
 
     :deep(button.icon) {
       padding: 0 !important;
