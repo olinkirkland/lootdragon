@@ -24,5 +24,6 @@ import ModalContainer from './components/modal-container.vue';
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: #222;
 }
 </style>

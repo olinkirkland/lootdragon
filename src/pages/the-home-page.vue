@@ -7,8 +7,7 @@
     <img src="/assets/images/logo.png" id="logo" alt="logo" />
     <h1>Loot Dragon</h1>
     <div class="actions">
-      <button class="text" @click="router.push({ name: 'item-browser' })">
-        <i class="fas fa-scroll"></i>
+      <button @click="router.push({ name: 'item-browser' })">
         <span>Item Browser</span>
       </button>
     </div>
@@ -34,10 +33,17 @@ import router from '@/router';
     margin: 0 auto;
   }
 
-  h1 {
-    font-family: 'Allura', cursive;
-    font-size: 6.4rem;
-    text-align: center;
+  > h1 {
+    font-size: 1.6rem;
+    font-weight: lighter;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fab44d;
+  }
+
+  button {
+    background-color: #fab44d !important;
+    color: #222 !important;
   }
 
   .actions {
