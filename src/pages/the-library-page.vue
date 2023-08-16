@@ -32,6 +32,8 @@
         </button>
       </div>
       <div v-if="showFilters" class="filters">
+        <p>Filter by</p>
+
         <!-- Rarity -->
         <filter-block
           name="Rarity"
@@ -89,34 +91,38 @@
       </div>
 
       <div v-if="showSorting" class="sortings">
-        <div class="group">
-          <ul>
-            <li>
-              <input
-                id="sort-name-ascending"
-                type="radio"
-                name="sort-by"
-                value="name-ascending"
-              />
-              <label for="sort-name-ascending">
-                <i class="fas fa-sort-alpha-up-alt"></i>
-                <span>Name Ascending</span>
-              </label>
-            </li>
-            <li>
-              <input
-                id="sort-name-descending"
-                type="radio"
-                name="sort-by"
-                value="name-descending"
-              />
-              <label for="sort-name-descending">
-                <i class="fas fa-sort-alpha-down-alt"></i>
-                <span>Descending</span>
-              </label>
-            </li>
-          </ul>
-        </div>
+        <p>Sort by</p>
+        <ul>
+          <!-- Ascending Name -->
+          <li>
+            <input
+              id="sort-name-ascending"
+              type="radio"
+              name="sort-by"
+              value="name-ascending"
+              v-model="sortBy"
+            />
+            <label for="sort-name-ascending">
+              <i class="fas fa-sort-amount-up"></i>
+              <span>Name</span>
+            </label>
+          </li>
+
+          <!-- Ascending Price -->
+          <li>
+            <input
+              id="sort-price-ascending"
+              type="radio"
+              name="sort-by"
+              value="price-ascending"
+              v-model="sortBy"
+            />
+            <label for="sort-price-ascending">
+              <i class="fas fa-sort-amount-up"></i>
+              <span>Price</span>
+            </label>
+          </li>
+        </ul>
       </div>
 
       <p class="item-count">
@@ -146,11 +152,11 @@ import { Item } from '@/types';
 import { computed, ref } from 'vue';
 import FilterBlock from '../components/filter-block.vue';
 import CategoryModal from '../components/modals/category-modal.vue';
+import LevelsModal from '../components/modals/levels-modal.vue';
 import PriceModal from '../components/modals/price-modal.vue';
 import RarityModal from '../components/modals/rarity-modal.vue';
 import SourcesModal from '../components/modals/sources-modal.vue';
 import TraitsModal from '../components/modals/traits-modal.vue';
-import LevelsModal from '../components/modals/levels-modal.vue';
 
 const items = ref<Item[]>([]);
 
@@ -173,6 +179,8 @@ fetch('/assets/items.json')
 
 const showFilters = ref<boolean>(false);
 const showSorting = ref<boolean>(false);
+
+const sortBy = ref<string>('name-ascending');
 
 // Search
 const search = ref<string>('');
@@ -282,9 +290,15 @@ const filteredItems = computed(() => {
   );
 
   return sortedItems.sort((a, b) => {
-    if (a.name.text < b.name.text) return -1;
-    if (a.name.text > b.name.text) return 1;
-    return 0;
+    if (sortBy.value === 'price-ascending') {
+      if (!a.price) return -1;
+      if (!b.price) return 1;
+      return a.price - b.price;
+    } else if (sortBy.value === 'name-ascending') {
+      if (a.name.text < b.name.text) return -1;
+      if (a.name.text > b.name.text) return 1;
+      return 0;
+    } else return 0;
   });
 });
 </script>
@@ -327,67 +341,41 @@ const filteredItems = computed(() => {
       flex: 1;
       overflow: auto;
 
-      gap: 0.4rem;
-      border: 1px solid #222;
       background-color: #dddddd;
-      padding: 0.4rem;
-      box-shadow: 0 0 0.4rem 0.2rem rgba(0, 0, 0, 0.1);
-    }
 
-    .filters {
-      > .filter-group {
-        border: 1px solid black;
+      > p {
+        padding: 0.6rem;
+        color: #575757;
         width: 100%;
-
-        > header {
-          padding: 0.8rem;
-          background-color: #575757;
-          color: white;
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: space-between;
-          gap: 0.4rem;
-          cursor: pointer;
-
-          :deep(button.icon) {
-            padding: 0 !important;
-          }
-
-          > p {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-          }
-        }
-
-        > p {
-          color: grey;
-          margin-bottom: 0.4rem;
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
-        }
-        > ul.filter {
-          display: flex;
-          padding: 0.8rem;
-          gap: 1.2rem;
-          max-height: 16rem;
-          overflow-y: auto;
-          flex-wrap: wrap;
-
-          label {
-            > span {
-              display: flex;
-              align-items: center;
-              gap: 0.2rem;
-            }
-          }
-        }
+        text-align: center;
+        border-bottom: 1px solid #ccc;
       }
     }
   }
 
   .sortings {
+    width: 100%;
+    ul {
+      width: 100%;
+      li {
+        padding: 0.8rem 1.2rem;
+        display: flex;
+        gap: 0.6rem;
+        align-items: center;
+        &:not(:last-child) {
+          border-bottom: 1px solid #ccc;
+        }
+        > label {
+          display: flex;
+          align-items: center;
+          width: 100%;
+          gap: 0.4rem;
+          > i {
+            font-size: 1.2rem;
+          }
+        }
+      }
+    }
   }
 
   > .item-list-container {

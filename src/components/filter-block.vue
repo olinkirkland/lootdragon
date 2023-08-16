@@ -8,12 +8,6 @@
           ({{ choices.length }}/ {{ filters.length }})
         </span>
       </p>
-      <button
-        class="icon light"
-        @click.stop="ModalController.open(props.infoModal)"
-      >
-        <i class="fas fa-question-circle"></i>
-      </button>
     </header>
 
     <ul class="filter-list" v-if="showFilters">
@@ -30,6 +24,12 @@
             <span class="count">({{ formatNumber(props.items.length) }})</span>
           </span>
         </label>
+        <button
+          class="icon info"
+          @click.stop="ModalController.open(props.infoModal)"
+        >
+          <i class="fas fa-question-circle"></i>
+        </button>
       </li>
       <li class="checkbox-group" v-for="filter in filters" :key="filter.id">
         <input
@@ -54,13 +54,7 @@
 import { ModalController } from '@/controllers/modal-controller';
 import { Item } from '@/types';
 import { formatNumber } from '@/utils';
-import {
-ComponentOptions,
-PropType,
-computed,
-ref,
-watch
-} from 'vue';
+import { ComponentOptions, PropType, computed, ref, watch } from 'vue';
 
 const props = defineProps({
   name: {
@@ -131,18 +125,18 @@ const toggleAllChoices = () => {
 
 <style lang="scss" scoped>
 .filter-group {
-  border: 1px solid black;
+  // border: 1px solid black;
   width: 100%;
 
   > header {
     padding: 0.8rem;
-    background-color: #575757;
-    color: white;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 0.4rem;
     cursor: pointer;
+
+    border-bottom: 1px solid #ccc;
 
     :deep(button.icon) {
       padding: 0 !important;
@@ -175,13 +169,18 @@ const toggleAllChoices = () => {
       padding-bottom: 0.8rem;
       margin-bottom: -0.4rem;
       border-bottom: 1px dashed rgba(87, 87, 87, 0.4);
+
+      > button.info {
+        margin-left: auto;
+        padding: 0.2rem;
+      }
     }
 
     label {
       > span {
         display: flex;
         align-items: center;
-        gap: 0.2rem;
+        gap: 0.4rem;
 
         // For icons in the label
         :deep(> span > span) {
@@ -193,7 +192,7 @@ const toggleAllChoices = () => {
         // For the count
         > span.count {
           color: #575757;
-          font-size: 1.2rem;
+          font-size: 1rem;
         }
       }
     }
