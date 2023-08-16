@@ -168,6 +168,7 @@ const toggleAllChoices = () => {
       width: 100%;
       padding-bottom: 0.8rem;
       margin-bottom: -0.4rem;
+      border-bottom: 1px dashed #ccc;
 
       > button.info {
         margin-left: auto;
