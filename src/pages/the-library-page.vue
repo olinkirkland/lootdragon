@@ -364,10 +364,12 @@ function resetFilters() {
   levelFilter.value = initialLevelFilter.value;
 
   // Todo fix this workaround; the filter panel doesn't update when the filters are reset
-  if (showFilters.value) showFilters.value = false;
-  setTimeout(() => {
-    showFilters.value = true;
-  });
+  if (showFilters.value) {
+    showFilters.value = false;
+    setTimeout(() => {
+      showFilters.value = true;
+    });
+  }
 }
 </script>
 

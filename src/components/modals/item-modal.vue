@@ -158,10 +158,11 @@ function copyJSON() {
     padding: 0.2rem 0.6rem;
     border-radius: 5px;
     text-transform: capitalize;
-    color: white;
+    color: #f1f1f1;
 
     &--common {
       background-color: var(--common-color);
+      color: #222;
     }
 
     &--uncommon {
