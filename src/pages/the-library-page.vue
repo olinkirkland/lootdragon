@@ -425,7 +425,7 @@ function resetFilters() {
         max-width: 24rem;
         position: relative;
         align-items: center;
-        margin-right: 1.6rem;
+        margin-right: 0.8rem;
 
         > input {
           width: 100%;
