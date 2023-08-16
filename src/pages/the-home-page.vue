@@ -11,7 +11,19 @@
         <i class="fas fa-box-open"></i>
         <span>Item Browser</span>
       </button>
+      <button disabled>
+        <i class="fas fa-store"></i>
+        <span>Shop Generator</span>
+      </button>
+      <button disabled>
+        <i class="fas fa-coins"></i>
+        <span>Loot Generator</span>
+      </button>
     </div>
+    <p>
+      An ongoing effort to streamline the process of choosing items and creating
+      shops and loot for Pathfinder 2E games.
+    </p>
   </div>
 </template>
 
@@ -54,6 +66,21 @@ import router from '@/router';
     display: flex;
     width: fit-content;
     padding: 2rem;
+    gap: 0.8rem;
+  }
+
+  > p {
+    margin: 0 4rem;
+    max-width: 64rem;
+    color: #fab54c99;
+    font-size: 1.4rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .actions {
+    flex-direction: column;
   }
 }
 </style>
