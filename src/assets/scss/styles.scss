@@ -2,9 +2,9 @@
 
 :root {
   --common-color: #f1f1f1;
-  --uncommon-color: #caffca;
-  --rare-color: #cfe9f1;
-  --unique-color: #fff4b6;
+  --uncommon-color: #00ad00;
+  --rare-color: #9900ff;
+  --unique-color: #ff0000;
 }
 
 body,
@@ -92,11 +92,15 @@ pre {
 }
 
 .light {
-  // color: #f5f5f5 !important;
   color: #fab44d !important;
 }
 
 .flex {
   display: flex;
   gap: 0.8rem;
+}
+
+input[type='radio'],
+input[type='radio'] + label {
+  cursor: pointer;
 }

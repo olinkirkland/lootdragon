@@ -10,6 +10,9 @@
   >
     <button @click="() => ModalController.open(ItemModal, { item: item })">
       <price-display v-if="!!item.price" :value="item.price" />
+      <div class="rarity" v-if="item.rarity !== 'Common'">
+        <i class="fas fa-star"></i>
+      </div>
       <span class="single-line">{{ item.name.text }}</span>
     </button>
   </div>
@@ -80,6 +83,11 @@ const item = props.item;
     background-color: transparent;
     color: black;
 
+    > .rarity {
+      margin-left: 0.8rem;
+      font-size: 1.2rem;
+    }
+
     > span {
       white-space: nowrap;
       overflow: hidden;
@@ -90,20 +98,20 @@ const item = props.item;
     }
   }
 
-  &--common {
-    background-color: var(--common-color);
+  &--common .rarity > i {
+    color: var(--common-color);
   }
 
-  &--uncommon {
-    background-color: var(--uncommon-color);
+  &--uncommon .rarity > i {
+    color: var(--uncommon-color);
   }
 
-  &--rare {
-    background-color: var(--rare-color);
+  &--rare .rarity > i {
+    color: var(--rare-color);
   }
 
-  &--unique {
-    background-color: var(--unique-color);
+  &--unique .rarity > i {
+    color: var(--unique-color);
   }
 }
 

@@ -158,6 +158,7 @@ function copyJSON() {
     padding: 0.2rem 0.6rem;
     border-radius: 5px;
     text-transform: capitalize;
+    color: white;
 
     &--common {
       background-color: var(--common-color);
