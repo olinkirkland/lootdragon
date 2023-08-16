@@ -2,7 +2,7 @@
   <div class="library-container">
     <header>
       <div class="brand">
-        <div class="logo">
+        <div @click="router.push('/')" class="logo">
           <img src="/assets/images/logo.png" alt="logo" />
           <h1>Loot Dragon</h1>
         </div>
@@ -161,11 +161,12 @@ import ItemCard from '@/components/item-card.vue';
 import LoadingModal from '@/components/modals/loading-modal.vue';
 import { ModalController } from '@/controllers/modal-controller';
 import {
-  getFiltersByKey,
-  getPriceFilters,
-  getSourcesFilters,
-  getTraitsFilters
+getFiltersByKey,
+getPriceFilters,
+getSourcesFilters,
+getTraitsFilters
 } from '@/filter-utils';
+import router from '@/router';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { Item } from '@/types';
 import { computed, ref, watch } from 'vue';
@@ -403,6 +404,7 @@ function resetFilters() {
         display: flex;
         align-items: center;
         color: #fab44d;
+        cursor: pointer;
 
         > h1 {
           font-size: 1.6rem;
