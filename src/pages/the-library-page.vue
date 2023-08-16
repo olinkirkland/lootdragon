@@ -11,7 +11,10 @@
         </button>
       </div>
       <div class="search-container">
-        <input type="text" v-model="search" placeholder="Search..." />
+        <div class="search-box">
+          <input type="text" v-model="search" placeholder="Search..." />
+          <i class="fas fa-search"></i>
+        </div>
         <button
           class="icon"
           @click="
@@ -361,9 +364,24 @@ const filteredItems = computed(() => {
 
     > .search-container {
       display: flex;
-      > input {
+
+      .search-box {
+        display: flex;
         flex: 1;
+        position: relative;
+        align-items: center;
         margin-right: 0.8rem;
+
+        > input {
+          flex: 1;
+          padding-left: 3.2rem;
+        }
+        > i {
+          position: absolute;
+          pointer-events: none;
+          opacity: 0.4;
+          left: 1.4rem;
+        }
       }
     }
 
