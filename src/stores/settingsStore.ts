@@ -7,7 +7,7 @@ export const useSettingsStore = defineStore({
     language: 'en',
     tableMode: false,
     largeNumberAbbreviation: true,
-    obviousRarity: true,
+    obviousRarity: false,
     saveFilterChoices: true
   }),
   actions: {
