@@ -22,7 +22,7 @@
     </div>
     <p>
       An ongoing effort to streamline the process of choosing items and creating
-      shops and loot for Pathfinder 2E games.
+      shops and loot for Pathfinder 2E games
     </p>
   </div>
 </template>
@@ -45,7 +45,7 @@ import router from '@/router';
 
   #logo {
     width: 100%;
-    max-width: 32rem;
+    max-width: 20rem;
     margin: 0 auto;
   }
 
