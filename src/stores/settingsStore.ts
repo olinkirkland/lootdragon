@@ -5,7 +5,7 @@ export const useSettingsStore = defineStore({
   state: () => ({
     theme: 'light',
     language: 'en',
-    tableMode: true,
+    tableMode: false,
     largeNumberAbbreviation: true,
     saveFilterChoices: true
   }),
