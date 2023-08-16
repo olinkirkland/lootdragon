@@ -416,12 +416,14 @@ function resetFilters() {
       .search-box {
         display: flex;
         flex: 1;
+        max-width: 24rem;
         position: relative;
         align-items: center;
-        margin-right: 0.8rem;
+        margin-right: 1.6rem;
 
         > input {
-          flex: 1;
+          width: 100%;
+          min-width: 8rem;
           padding-left: 3.2rem;
         }
         > i {
@@ -506,6 +508,10 @@ function resetFilters() {
   .library-container {
     padding: 0;
     > header {
+      > .search-container > .search-box {
+        max-width: initial;
+      }
+
       .filters {
         > .filter-group {
           width: 100%;
