@@ -2,6 +2,7 @@
   <div
     class="item-card"
     :class="{
+      'obvious-rarity': settingsStore.obviousRarity,
       'item-card--common': item.rarity === 'Common',
       'item-card--uncommon': item.rarity === 'Uncommon',
       'item-card--rare': item.rarity === 'Rare',
@@ -23,6 +24,7 @@ import PriceDisplay from '@/components/price-display.vue';
 import { ModalController } from '@/controllers/modal-controller';
 import { Item } from '@/types';
 import ItemModal from './modals/item-modal.vue';
+import { useSettingsStore } from '@/stores/settingsStore';
 const props = defineProps({
   item: {
     type: Object as () => Item,
@@ -31,6 +33,7 @@ const props = defineProps({
 });
 
 const item = props.item;
+const settingsStore = useSettingsStore();
 </script>
 
 <style scoped lang="scss">
@@ -101,17 +104,34 @@ const item = props.item;
   &--common .rarity > i {
     color: var(--common-color);
   }
-
   &--uncommon .rarity > i {
     color: var(--uncommon-color);
   }
-
   &--rare .rarity > i {
     color: var(--rare-color);
   }
-
   &--unique .rarity > i {
     color: var(--unique-color);
+  }
+
+  &.obvious-rarity {
+    .rarity {
+      display: none;
+    }
+
+    &:not(.item-card--common) {
+      color: #f1f1f1;
+    }
+
+    &.item-card--uncommon {
+      background-color: var(--uncommon-color);
+    }
+    &.item-card--rare {
+      background-color: var(--rare-color);
+    }
+    &.item-card--unique {
+      background-color: var(--unique-color);
+    }
   }
 }
 

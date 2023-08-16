@@ -37,6 +37,7 @@
             </p>
           </label>
         </div>
+        <!-- Obvious Rarity -->
       </section>
       <section>
         <h3>Filters</h3>

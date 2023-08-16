@@ -7,6 +7,7 @@ export const useSettingsStore = defineStore({
     language: 'en',
     tableMode: false,
     largeNumberAbbreviation: true,
+    obviousRarity: true,
     saveFilterChoices: true
   }),
   actions: {
@@ -22,6 +23,9 @@ export const useSettingsStore = defineStore({
     setLargeNumberAbbreviation(largeNumberAbbreviation: boolean) {
       this.largeNumberAbbreviation = largeNumberAbbreviation;
     },
+    setObviousRarity(obviousRarity: boolean) {
+      this.obviousRarity = obviousRarity;
+    },
     setSaveFilterChoices(saveFilterChoices: boolean) {
       this.saveFilterChoices = saveFilterChoices;
     },
@@ -33,6 +37,7 @@ export const useSettingsStore = defineStore({
         this.language = parsedSettings.language;
         this.tableMode = parsedSettings.tableMode;
         this.largeNumberAbbreviation = parsedSettings.largeNumberAbbreviation;
+        this.obviousRarity = parsedSettings.obviousRarity;
         this.saveFilterChoices = parsedSettings.saveFilterChoices;
       }
     },
