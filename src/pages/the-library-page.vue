@@ -1,12 +1,12 @@
 <template>
   <div class="library-container">
     <header>
-      <div class="spread">
-        <div class="logo-container">
-          <!-- <img src="/assets/images/logo.png" alt="logo" /> -->
+      <div class="brand">
+        <div class="logo">
+          <img src="/assets/images/logo.png" alt="logo" />
           <h1>Loot Dragon</h1>
         </div>
-        <button class="icon" @click="ModalController.open(SettingsModal)">
+        <button class="icon light" @click="ModalController.open(SettingsModal)">
           <i class="fas fa-cog"></i>
         </button>
       </div>
@@ -326,11 +326,36 @@ const filteredItems = computed(() => {
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
-    padding: 2rem;
     background-color: #eee;
     box-shadow: 0 0 1.2rem 0rem rgba(0, 0, 0, 0.5);
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     max-height: 100vh;
+    .brand {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid black;
+      background-color: #222;
+      padding: 1.2rem;
+      margin: -0.8rem;
+      margin-bottom: 0;
+      > .logo {
+        display: flex;
+        align-items: center;
+        color: #fab44d;
+
+        > h1 {
+          font-size: 1.6rem;
+          font-weight: lighter;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+        }
+
+        > img {
+          height: 4rem;
+          margin-right: 0.8rem;
+        }
+      }
+    }
 
     > .search-container {
       display: flex;
@@ -338,11 +363,6 @@ const filteredItems = computed(() => {
         flex: 1;
         margin-right: 0.8rem;
       }
-    }
-
-    .logo-container {
-      display: flex;
-      align-items: center;
     }
 
     > .filters,

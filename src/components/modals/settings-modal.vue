@@ -32,7 +32,7 @@
           <label for="largeNumberAbbreviation">
             <p><strong> Large Number Abbreviation </strong></p>
             <p>
-              Display large numbers such as 4,000 or 20,000 as 4K and 20K to
+              Display large numbers such as 4,000 and 20,000 as 4K and 20K to
               increase legibility.
             </p>
           </label>
