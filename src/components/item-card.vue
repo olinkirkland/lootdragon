@@ -120,7 +120,13 @@ const settingsStore = useSettingsStore();
     }
 
     &:not(.item-card--common) {
-      color: #f1f1f1;
+      > * {
+        color: #f1f1f1;
+      }
+
+      :deep(.price) {
+        color: #f1f1f1;
+      }
     }
 
     &.item-card--uncommon {

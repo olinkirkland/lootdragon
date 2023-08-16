@@ -7,7 +7,7 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   base: '/',
   plugins: [vue()],
-  server: { host: false }, // For external IP access
+  server: { host: true }, // For external IP access
   resolve: {
     alias: {
       '@': new URL('./src', import.meta.url).pathname

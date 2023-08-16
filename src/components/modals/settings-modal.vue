@@ -38,6 +38,20 @@
           </label>
         </div>
         <!-- Obvious Rarity -->
+        <div class="checkbox-group">
+          <input
+            type="checkbox"
+            id="obviousRarity"
+            v-model="settingsStore.obviousRarity"
+          />
+          <label for="obviousRarity">
+            <p><strong>High Visibility Rarity</strong></p>
+            <p>
+              Display the rarity of each item in a more obvious way, by adding a
+              colored background to the item card instead of a small icon.
+            </p>
+          </label>
+        </div>
       </section>
       <section>
         <h3>Filters</h3>
