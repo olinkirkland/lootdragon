@@ -383,6 +383,7 @@ function resetFilters() {
   width: 100%;
   height: 100vh;
   overflow: hidden;
+  background-color: #f1f1f1;
 
   > header {
     display: flex;
