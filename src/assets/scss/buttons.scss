@@ -35,6 +35,11 @@ button {
       margin-right: 0.6rem;
     }
   }
+
+  &.active {
+    background-color: #222;
+    color: #f1f1f1;
+  }
 }
 
 @media (max-width: 768px) {

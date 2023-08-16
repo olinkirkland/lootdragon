@@ -24,6 +24,7 @@
         </div>
         <button
           class="icon"
+          :class="{ active: showFilters }"
           @click="
             showFilters = !showFilters;
             showSorting = false;
@@ -33,6 +34,7 @@
         </button>
         <button
           class="icon"
+          :class="{ active: showSorting }"
           @click="
             showSorting = !showSorting;
             showFilters = false;
@@ -161,10 +163,10 @@ import ItemCard from '@/components/item-card.vue';
 import LoadingModal from '@/components/modals/loading-modal.vue';
 import { ModalController } from '@/controllers/modal-controller';
 import {
-getFiltersByKey,
-getPriceFilters,
-getSourcesFilters,
-getTraitsFilters
+  getFiltersByKey,
+  getPriceFilters,
+  getSourcesFilters,
+  getTraitsFilters
 } from '@/filter-utils';
 import router from '@/router';
 import { useSettingsStore } from '@/stores/settingsStore';
@@ -422,6 +424,7 @@ function resetFilters() {
 
     > .search-container {
       display: flex;
+      gap: 0.4rem;
 
       .search-box {
         display: flex;
