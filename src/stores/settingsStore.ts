@@ -1,4 +1,3 @@
-// settingsStore.js
 import { defineStore } from 'pinia';
 
 export const useSettingsStore = defineStore({
@@ -7,7 +6,8 @@ export const useSettingsStore = defineStore({
     theme: 'light',
     language: 'en',
     tableMode: true,
-    largeNumberAbbreviation: true
+    largeNumberAbbreviation: true,
+    saveFilterChoices: true
   }),
   actions: {
     setTheme(theme: string) {
@@ -21,6 +21,23 @@ export const useSettingsStore = defineStore({
     },
     setLargeNumberAbbreviation(largeNumberAbbreviation: boolean) {
       this.largeNumberAbbreviation = largeNumberAbbreviation;
+    },
+    setSaveFilterChoices(saveFilterChoices: boolean) {
+      this.saveFilterChoices = saveFilterChoices;
+    },
+    loadFromLocalStorage() {
+      const settings = localStorage.getItem('settings');
+      if (settings) {
+        const parsedSettings = JSON.parse(settings);
+        this.theme = parsedSettings.theme;
+        this.language = parsedSettings.language;
+        this.tableMode = parsedSettings.tableMode;
+        this.largeNumberAbbreviation = parsedSettings.largeNumberAbbreviation;
+        this.saveFilterChoices = parsedSettings.saveFilterChoices;
+      }
+    },
+    saveToLocalStorage() {
+      localStorage.setItem('settings', JSON.stringify(this.$state));
     }
   }
 });

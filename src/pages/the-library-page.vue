@@ -6,7 +6,14 @@
           <img src="/assets/images/logo.png" alt="logo" />
           <h1>Loot Dragon</h1>
         </div>
-        <button class="icon light" @click="ModalController.open(SettingsModal)">
+        <button
+          class="icon light"
+          @click="
+            ModalController.open(SettingsModal, {
+              resetFiltersFunc: resetFilters
+            })
+          "
+        >
           <i class="fas fa-cog"></i>
         </button>
       </div>
@@ -161,7 +168,7 @@ import {
 } from '@/filter-utils';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { Item } from '@/types';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import FilterBlock from '../components/filter-block.vue';
 import CategoryModal from '../components/modals/category-modal.vue';
 import LevelsModal from '../components/modals/levels-modal.vue';
@@ -172,7 +179,10 @@ import SourcesModal from '../components/modals/sources-modal.vue';
 import TraitsModal from '../components/modals/traits-modal.vue';
 
 const settingsStore = useSettingsStore();
+
 const items = ref<Item[]>([]);
+
+// Listen
 
 // Load the items
 ModalController.open(LoadingModal);
@@ -182,13 +192,18 @@ fetch('/assets/items.json')
     items.value = data;
     ModalController.close();
 
-    // Set initial filters
-    rarityFilter.value = initialRarityFilter.value;
-    sourceFilter.value = initialSourceFilter.value;
-    traitsFilter.value = initialTraitsFilter.value;
-    categoryFilter.value = initialCategoryFilter.value;
-    priceFilter.value = initialPriceFilter.value;
-    levelFilter.value = initialLevelFilter.value;
+    // Get the initial filters from local storage
+    const localFilters =
+      (localStorage.getItem('filters') &&
+        JSON.parse(localStorage.getItem('filters')!)) ||
+      '{}';
+
+    rarityFilter.value = localFilters.rarity || initialRarityFilter.value;
+    sourceFilter.value = localFilters.source || initialSourceFilter.value;
+    traitsFilter.value = localFilters.traits || initialTraitsFilter.value;
+    categoryFilter.value = localFilters.category || initialCategoryFilter.value;
+    priceFilter.value = localFilters.price || initialPriceFilter.value;
+    levelFilter.value = localFilters.level || initialLevelFilter.value;
   });
 
 const showFilters = ref<boolean>(false);
@@ -248,7 +263,6 @@ const priceFilter = ref<string[]>(initialPriceFilter.value);
 const levelFilter = ref<string[]>(initialLevelFilter.value);
 
 const filteredItems = computed(() => {
-  console.log('filtering items');
   let sortedItems = [...items.value];
 
   // Filter by search
@@ -315,6 +329,40 @@ const filteredItems = computed(() => {
     } else return 0;
   });
 });
+
+watch(
+  [
+    rarityFilter,
+    sourceFilter,
+    traitsFilter,
+    categoryFilter,
+    priceFilter,
+    levelFilter
+  ],
+  () => {
+    if (settingsStore.saveFilterChoices)
+      localStorage.setItem(
+        'filters',
+        JSON.stringify({
+          rarity: rarityFilter.value,
+          source: sourceFilter.value,
+          traits: traitsFilter.value,
+          category: categoryFilter.value,
+          price: priceFilter.value,
+          level: levelFilter.value
+        })
+      );
+  }
+);
+
+function resetFilters() {
+  rarityFilter.value = initialRarityFilter.value;
+  sourceFilter.value = initialSourceFilter.value;
+  traitsFilter.value = initialTraitsFilter.value;
+  categoryFilter.value = initialCategoryFilter.value;
+  priceFilter.value = initialPriceFilter.value;
+  levelFilter.value = initialLevelFilter.value;
+}
 </script>
 
 <style scoped lang="scss">
@@ -338,7 +386,7 @@ const filteredItems = computed(() => {
     .brand {
       display: flex;
       justify-content: space-between;
-      border-bottom: 1px solid black;
+      border-bottom: 1px solid #222;
       background-color: #222;
       padding: 1.2rem;
       margin: -0.8rem;
@@ -400,6 +448,7 @@ const filteredItems = computed(() => {
         padding: 0.8rem;
         text-transform: uppercase;
         color: #575757;
+        background-color: #eeeeee;
         width: 100%;
         text-align: center;
         border-bottom: 1px solid #ddd;

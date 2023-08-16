@@ -47,7 +47,6 @@ import { ModalController } from '@/controllers/modal-controller';
   header {
     display: flex;
     justify-content: space-between;
-    border-bottom: 2px dashed #222;
     padding: 1.2rem;
 
     h1 {

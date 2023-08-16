@@ -1,6 +1,7 @@
 <template>
   <div class="modal">
     <section>
+      <img src="/assets/images/logo.png" alt="logo" />
       <p class="loading-text">
         Loading
         <i class="fas fa-spinner fa-spin"></i>
@@ -18,6 +19,8 @@
   min-width: 0;
   min-height: 0;
   padding: 2rem 4rem;
+  background-color: #222;
+  border-color: #fab44d;
 
   section {
     display: flex;
@@ -25,11 +28,17 @@
     gap: 0.8rem;
     padding: 1.2rem;
 
+    > img {
+      width: 24rem;
+      height: 24rem;
+    }
+
     p.loading-text {
       display: flex;
       align-items: center;
       gap: 0.8rem;
       text-transform: uppercase;
+      color: #fab44d;
     }
 
     &:not(:last-child) {

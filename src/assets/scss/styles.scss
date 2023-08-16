@@ -1,5 +1,4 @@
 @import 'resets';
-@import 'fonts';
 
 :root {
   --common-color: #f1f1f1;
@@ -48,7 +47,7 @@ input {
 input[type='text'],
 input[type='password'] {
   padding: 0.8rem 1.2rem;
-  border-radius: 3px;
+  border-radius: 5px;
   border: 1px solid #ccc;
 
   &:focus {

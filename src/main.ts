@@ -5,6 +5,7 @@ import Card from './components/card.vue';
 import TestModal from './components/modals/test-modal.vue';
 import router from './router';
 import { createPinia } from 'pinia';
+import { useSettingsStore } from './stores/settingsStore';
 
 // Create the app
 const app = createApp(App);
@@ -18,6 +19,13 @@ app.component('TestModal', TestModal);
 // Register plugins
 app.use(router);
 app.use(createPinia());
+
+// Setup settings store
+const settingsStore = useSettingsStore();
+settingsStore.loadFromLocalStorage();
+settingsStore.$subscribe(() => {
+  settingsStore.saveToLocalStorage();
+});
 
 // Mount the app
 app.mount('#app');
