@@ -8,6 +8,7 @@
     <h1>Loot Dragon</h1>
     <div class="actions">
       <button @click="router.push({ name: 'item-browser' })">
+        <i class="fas fa-box-open"></i>
         <span>Item Browser</span>
       </button>
     </div>
@@ -21,6 +22,9 @@ import router from '@/router';
 <style scoped lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Allura&display=swap');
 .home-container {
+  width: 100%;
+  height: 100vh;
+  background-color: #222;
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
