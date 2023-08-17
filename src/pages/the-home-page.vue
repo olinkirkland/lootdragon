@@ -120,11 +120,10 @@ const dailyItem = computed(() => {
   > .daily-item {
     bottom: 0.4rem;
     width: 100%;
-    padding: 1.2rem;
+    padding: 0.8rem;
     border-top: 1px dashed #fab44d;
     background-color: rgb(250, 180, 77, 0.1);
     display: flex;
-    gap: 0.8rem;
     flex-direction: column;
     align-items: center;
     margin-top: auto;
