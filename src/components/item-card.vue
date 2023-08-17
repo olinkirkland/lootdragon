@@ -9,10 +9,10 @@
       'item-card--unique': item.rarity === 'Unique'
     }"
   >
-    <button @click="() => ModalController.open(ItemModal, { item: item })">
+    <button @click="() => ModalController.open(ItemModal, { item })">
       <price-display v-if="!!item.price" :value="item.price" />
       <div class="rarity" v-if="item.rarity !== 'Common'">
-        <i class="fas fa-item-dot"></i>
+        <i class="fas fa-star"></i>
       </div>
       <span class="single-line">{{ item.name.text }}</span>
     </button>

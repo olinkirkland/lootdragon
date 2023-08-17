@@ -8,10 +8,8 @@
     </header>
     <div class="modal__content">
       <section class="actions">
-        <a :href="'https://2e.aonprd.com' + item.name.url" target="_blank">
-          <i class="fas fa-external-link-alt"></i>
-          <span>{{ 'https://2e.aonprd.com' + item.name.url }}</span>
-        </a>
+        <copy-text label="Direct Link" :text="directLink" />
+        <copy-text label="Archives of Nethys" :text="nethysLink" />
       </section>
       <section>
         <div class="spread">
@@ -84,7 +82,8 @@
 <script setup lang="ts">
 import { ModalController } from '@/controllers/modal-controller';
 import { Item } from '@/types';
-import { PropType } from 'vue';
+import { PropType, computed } from 'vue';
+import CopyText from '../copy-text.vue';
 import PriceDisplay from '../price-display.vue';
 
 const props = defineProps({
@@ -95,6 +94,13 @@ const props = defineProps({
 });
 
 const item = props.item;
+const directLink = computed(() => {
+  return window.location.origin + '/items?i=' + item.id;
+});
+
+const nethysLink = computed(() => {
+  return 'https://2e.aonprd.com' + item.name.url;
+});
 
 function copyJSON() {
   navigator.clipboard.writeText(JSON.stringify(item, null, 2));
@@ -123,7 +129,7 @@ function copyJSON() {
     }
 
     &:not(:last-child) {
-      border-bottom: 1px solid #222;
+      border-bottom: 1px solid #ddd;
     }
 
     &.actions {

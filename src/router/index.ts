@@ -6,8 +6,6 @@ import Login from '@/pages/the-login-page.vue';
 import Lost from '@/pages/the-lost-page.vue';
 import Register from '@/pages/the-register-page.vue';
 import { useItemsStore } from '@/stores/itemsStore';
-import { Item } from '@/types';
-import { ref } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 console.log('Router');
@@ -49,16 +47,14 @@ const routes = [
   //   name: 'game'
   // },
   {
-    path: '/item-browser',
+    path: '/items',
     components: {
       app: Library
     },
     name: 'item-browser'
   },
-  {
-    path: '/library',
-    redirect: '/item-browser' // Redirect from '/library' to '/item-browser'
-  },
+  { path: '/library', redirect: '/item-browser' },
+  { path: '/item-browser', redirect: '/items' },
   {
     path: '/:pathMatch(.*)*',
     components: {

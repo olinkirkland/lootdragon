@@ -180,6 +180,7 @@ import RarityModal from '../components/modals/rarity-modal.vue';
 import SettingsModal from '../components/modals/settings-modal.vue';
 import SourcesModal from '../components/modals/sources-modal.vue';
 import TraitsModal from '../components/modals/traits-modal.vue';
+import ItemModal from '@/components/modals/item-modal.vue';
 
 const settingsStore = useSettingsStore();
 const items = ref<Item[]>(useItemsStore().items);
@@ -347,6 +348,16 @@ watch(
       );
   }
 );
+
+// ?id=SOME_ID
+const urlParams = new URLSearchParams(window.location.search);
+const itemId = urlParams.get('i');
+if (itemId) {
+  const item = items.value.find((item) => item.id === itemId);
+  if (item) {
+    ModalController.open(ItemModal, { item });
+  }
+}
 
 function resetFilters() {
   rarityFilter.value = initialRarityFilter.value;
@@ -548,7 +559,8 @@ function resetFilters() {
       }
 
       > p.item-count {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
+        text-align: center;
       }
     }
 

@@ -28,7 +28,7 @@
           class="icon info"
           @click.stop="ModalController.open(props.infoModal)"
         >
-          <i class="fas fa-question-circle"></i>
+          <i class="fas fa-info-circle"></i>
         </button>
       </li>
       <li class="checkbox-group" v-for="filter in filters" :key="filter.id">
@@ -146,6 +146,12 @@ const toggleAllChoices = () => {
       display: flex;
       align-items: center;
       gap: 0.6rem;
+
+      > i {
+        padding: 0 0.4rem;
+        width: 1.6rem;
+        font-size: 1.6rem;
+      }
     }
   }
 
@@ -159,15 +165,24 @@ const toggleAllChoices = () => {
   > ul.filter-list {
     display: flex;
     padding: 0.8rem;
-    gap: 1.2rem;
+    gap: 0.8rem;
     max-height: 16rem;
     overflow-y: auto;
     flex-wrap: wrap;
 
+    li.checkbox-group {
+      gap: 0.6rem;
+      // border: 1px solid #eee;
+      // padding: 0.4rem 0.8rem;
+      border-radius: 5px;
+      align-items: center;
+    }
     li.checkbox-group--all {
       width: 100%;
-      padding-bottom: 0.8rem;
-      margin-bottom: -0.4rem;
+      padding-bottom: 0.4rem;
+      margin-bottom: 0.4rem;
+      border-radius: 0;
+      border: none;
       border-bottom: 1px dashed #ccc;
 
       > button.info {

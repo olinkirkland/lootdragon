@@ -82,6 +82,10 @@ import router from '@/router';
 @media (max-width: 768px) {
   .actions {
     flex-direction: column;
+
+    > button {
+      width: 100%;
+    }
   }
 }
 </style>
