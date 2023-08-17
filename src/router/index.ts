@@ -1,12 +1,11 @@
 import LoadingModal from '@/components/modals/loading-modal.vue';
 import { ModalController } from '@/controllers/modal-controller';
 import Home from '@/pages/the-home-page.vue';
-import Library from '@/pages/the-library-page.vue';
-import Login from '@/pages/the-login-page.vue';
+import ItemsPage from '@/pages/the-items-page.vue';
 import Lost from '@/pages/the-lost-page.vue';
-import Register from '@/pages/the-register-page.vue';
 import { useItemsStore } from '@/stores/itemsStore';
 import { createRouter, createWebHistory } from 'vue-router';
+import ShopsPage from '../pages/the-shops-page.vue';
 
 console.log('Router');
 
@@ -19,42 +18,22 @@ const routes = [
     name: 'home'
   },
   {
-    path: '/login',
-    components: {
-      app: Login
-    },
-    name: 'login'
-  },
-  {
-    path: '/register',
-    components: {
-      app: Register
-    },
-    name: 'register'
-  },
-  // {
-  //   path: '/games',
-  //   components: {
-  //     app: Games,
-  //   },
-  //   name: 'games'
-  // },
-  // {
-  //   path: '/games/:id',
-  //   components: {
-  //     app: Game,
-  //   },
-  //   name: 'game'
-  // },
-  {
     path: '/items',
     components: {
-      app: Library
+      app: ItemsPage
     },
     name: 'items'
   },
   { path: '/library', redirect: '/item-browser' },
   { path: '/item-browser', redirect: '/items' },
+  {
+    path: '/shops',
+    components: {
+      app: ShopsPage
+    },
+    name: 'shops'
+  },
+
   {
     path: '/:pathMatch(.*)*',
     components: {
