@@ -21,8 +21,8 @@
       </button>
     </div>
     <p>
-      An ongoing effort to streamline the process of choosing items and creating
-      shops and loot for Pathfinder 2E games
+      Simplifying the way you pick items, design shops, and create loot for
+      Pathfinder 2E games.
     </p>
   </div>
 </template>
@@ -72,7 +72,8 @@ import router from '@/router';
   > p {
     margin: 0 4rem;
     max-width: 64rem;
-    color: #fab54c99;
+    color: #fab44d;
+    opacity: 0.8;
     font-size: 1.4rem;
     text-align: center;
   }

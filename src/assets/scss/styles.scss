@@ -46,6 +46,7 @@ label,
 input {
   font-size: 1.6rem;
   margin: 0;
+  line-height: 1.4;
 }
 
 input[type='text'],
@@ -104,9 +105,4 @@ pre {
 .flex {
   display: flex;
   gap: 0.8rem;
-}
-
-input[type='radio'],
-input[type='radio'] + label {
-  cursor: pointer;
 }

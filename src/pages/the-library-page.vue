@@ -106,7 +106,7 @@
         <p>Sort</p>
         <ul>
           <!-- Ascending Name -->
-          <li>
+          <li :class="{ active: sortBy === 'name-ascending' }">
             <input
               id="sort-name-ascending"
               type="radio"
@@ -121,7 +121,7 @@
           </li>
 
           <!-- Ascending Price -->
-          <li>
+          <li :class="{ active: sortBy === 'price-ascending' }">
             <input
               id="sort-price-ascending"
               type="radio"
@@ -162,10 +162,10 @@
 import ItemCard from '@/components/item-card.vue';
 import { ModalController } from '@/controllers/modal-controller';
 import {
-getFiltersByKey,
-getPriceFilters,
-getSourcesFilters,
-getTraitsFilters
+  getFiltersByKey,
+  getPriceFilters,
+  getSourcesFilters,
+  getTraitsFilters
 } from '@/filter-utils';
 import router from '@/router';
 import { useItemsStore } from '@/stores/itemsStore';
@@ -470,9 +470,24 @@ function resetFilters() {
         display: flex;
         gap: 0.6rem;
         align-items: center;
+
+        &.active {
+          background-color: #3251ff;
+          color: #f1f1f1;
+        }
+
+        input[type='radio'] {
+          display: none;
+        }
+
+        * {
+          cursor: pointer;
+        }
+
         &:not(:last-child) {
           border-bottom: 1px solid #ddd;
         }
+
         > label {
           display: flex;
           align-items: center;

@@ -79,7 +79,7 @@ router.beforeEach(async (to, from, next) => {
   if (useItemsStore().items.length === 0) {
     // Load the items
     ModalController.open(LoadingModal);
-    fetch('/assets/items.json')
+    await fetch('/assets/items.json')
       .then((response) => response.json())
       .then((data) => {
         useItemsStore().items = data;
