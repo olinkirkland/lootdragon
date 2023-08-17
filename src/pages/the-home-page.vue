@@ -32,13 +32,13 @@
         <p>Item of the Day</p>
       </div>
       <div class="content">
-        <p>{{ dailyItem.rarity }} {{ dailyItem.itemSubcategory }}</p>
         <button
           @click="router.push({ name: 'items', query: { id: dailyItem.id } })"
           class="text"
         >
           <span>{{ dailyItem.name.text }}</span>
         </button>
+        <p>{{ dailyItem.rarity }} {{ dailyItem.itemSubcategory }}</p>
       </div>
     </div>
   </div>
@@ -149,6 +149,7 @@ const dailyItem = computed(() => {
         text-transform: uppercase;
         font-size: 1.2rem;
         letter-spacing: 1px;
+        opacity: 0.4;
       }
     }
   }
