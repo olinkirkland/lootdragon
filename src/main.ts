@@ -1,10 +1,11 @@
 import mixpanel from 'mixpanel-browser';
+import { createPinia } from 'pinia';
 import { createApp } from 'vue';
 import App from './App.vue';
 import Card from './components/card.vue';
 import TestModal from './components/modals/test-modal.vue';
 import router from './router';
-import { createPinia } from 'pinia';
+import { useItemsStore } from './stores/itemsStore';
 import { useSettingsStore } from './stores/settingsStore';
 
 // Create the app
@@ -16,16 +17,21 @@ app.component('Card', Card);
 // Register modal components
 app.component('TestModal', TestModal);
 
-// Register plugins
-app.use(router);
+// Setup stores
 app.use(createPinia());
 
-// Setup settings store
 const settingsStore = useSettingsStore();
 settingsStore.loadFromLocalStorage();
 settingsStore.$subscribe(() => {
   settingsStore.saveToLocalStorage();
 });
+
+useItemsStore();
+
+console.log('Pinia initialized');
+
+// Setup router
+app.use(router);
 
 // Mount the app
 app.mount('#app');

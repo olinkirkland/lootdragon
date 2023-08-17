@@ -1,9 +1,16 @@
+import LoadingModal from '@/components/modals/loading-modal.vue';
+import { ModalController } from '@/controllers/modal-controller';
 import Home from '@/pages/the-home-page.vue';
 import Library from '@/pages/the-library-page.vue';
 import Login from '@/pages/the-login-page.vue';
 import Lost from '@/pages/the-lost-page.vue';
 import Register from '@/pages/the-register-page.vue';
+import { useItemsStore } from '@/stores/itemsStore';
+import { Item } from '@/types';
+import { ref } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
+
+console.log('Router');
 
 const routes = [
   {
@@ -67,8 +74,20 @@ const router = createRouter({
   routes
 });
 
-// router.beforeEach(async (to, from, next) => {
-//   // console.log('from', from.name, 'to', to.name);
+router.beforeEach(async (to, from, next) => {
+  console.log('from', from.name, 'to', to.name);
+  if (useItemsStore().items.length === 0) {
+    // Load the items
+    ModalController.open(LoadingModal);
+    fetch('/assets/items.json')
+      .then((response) => response.json())
+      .then((data) => {
+        useItemsStore().items = data;
+        ModalController.close();
+      });
+  }
+  next();
+});
 
 //   // If the user is coming from another route, we don't need to check
 //   if (from.name !== undefined) return next();

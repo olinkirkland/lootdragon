@@ -160,15 +160,15 @@
 
 <script setup lang="ts">
 import ItemCard from '@/components/item-card.vue';
-import LoadingModal from '@/components/modals/loading-modal.vue';
 import { ModalController } from '@/controllers/modal-controller';
 import {
-  getFiltersByKey,
-  getPriceFilters,
-  getSourcesFilters,
-  getTraitsFilters
+getFiltersByKey,
+getPriceFilters,
+getSourcesFilters,
+getTraitsFilters
 } from '@/filter-utils';
 import router from '@/router';
+import { useItemsStore } from '@/stores/itemsStore';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { Item } from '@/types';
 import { computed, ref, watch } from 'vue';
@@ -182,32 +182,13 @@ import SourcesModal from '../components/modals/sources-modal.vue';
 import TraitsModal from '../components/modals/traits-modal.vue';
 
 const settingsStore = useSettingsStore();
+const items = ref<Item[]>(useItemsStore().items);
 
-const items = ref<Item[]>([]);
-
-// Listen
-
-// Load the items
-ModalController.open(LoadingModal);
-fetch('/assets/items.json')
-  .then((response) => response.json())
-  .then((data) => {
-    items.value = data;
-    ModalController.close();
-
-    // Get the initial filters from local storage
-    const localFilters =
-      (localStorage.getItem('filters') &&
-        JSON.parse(localStorage.getItem('filters')!)) ||
-      '{}';
-
-    rarityFilter.value = localFilters.rarity || initialRarityFilter.value;
-    sourceFilter.value = localFilters.source || initialSourceFilter.value;
-    traitsFilter.value = localFilters.traits || initialTraitsFilter.value;
-    categoryFilter.value = localFilters.category || initialCategoryFilter.value;
-    priceFilter.value = localFilters.price || initialPriceFilter.value;
-    levelFilter.value = localFilters.level || initialLevelFilter.value;
-  });
+// Get the initial filters from local storage
+const localFilters =
+  (localStorage.getItem('filters') &&
+    JSON.parse(localStorage.getItem('filters')!)) ||
+  '{}';
 
 const showFilters = ref<boolean>(false);
 const showSorting = ref<boolean>(false);
@@ -333,6 +314,15 @@ const filteredItems = computed(() => {
   });
 });
 
+// Set initial filters
+rarityFilter.value = localFilters.rarity || initialRarityFilter.value;
+sourceFilter.value = localFilters.source || initialSourceFilter.value;
+traitsFilter.value = localFilters.traits || initialTraitsFilter.value;
+categoryFilter.value = localFilters.category || initialCategoryFilter.value;
+priceFilter.value = localFilters.price || initialPriceFilter.value;
+levelFilter.value = localFilters.level || initialLevelFilter.value;
+
+// Save filters to local storage when they change
 watch(
   [
     rarityFilter,

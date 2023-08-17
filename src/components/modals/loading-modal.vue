@@ -1,7 +1,7 @@
 <template>
   <div class="modal">
     <section>
-      <img src="/assets/images/logo.png" alt="logo" />
+      <img src="/assets/images/logo.webp" alt="logo" />
       <p class="loading-text">
         <span>Loading</span>
         <i class="fas fa-spinner fa-spin"></i>
