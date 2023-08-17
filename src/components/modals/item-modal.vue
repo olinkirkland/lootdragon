@@ -107,10 +107,6 @@ function copyJSON() {
   max-width: 64rem;
   max-height: 80%;
 
-  header > h2 {
-    align-self: center;
-  }
-
   .modal__content {
     overflow-y: auto;
     flex: 1;
