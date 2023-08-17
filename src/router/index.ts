@@ -51,7 +51,7 @@ const routes = [
     components: {
       app: Library
     },
-    name: 'item-browser'
+    name: 'items'
   },
   { path: '/library', redirect: '/item-browser' },
   { path: '/item-browser', redirect: '/items' },
