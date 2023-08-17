@@ -57,7 +57,7 @@ const settingsStore = useSettingsStore();
   height: 3.2rem;
   overflow: hidden;
   border-radius: 3px;
-  border: 1px solid rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--surface-color-2);
 
   &.table-view {
     width: 100%;
@@ -65,15 +65,15 @@ const settingsStore = useSettingsStore();
     border: none;
 
     &:not(:last-child) {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+      border-bottom: 1px solid var(--shadow);
     }
 
     @include alternating-shade();
 
     :deep(.price) {
-      color: #222;
+      color: var(--text-color);
       background-color: transparent;
-      border-right: 1px solid rgba(0, 0, 0, 0.2);
+      border-right: 1px solid var(--shadow);
     }
   }
 
@@ -85,7 +85,7 @@ const settingsStore = useSettingsStore();
     padding: 0;
     text-decoration: none;
     background-color: transparent;
-    color: black;
+    color: var(--text-color);
 
     > .rarity {
       margin-left: 0.8rem;
@@ -122,11 +122,11 @@ const settingsStore = useSettingsStore();
 
     &:not(.item-card--common) {
       > * {
-        color: #f1f1f1;
+        color: var(--surface-color);
       }
 
       :deep(.price) {
-        color: #f1f1f1;
+        color: var(--surface-color);
       }
     }
 

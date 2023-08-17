@@ -127,7 +127,7 @@ const toggleAllChoices = () => {
 .filter-group {
   width: 100%;
   &:not(:last-child) {
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid var(--surface-color-2);
   }
 
   > header {
@@ -156,7 +156,7 @@ const toggleAllChoices = () => {
   }
 
   > p {
-    color: grey;
+    color: var(--text-color-3);
     margin-bottom: 0.4rem;
     width: 100%;
     display: flex;
@@ -172,8 +172,6 @@ const toggleAllChoices = () => {
 
     li.checkbox-group {
       gap: 0.6rem;
-      // border: 1px solid #eee;
-      // padding: 0.4rem 0.8rem;
       border-radius: 5px;
       align-items: center;
     }
@@ -183,7 +181,7 @@ const toggleAllChoices = () => {
       margin-bottom: 0.4rem;
       border-radius: 0;
       border: none;
-      border-bottom: 1px dashed #ccc;
+      border-bottom: 1px dashed var(--surface-color-3);
 
       > button.info {
         margin-left: auto;
@@ -206,8 +204,8 @@ const toggleAllChoices = () => {
 
         // For the count
         > span.count {
-          color: #575757;
-          font-size: 1rem;
+          color: var(--text-color-3);
+          font-size: 1.2rem;
         }
       }
     }

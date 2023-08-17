@@ -7,7 +7,7 @@
           <h1>Loot Dragon</h1>
         </div>
         <button
-          class="icon light"
+          class="icon"
           @click="
             ModalController.open(SettingsModal, {
               resetFiltersFunc: resetFilters
@@ -169,10 +169,10 @@ import ItemCard from '@/components/item-card.vue';
 import ItemModal from '@/components/modals/item-modal.vue';
 import { ModalController } from '@/controllers/modal-controller';
 import {
-getFiltersByKey,
-getPriceFilters,
-getSourcesFilters,
-getTraitsFilters
+  getFiltersByKey,
+  getPriceFilters,
+  getSourcesFilters,
+  getTraitsFilters
 } from '@/filter-utils';
 import router from '@/router';
 import { useItemsStore } from '@/stores/itemsStore';
@@ -396,12 +396,13 @@ function resetFilters() {
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  background-color: #f1f1f1;
+  background-color: var(--surface-color);
 
   > header {
     > .search-container {
       display: flex;
-      gap: 0.4rem;
+      gap: 0.8rem;
+      padding: 0 0.8rem;
 
       .search-box {
         display: flex;
@@ -409,7 +410,6 @@ function resetFilters() {
         max-width: 24rem;
         position: relative;
         align-items: center;
-        margin-right: 0.8rem;
 
         > input {
           width: 100%;
@@ -428,23 +428,24 @@ function resetFilters() {
 
     > .filters,
     .sortings {
-      display: flex;
-      flex-wrap: wrap;
+      margin: 0.8rem;
+      margin-bottom: 0;
       flex: 1;
       overflow: auto;
+      border: 2px solid red;
 
-      background-color: white;
       border-radius: 5px;
-      border: 1px solid #ddd;
+      background-color: var(--surface-color);
+      border: 1px solid var(--surface-color-3);
 
       > p {
         padding: 0.8rem;
         text-transform: uppercase;
-        color: #575757;
-        background-color: #eeeeee;
+        color: var(--text-color);
+        background-color: var(--surface-color-2);
         width: 100%;
         text-align: center;
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid var(--surface-color-2);
       }
     }
   }
@@ -459,8 +460,11 @@ function resetFilters() {
         align-items: center;
 
         &.active {
-          background-color: #3251ff;
-          color: #f1f1f1;
+          background-color: var(--select-color);
+          > label > i,
+          span {
+            color: var(--light);
+          }
         }
 
         input[type='radio'] {
@@ -472,7 +476,7 @@ function resetFilters() {
         }
 
         &:not(:last-child) {
-          border-bottom: 1px solid #ddd;
+          border-bottom: 1px solid var(--surface-color-2);
         }
 
         > label {
@@ -537,6 +541,7 @@ function resetFilters() {
       > p.item-count {
         font-size: 1.4rem;
         text-align: center;
+        margin: 0.8rem 0;
       }
     }
 

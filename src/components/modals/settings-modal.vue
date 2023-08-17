@@ -9,6 +9,20 @@
     <div class="modal__content">
       <section>
         <h3>Display</h3>
+        <!-- Theme -->
+        <div class="checkbox-group">
+          <input
+            type="checkbox"
+            id="darkTheme"
+            v-model="settingsStore.darkTheme"
+          />
+          <label for="darkTheme">
+            <p><strong>Dark Theme</strong></p>
+            <p>Use a dark theme instead of a light theme.</p>
+          </label>
+        </div>
+
+        <!-- Table Mode -->
         <div class="checkbox-group">
           <input
             type="checkbox"
@@ -23,6 +37,8 @@
             </p>
           </label>
         </div>
+
+        <!-- Large Number Abbreviation -->
         <div class="checkbox-group">
           <input
             type="checkbox"
@@ -37,6 +53,7 @@
             </p>
           </label>
         </div>
+
         <!-- Obvious Rarity -->
         <div class="checkbox-group">
           <input

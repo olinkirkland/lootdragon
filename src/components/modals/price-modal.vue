@@ -59,20 +59,14 @@ import { ModalController } from '@/controllers/modal-controller';
 </script>
 
 <style scoped lang="scss">
-.modal {
-  section {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-    padding: 1.2rem;
-  }
-}
-
 .coin-legend-container {
   border: 1px solid #ffebce;
-  margin: 0 auto;
+  margin: 2rem auto 0 auto;
   width: fit-content;
   background-color: #fff7ec;
+  * {
+    color: var(--dark);
+  }
 }
 .coin-legend {
   display: flex;

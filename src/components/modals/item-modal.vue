@@ -113,23 +113,13 @@ function copyJSON() {
   max-width: 64rem;
   max-height: 80%;
 
-  .modal__content {
-    overflow-y: auto;
-    flex: 1;
-  }
-
   section {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-    padding: 1.2rem;
-
     .detail-group:not(:last-child) {
       margin-bottom: 0.8rem;
     }
 
     &:not(:last-child) {
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid var(--text-color);
     }
 
     &.actions {
@@ -164,11 +154,11 @@ function copyJSON() {
     padding: 0.2rem 0.6rem;
     border-radius: 5px;
     text-transform: capitalize;
-    color: #f1f1f1;
+    color: var(--surface-color);
 
     &--common {
       background-color: var(--common-color);
-      color: #222;
+      color: var(--dark);
     }
 
     &--uncommon {

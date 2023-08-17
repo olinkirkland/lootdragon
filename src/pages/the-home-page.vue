@@ -8,15 +8,15 @@
       <img src="/assets/images/logo.webp" id="logo" alt="logo" />
       <h1>Loot Dragon</h1>
       <div class="actions">
-        <button @click="router.push({ name: 'items' })">
+        <button class="primary" @click="router.push({ name: 'items' })">
           <i class="fas fa-box-open"></i>
           <span>Item Browser</span>
         </button>
-        <button disabled>
+        <button class="primary" disabled>
           <i class="fas fa-store"></i>
           <span>Shop Generator</span>
         </button>
-        <button disabled>
+        <button class="primary" disabled>
           <i class="fas fa-coins"></i>
           <span>Loot Generator</span>
         </button>
@@ -34,7 +34,7 @@
       <div class="content">
         <button
           @click="router.push({ name: 'items', query: { i: dailyItem.id } })"
-          class="text"
+          class="text primary"
         >
           <span>{{ dailyItem.name.text }}</span>
         </button>
@@ -65,13 +65,13 @@ const dailyItem = computed(() => {
 .home-container {
   width: 100%;
   height: 100vh;
-  background-color: #222;
+  background-color: var(--dark);
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
 
   p {
-    color: #fab44d;
+    color: var(--primary-color);
   }
 
   .home {
@@ -92,7 +92,7 @@ const dailyItem = computed(() => {
       font-weight: lighter;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: #fab44d;
+      color: var(--primary-color);
     }
 
     .actions {
@@ -100,11 +100,6 @@ const dailyItem = computed(() => {
       width: fit-content;
       padding: 2rem;
       gap: 0.8rem;
-
-      > button {
-        background-color: #fab44d !important;
-        color: #222 !important;
-      }
     }
 
     p {
@@ -120,7 +115,7 @@ const dailyItem = computed(() => {
     bottom: 0.4rem;
     width: 100%;
     padding: 1.2rem;
-    border-top: 1px dashed #fab44d;
+    border-top: 1px dashed var(--primary-color);
     background-color: rgb(250, 180, 77, 0.1);
     display: flex;
     flex-direction: column;
@@ -131,8 +126,8 @@ const dailyItem = computed(() => {
       display: flex;
       align-items: center;
       gap: 0.8rem;
-      color: #fab44d;
-      opacity: 0.4;
+      color: var(--primary-color);
+      opacity: 0.6;
       font-size: 1.4rem;
       font-style: italic;
       margin-bottom: -0.4rem;
@@ -145,10 +140,6 @@ const dailyItem = computed(() => {
       gap: 0;
     }
   }
-}
-
-button.text {
-  color: #fab44d;
 }
 
 @media (max-width: 768px) {

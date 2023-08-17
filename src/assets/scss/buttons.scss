@@ -3,14 +3,22 @@ button {
   padding: 0 1.2rem;
   font-size: 1.6rem;
   font-weight: bold;
-  color: white;
-  background-color: #222;
-  border: none;
+  color: var(--text-color);
+  background-color: var(--surface-color-2);
+  border: 1px solid var(--surface-color-3);
   border-radius: 5px;
   display: flex;
   align-items: center;
   width: fit-content;
   cursor: pointer;
+
+  &.primary {
+    background-color: var(--primary-color);
+    border: none;
+    > * {
+      color: var(--dark);
+    }
+  }
 
   // transition: all 0.2s ease-in-out;
 
@@ -21,7 +29,7 @@ button {
 
   &.icon {
     background-color: transparent;
-    color: #222;
+    color: var(--text-color);
     width: fit-content;
     font-size: 2rem;
     width: 3.6rem;
@@ -29,7 +37,7 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-
+    border: none;
     box-shadow: none;
   }
 
@@ -44,8 +52,8 @@ button {
   }
 
   &.active {
-    background-color: #222;
-    color: #f1f1f1;
+    background-color: var(--text-color);
+    color: var(--surface-color);
   }
 }
 
@@ -56,14 +64,22 @@ button.text {
   font-size: 1.6rem;
   font-weight: normal;
   padding: 0;
-  color: #222;
+  color: var(--text-color);
   gap: 0.4rem;
   width: fit-content;
   box-shadow: none;
+  border: none;
+
+  &.primary {
+    * {
+      color: var(--primary-color);
+    }
+  }
 
   > span {
     text-decoration: underline;
   }
+
   > i {
     margin: 0;
   }

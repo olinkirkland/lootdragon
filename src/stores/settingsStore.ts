@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 export const useSettingsStore = defineStore({
   id: 'settings',
   state: () => ({
-    theme: 'light',
+    darkTheme: true,
     language: 'en',
     tableMode: false,
     largeNumberAbbreviation: true,
@@ -11,8 +11,8 @@ export const useSettingsStore = defineStore({
     saveFilterChoices: true
   }),
   actions: {
-    setTheme(theme: string) {
-      this.theme = theme;
+    setDarkTheme(darkTheme: boolean) {
+      this.darkTheme = darkTheme;
     },
     setLanguage(language: string) {
       this.language = language;
@@ -33,7 +33,7 @@ export const useSettingsStore = defineStore({
       const settings = localStorage.getItem('settings');
       if (settings) {
         const parsedSettings = JSON.parse(settings);
-        this.theme = parsedSettings.theme;
+        this.darkTheme = parsedSettings.darkTheme;
         this.language = parsedSettings.language;
         this.tableMode = parsedSettings.tableMode;
         this.largeNumberAbbreviation = parsedSettings.largeNumberAbbreviation;

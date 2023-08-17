@@ -1,15 +1,20 @@
 <template>
-  <div v-if="!!currentModal" class="modal-container">
-    <div
-      class="modal-container__background"
-    ></div>
+  <div
+    v-if="!!currentModal"
+    class="modal-container"
+    :class="{ dark: settingsStore.darkTheme }"
+  >
+    <div class="modal-container__background"></div>
     <component :is="currentModal" v-bind="currentModalOptions" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ModalController } from '@/controllers/modal-controller';
+import { useSettingsStore } from '@/stores/settingsStore';
 import { ComponentOptions, shallowRef } from 'vue';
+
+const settingsStore = useSettingsStore();
 
 const currentModal = shallowRef<ComponentOptions | null>(null);
 const currentModalOptions = shallowRef<Record<string, unknown> | null>(null);
@@ -42,7 +47,7 @@ ModalController.getInstance().addEventListener(({ modal, options }) => {
     height: 100%;
     position: absolute;
     top: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6);
     z-index: -1;
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-container" :class="{ dark: settingsStore.darkTheme }">
     <router-view name="app"></router-view>
     <div class="page-container">
       <router-view name="page"></router-view>
@@ -10,6 +10,9 @@
 
 <script setup lang="ts">
 import ModalContainer from './components/modal-container.vue';
+import { useSettingsStore } from './stores/settingsStore';
+
+const settingsStore = useSettingsStore();
 </script>
 
 <style lang="scss">

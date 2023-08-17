@@ -19,8 +19,8 @@
   min-width: 0;
   min-height: 0;
   padding: 2rem 4rem;
-  background-color: #222;
-  border-color: #fab44d;
+  background-color: var(--surface-color);
+  border-color: var(--primary-color);
 
   section {
     display: flex;
@@ -40,11 +40,11 @@
       width: 100%;
       gap: 0.8rem;
       text-transform: uppercase;
-      color: #fab44d;
+      color: var(--primary-color);
     }
 
     &:not(:last-child) {
-      border-bottom: 1px solid #dddddd;
+      border-bottom: 1px solid var(--primary-color);
     }
   }
 }

@@ -1,14 +1,47 @@
 @import 'resets';
 
 :root {
-  --common-color: #f1f1f1;
-  --uncommon-color: #00ad00;
-  --rare-color: #9900ff;
-  --unique-color: #ff0000;
+  // Colors
+  --primary-color: #d48611;
+  --text-color: #222;
+  --text-color-2: #333;
+  --text-color-3: #444;
+  --surface-color: #f1f1f1;
+  --surface-color-2: #e1e1e1;
+  --surface-color-3: #d1d1d1;
+  --select-color: #3251ff;
+
+  // Shades
+  --shadow: rgba(0, 0, 0, 0.4);
+
+  // Rarities
+  --common-color: #afafaf;
+  --uncommon-color: #3fba3f;
+  --rare-color: #8737bd;
+  --unique-color: #df4545;
+
+  // Non-theme Colors
+  --dark: #222;
+  --light: #f1f1f1;
+}
+
+.dark {
+  // Colors
+  --primary-color: #fab44d;
+  --text-color: #f1f1f1;
+  --text-color-2: #e1e1e1;
+  --text-color-3: #d1d1d1;
+  --surface-color: #222;
+  --surface-color-2: #333;
+  --surface-color-3: #444;
+  --select-color: #3251ff;
+
+  // Shades
+  --shadow: rgba(255, 255, 255, 0.4);
 }
 
 body {
-  background-color: #222;
+  background-color: var(--surface-color);
 }
 
 body,
@@ -41,6 +74,19 @@ h6 {
   font-size: 1rem;
 }
 
+// Font Color
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+label {
+  color: var(--text-color);
+}
+
 p,
 label,
 input {
@@ -56,7 +102,7 @@ input[type='password'] {
   align-items: center;
   height: 3.6rem;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--surface-color-2);
 
   &:focus {
     outline: none;
@@ -69,7 +115,7 @@ img.coin {
 
 pre {
   font-size: 1.2rem;
-  background-color: #f5f5f5;
+  background-color: var(--surface-color);
   padding: 1rem;
   font-family: monospace;
   overflow-x: auto;
@@ -101,10 +147,6 @@ pre {
   }
 }
 
-.light {
-  color: #fab44d !important;
-}
-
 .flex {
   display: flex;
   gap: 0.8rem;
@@ -115,27 +157,33 @@ pre {
 }
 
 header.page-header {
+  z-index: 1;
+  background-color: var(--surface-color);
+  box-shadow: 0 0 1.2rem 0rem rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid var(--shadow);
+  max-height: 100vh;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
-  padding: 0.8rem;
-  background-color: #eee;
-  z-index: 1;
-  box-shadow: 0 0 0.8rem 0rem rgba(0, 0, 0, 0.3);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  max-height: 100vh;
+
   .brand {
+    width: 100%;
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #222;
-    background-color: #222;
+    background-color: var(--dark);
     padding: 1.2rem;
-    margin: -0.8rem;
-    margin-bottom: 0;
+    margin-bottom: 0.8rem;
+    border-bottom: 1px solid var(--shadow);
+
+    h1,
+    button.icon {
+      color: var(--primary-color);
+    }
+
     > .logo {
       display: flex;
       align-items: center;
-      color: #fab44d;
+      color: var(--primary-color);
       cursor: pointer;
 
       > h1 {
