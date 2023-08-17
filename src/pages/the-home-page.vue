@@ -33,7 +33,7 @@
       </div>
       <div class="content">
         <button
-          @click="router.push({ name: 'items', query: { id: dailyItem.id } })"
+          @click="router.push({ name: 'items', query: { i: dailyItem.id } })"
           class="text"
         >
           <span>{{ dailyItem.name.text }}</span>

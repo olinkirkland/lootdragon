@@ -71,6 +71,9 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
+  // Ensure that the modal is closed
+  ModalController.close();
+
   console.log('from', from.name, 'to', to.name);
   if (useItemsStore().items.length === 0) {
     // Load the items
