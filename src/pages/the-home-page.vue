@@ -38,7 +38,6 @@
         >
           <span>{{ dailyItem.name.text }}</span>
         </button>
-        <p>{{ dailyItem.rarity }} {{ dailyItem.itemSubcategory }}</p>
       </div>
     </div>
   </div>
@@ -120,7 +119,7 @@ const dailyItem = computed(() => {
   > .daily-item {
     bottom: 0.4rem;
     width: 100%;
-    padding: 0.8rem;
+    padding: 1.2rem;
     border-top: 1px dashed #fab44d;
     background-color: rgb(250, 180, 77, 0.1);
     display: flex;
@@ -136,6 +135,7 @@ const dailyItem = computed(() => {
       opacity: 0.4;
       font-size: 1.4rem;
       font-style: italic;
+      margin-bottom: -0.4rem;
     }
 
     > .content {
@@ -143,13 +143,6 @@ const dailyItem = computed(() => {
       flex-direction: column;
       align-items: center;
       gap: 0;
-
-      > p {
-        text-transform: uppercase;
-        font-size: 1.2rem;
-        letter-spacing: 1px;
-        opacity: 0.4;
-      }
     }
   }
 }

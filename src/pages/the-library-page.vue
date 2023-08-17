@@ -22,6 +22,7 @@
           <input type="text" v-model="search" placeholder="Search..." />
           <i class="fas fa-search"></i>
         </div>
+        <!-- Filter by -->
         <button
           class="icon"
           :class="{ active: showFilters }"
@@ -32,6 +33,7 @@
         >
           <i class="fas fa-filter"></i>
         </button>
+        <!-- Sort by -->
         <button
           class="icon"
           :class="{ active: showSorting }"
@@ -41,6 +43,10 @@
           "
         >
           <i class="fas fa-sort-amount-down"></i>
+        </button>
+        <!-- Random -->
+        <button class="icon" @click="openRandomItem">
+          <i class="fas fa-dice-five"></i>
         </button>
       </div>
       <div v-if="showFilters" class="filters">
@@ -349,7 +355,7 @@ watch(
   }
 );
 
-// ?id=SOME_ID
+// ?i=SOME_ID
 const urlParams = new URLSearchParams(window.location.search);
 const itemId = urlParams.get('i');
 if (itemId) {
@@ -357,6 +363,12 @@ if (itemId) {
   if (item) {
     ModalController.open(ItemModal, { item });
   }
+}
+
+function openRandomItem() {
+  const randomItem =
+    filteredItems.value[Math.floor(Math.random() * filteredItems.value.length)];
+  ModalController.open(ItemModal, { item: randomItem });
 }
 
 function resetFilters() {
@@ -441,6 +453,7 @@ function resetFilters() {
           min-width: 8rem;
           padding-left: 3.2rem;
         }
+
         > i {
           position: absolute;
           pointer-events: none;
