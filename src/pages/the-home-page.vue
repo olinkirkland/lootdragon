@@ -179,6 +179,7 @@ const dailyItem = computed(() => {
   .home {
     border: none !important;
     flex: 1;
+    width: 100%;
   }
 
   .daily-item {
