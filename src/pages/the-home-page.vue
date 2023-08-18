@@ -173,6 +173,10 @@ const dailyItem = computed(() => {
     display: none;
   }
 
+  #logo {
+    max-width: 16rem;
+  }
+
   .home-container {
     gap: 0;
   }
