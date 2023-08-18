@@ -60,10 +60,31 @@
           maintain the huge troves of content I scrape and parse.
         </p>
         <p>
-          This app was made for my friends and players. If it helps you in your
-          journey from Otari to Absalom and beyond, that's just the cherry on
-          top.
+          Development is a work in progress, and I'm always looking for ways to
+          improve it: Your feedback is super appreciated! You can reach me at
+          <a href="mailto:me@olinkirk.land">me@olinkirk.land</a>
         </p>
+        <p>
+          I hope this tool helps you on your journey from Otari to Absalom and
+          beyond, whether you're a player or a GM.
+        </p>
+      </section>
+      <section>
+        <p><strong>License</strong></p>
+        <p>
+          I do not claim ownership of any data gathered from third-party
+          sources. All data from Archives of Nethys is used under the
+          <a href="https://2e.aonprd.com/Licenses.aspx">Open Game License</a>
+          and in accordance with their respective terms of use.
+        </p>
+        <p>
+          Because a copy of the Open Game License must accompany derivative
+          works, I've included it below.
+        </p>
+        <button @click="ModalController.open(LicenseModal)">
+          <i class="fas fa-file-alt"></i>
+          <span>Open Game License</span>
+        </button>
       </section>
     </div>
   </div>
@@ -72,6 +93,7 @@
 <script setup lang="ts">
 import { ModalController } from '@/controllers/modal-controller';
 import SettingsModal from './settings-modal.vue';
+import LicenseModal from './license-modal.vue';
 </script>
 
 <style scoped lang="scss">
