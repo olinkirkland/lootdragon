@@ -68,7 +68,8 @@ const dailyItem = computed(() => {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  background: var(--wallpaper) repeat center center fixed;
+  // background: var(--wallpaper) repeat center center fixed;
+  background: url('/assets/images/prism-dark.jpg') repeat center center fixed;
 
   p {
     color: var(--primary-color);
