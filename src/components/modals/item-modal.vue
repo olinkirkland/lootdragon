@@ -118,10 +118,6 @@ function copyJSON() {
       margin-bottom: 0.8rem;
     }
 
-    &:not(:last-child) {
-      border-bottom: 1px solid var(--text-color);
-    }
-
     &.actions {
       flex-direction: row;
     }

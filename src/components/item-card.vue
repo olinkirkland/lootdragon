@@ -43,7 +43,8 @@ const settingsStore = useSettingsStore();
     content: '';
     width: 100%;
     position: absolute;
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: var(--shadow);
+    opacity: 0.1;
     height: 100%;
     pointer-events: none;
   }

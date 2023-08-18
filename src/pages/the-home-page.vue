@@ -65,10 +65,10 @@ const dailyItem = computed(() => {
 .home-container {
   width: 100%;
   height: 100vh;
-  background-color: var(--dark);
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+  background: var(--wallpaper) repeat center center fixed;
 
   p {
     color: var(--primary-color);

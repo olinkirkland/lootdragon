@@ -1,5 +1,5 @@
 .modal {
-  background-color: var(--surface-color);
+  background: var(--wallpaper) repeat center center fixed;
   min-width: 40%;
   max-width: 64rem;
   min-height: 40%;
@@ -12,7 +12,7 @@
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid var(--surface-color-3);
-    background-color: var(--surface-color-2);
+    // background-color: var(--surface-color-2);
     padding: 0.8rem 0.8rem 0.8rem 1.4rem !important;
 
     h2 {
@@ -22,6 +22,7 @@
 
   .modal__content {
     overflow-y: auto;
+    background: var(--wallpaper) repeat center center fixed;
     flex: 1;
   }
 

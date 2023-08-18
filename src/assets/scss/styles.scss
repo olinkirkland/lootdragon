@@ -14,8 +14,11 @@
   // Shades
   --shadow: rgba(0, 0, 0, 0.4);
 
+  // Variables
+  --wallpaper: url('/assets/images/prism-light.jpg');
+
   // Rarities
-  --common-color: #afafaf;
+  --common-color: #f1f1f1;
   --uncommon-color: #3fba3f;
   --rare-color: #8737bd;
   --unique-color: #df4545;
@@ -38,6 +41,9 @@
 
   // Shades
   --shadow: rgba(255, 255, 255, 0.4);
+
+  // Variables
+  --wallpaper: url('/assets/images/prism-dark.jpg');
 }
 
 body {
