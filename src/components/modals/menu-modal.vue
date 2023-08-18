@@ -89,7 +89,7 @@ ul {
   > li {
     display: flex;
     padding: 0.8rem;
-    background-color: var(--dark-translucent);
+    background-color: var(--surface-color);
   }
 }
 </style>
