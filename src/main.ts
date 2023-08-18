@@ -37,10 +37,10 @@ app.use(router);
 app.mount('#app');
 
 // Initialize Mixpanel
-// if it's running from localhost, don't initialize mixpanel
+// if it's running from localhost, don't track the page load
+mixpanel.init('c270f1816c518d251d2b2414daf17d84');
 if (window.location.hostname !== 'localhost') {
-  console.warn('Mixpanel is enabled; this is not a drill!');
-  mixpanel.init('c270f1816c518d251d2b2414daf17d84');
+  console.warn('Mixpanel tracked the page load!');
   mixpanel.track('Page load');
 } else {
   console.warn('Accessing from localhost; Mixpanel is disabled.');

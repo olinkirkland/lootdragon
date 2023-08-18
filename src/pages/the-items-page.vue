@@ -1,22 +1,6 @@
 <template>
   <div class="library-container">
     <header class="page-header">
-      <div class="brand">
-        <div @click="router.push('/')" class="logo">
-          <img src="/assets/images/logo.png" alt="logo" />
-          <h1>Loot Dragon</h1>
-        </div>
-        <button
-          class="icon"
-          @click="
-            ModalController.open(SettingsModal, {
-              resetFiltersFunc: resetFilters
-            })
-          "
-        >
-          <i class="fas fa-cog"></i>
-        </button>
-      </div>
       <div class="search-container">
         <div class="search-box">
           <input type="text" v-model="search" placeholder="Search..." />
@@ -174,7 +158,6 @@ import {
   getSourcesFilters,
   getTraitsFilters
 } from '@/filter-utils';
-import router from '@/router';
 import { useItemsStore } from '@/stores/itemsStore';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { Item } from '@/types';
@@ -184,7 +167,6 @@ import CategoryModal from '../components/modals/category-modal.vue';
 import LevelsModal from '../components/modals/levels-modal.vue';
 import PriceModal from '../components/modals/price-modal.vue';
 import RarityModal from '../components/modals/rarity-modal.vue';
-import SettingsModal from '../components/modals/settings-modal.vue';
 import SourcesModal from '../components/modals/sources-modal.vue';
 import TraitsModal from '../components/modals/traits-modal.vue';
 
@@ -371,22 +353,22 @@ function openRandomItem() {
   ModalController.open(ItemModal, { item: randomItem });
 }
 
-function resetFilters() {
-  rarityFilter.value = initialRarityFilter.value;
-  sourceFilter.value = initialSourceFilter.value;
-  traitsFilter.value = initialTraitsFilter.value;
-  categoryFilter.value = initialCategoryFilter.value;
-  priceFilter.value = initialPriceFilter.value;
-  levelFilter.value = initialLevelFilter.value;
+// function resetFilters() {
+//   rarityFilter.value = initialRarityFilter.value;
+//   sourceFilter.value = initialSourceFilter.value;
+//   traitsFilter.value = initialTraitsFilter.value;
+//   categoryFilter.value = initialCategoryFilter.value;
+//   priceFilter.value = initialPriceFilter.value;
+//   levelFilter.value = initialLevelFilter.value;
 
-  // Todo fix this workaround; the filter panel doesn't update when the filters are reset
-  if (showFilters.value) {
-    showFilters.value = false;
-    setTimeout(() => {
-      showFilters.value = true;
-    });
-  }
-}
+//   // Todo fix this workaround; the filter panel doesn't update when the filters are reset
+//   if (showFilters.value) {
+//     showFilters.value = false;
+//     setTimeout(() => {
+//       showFilters.value = true;
+//     });
+//   }
+// }
 </script>
 
 <style scoped lang="scss">
@@ -402,7 +384,7 @@ function resetFilters() {
     > .search-container {
       display: flex;
       gap: 0.8rem;
-      padding: 0 0.8rem;
+      padding: 0.8rem;
 
       .search-box {
         display: flex;
@@ -424,6 +406,11 @@ function resetFilters() {
           left: 1.4rem;
         }
       }
+    }
+
+    > p.item-count {
+      font-size: 1.4rem;
+      padding: 0.8rem;
     }
 
     > .filters,
@@ -539,9 +526,7 @@ function resetFilters() {
       }
 
       > p.item-count {
-        font-size: 1.4rem;
         text-align: center;
-        margin: 0.8rem 0;
       }
     }
 

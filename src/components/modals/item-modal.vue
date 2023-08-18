@@ -68,10 +68,14 @@
         </p>
       </section>
       <section>
-        <div class="flex">
+        <div class="spread">
           <button class="text" @click="copyJSON">
             <i class="fas fa-copy"></i>
             <span>Copy JSON</span>
+          </button>
+          <button class="text" @click="reportItem" :disabled="isItemReported">
+            <i class="fas fa-bug"></i>
+            <span>Report Item</span>
           </button>
         </div>
       </section>
@@ -82,9 +86,11 @@
 <script setup lang="ts">
 import { ModalController } from '@/controllers/modal-controller';
 import { Item } from '@/types';
-import { PropType, computed } from 'vue';
+import mixpanel from 'mixpanel-browser';
+import { PropType, computed, ref } from 'vue';
 import CopyText from '../copy-text.vue';
 import PriceDisplay from '../price-display.vue';
+import ReportModal from './report-modal.vue';
 
 const props = defineProps({
   item: {
@@ -104,6 +110,25 @@ const nethysLink = computed(() => {
 
 function copyJSON() {
   navigator.clipboard.writeText(JSON.stringify(item, null, 2));
+}
+
+const reportedItems = ref<string[]>(
+  JSON.parse(localStorage.getItem('reportedItems') || '[]') as string[]
+);
+
+const isItemReported = computed(() => reportedItems.value.includes(item.id));
+
+function reportItem() {
+  // Report the item to Mixpanel
+  mixpanel.track('Item Reported', {
+    item: item.name.text,
+    id: item.id
+  });
+
+  reportedItems.value.push(item.id);
+  localStorage.setItem('reportedItems', JSON.stringify(reportedItems.value));
+
+  ModalController.open(ReportModal, { item });
 }
 </script>
 

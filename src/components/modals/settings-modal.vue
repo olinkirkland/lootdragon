@@ -87,10 +87,6 @@
             </p>
           </label>
         </div>
-        <button @click="props.resetFiltersFunc">
-          <i class="fas fa-sync-alt"></i>
-          <span>Reset Filters</span>
-        </button>
       </section>
     </div>
   </div>
@@ -101,13 +97,6 @@ import { ModalController } from '@/controllers/modal-controller';
 import { useSettingsStore } from '@/stores/settingsStore';
 
 const settingsStore = useSettingsStore();
-
-const props = defineProps({
-  resetFiltersFunc: {
-    type: Function,
-    required: true
-  }
-});
 </script>
 
 <style scoped lang="scss">

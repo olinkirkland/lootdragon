@@ -177,38 +177,4 @@ header.page-header {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-
-  .brand {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    background-color: var(--dark);
-    padding: 1.2rem;
-    margin-bottom: 0.8rem;
-    border-bottom: 1px solid var(--shadow);
-
-    h1,
-    button.icon {
-      color: var(--primary-color);
-    }
-
-    > .logo {
-      display: flex;
-      align-items: center;
-      color: var(--primary-color);
-      cursor: pointer;
-
-      > h1 {
-        font-size: 1.6rem;
-        font-weight: lighter;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-      }
-
-      > img {
-        height: 4rem;
-        margin-right: 0.8rem;
-      }
-    }
-  }
 }
