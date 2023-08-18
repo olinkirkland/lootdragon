@@ -411,12 +411,13 @@ function openRandomItem() {
     > p.item-count {
       font-size: 1.4rem;
       padding: 0.8rem;
+      padding-top: 0;
     }
 
     > .filters,
     .sortings {
-      margin: 0.8rem;
-      margin-bottom: 0;
+      margin: 0 0.8rem;
+      margin-bottom: 0.8rem;
       flex: 1;
       overflow: auto;
       border: 2px solid red;
