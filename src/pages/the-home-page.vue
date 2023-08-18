@@ -93,7 +93,7 @@ const dailyItem = computed(() => {
   .home {
     padding: 2rem;
     border: 1px solid var(--primary-color);
-    background-color: var(--shadow);
+    background-color: var(--dark-translucent);
     display: flex;
     flex-direction: column;
     align-items: center;
