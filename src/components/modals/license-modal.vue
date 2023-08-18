@@ -8,8 +8,6 @@
     </header>
     <div class="modal__content">
       <section>
-        <p><strong>OPEN GAME LICENSE Version 1.0a</strong></p>
-
         <p>
           The following text is the property of Wizards of the Coast, Inc. and
           is Copyright 2000 Wizards of the Coast, Inc (“Wizards”). All Rights
@@ -18,7 +16,7 @@
       </section>
 
       <section>
-        <p><strong>1. Definitions:</strong></p>
+        <p><strong>1. Definitions</strong></p>
         <p>
           (a) “Contributors” means the copyright and/or trademark owners who
           have contributed Open Game Content;
@@ -75,7 +73,7 @@
       </section>
 
       <section>
-        <p><strong>2. The License:</strong></p>
+        <p><strong>2. The License</strong></p>
         <p>
           This License applies to any Open Game Content that contains a notice
           indicating that the Open Game Content may only be Used under and in
@@ -88,7 +86,7 @@
       </section>
 
       <section>
-        <p><strong>3. Offer and Acceptance:</strong></p>
+        <p><strong>3. Offer and Acceptance</strong></p>
         <p>
           By Using the Open Game Content You indicate Your acceptance of the
           terms of this License.
@@ -96,7 +94,7 @@
       </section>
 
       <section>
-        <p><strong>4. Grant and Consideration:</strong></p>
+        <p><strong>4. Grant and Consideration</strong></p>
         <p>
           In consideration for agreeing to use this License, the Contributors
           grant You a perpetual, worldwide, royalty-free, non-exclusive license
@@ -105,7 +103,7 @@
       </section>
 
       <section>
-        <p><strong>5. Representation of Authority to Contribute:</strong></p>
+        <p><strong>5. Representation of Authority to Contribute</strong></p>
         <p>
           If You are contributing original material as Open Game Content, You
           represent that Your Contributions are Your original creation and/or
@@ -115,7 +113,7 @@
       </section>
 
       <section>
-        <p><strong>6. Notice of License Copyright:</strong></p>
+        <p><strong>6. Notice of License Copyright</strong></p>
         <p>
           You must update the COPYRIGHT NOTICE portion of this License to
           include the exact text of the COPYRIGHT NOTICE of any Open Game
@@ -126,7 +124,7 @@
       </section>
 
       <section>
-        <p><strong>7. Use of Product Identity:</strong></p>
+        <p><strong>7. Use of Product Identity</strong></p>
         <p>
           You agree not to Use any Product Identity, including as an indication
           as to compatibility, except as expressly licensed in another,
@@ -143,7 +141,7 @@
       </section>
 
       <section>
-        <p><strong>8. Identification:</strong></p>
+        <p><strong>8. Identification</strong></p>
         <p>
           If you distribute Open Game Content You must clearly indicate which
           portions of the work that you are distributing are Open Game Content.
@@ -151,7 +149,7 @@
       </section>
 
       <section>
-        <p><strong>9. Updating the License:</strong></p>
+        <p><strong>9. Updating the License</strong></p>
         <p>
           Wizards or its designated Agents may publish updated versions of this
           License. You may use any authorized version of this License to copy,
@@ -161,7 +159,7 @@
       </section>
 
       <section>
-        <p><strong>10. Copy of this License:</strong></p>
+        <p><strong>10. Copy of this License</strong></p>
         <p>
           You MUST include a copy of this License with every copy of the Open
           Game Content You Distribute.
@@ -169,7 +167,7 @@
       </section>
 
       <section>
-        <p><strong>11. Use of Contributor Credits:</strong></p>
+        <p><strong>11. Use of Contributor Credits</strong></p>
         <p>
           You may not market or advertise the Open Game Content using the name
           of any Contributor unless You have written permission from the
@@ -178,7 +176,7 @@
       </section>
 
       <section>
-        <p><strong>12. Inability to Comply:</strong></p>
+        <p><strong>12. Inability to Comply</strong></p>
         <p>
           If it is impossible for You to comply with any of the terms of this
           License with respect to some or all of the Open Game Content due to
@@ -188,7 +186,7 @@
       </section>
 
       <section>
-        <p><strong>13. Termination:</strong></p>
+        <p><strong>13. Termination</strong></p>
         <p>
           This License will terminate automatically if You fail to comply with
           all terms herein and fail to cure such breach within 30 days of
@@ -198,7 +196,7 @@
       </section>
 
       <section>
-        <p><strong>14. Reformation:</strong></p>
+        <p><strong>14. Reformation</strong></p>
         <p>
           If any provision of this License is held to be unenforceable, such
           provision shall be reformed only to the extent necessary to make it
@@ -207,7 +205,7 @@
       </section>
 
       <section>
-        <p><strong>15. COPYRIGHT NOTICE</strong></p>
+        <p><strong>15. Copyright Notice</strong></p>
         <p>
           Open Game License v 1.0 Copyright 2000, Wizards of the Coast, Inc.
         </p>
