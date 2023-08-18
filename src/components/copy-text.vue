@@ -5,6 +5,7 @@
       <input type="text" :value="text" readonly />
       <button class="text" @click="copyText">
         <i class="fas" :class="justClicked ? 'fa-check' : 'fa-copy'"></i>
+        <span v-if="justClicked">Copied!</span>
       </button>
     </div>
   </div>
@@ -45,6 +46,7 @@ function copyText() {
   > .copy-text {
     display: flex;
     position: relative;
+    align-items: center;
     > input {
       width: 100%;
       padding-right: 2.8rem;
@@ -52,8 +54,18 @@ function copyText() {
     }
     > button {
       position: absolute;
-      right: 0.8rem;
-      color: #222;
+      background-color: var(--surface-color-2);
+      border: 1px solid var(--surface-color-3);
+      border-left: none;
+      padding: 0 0.8rem;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      right: 0;
+      color: var(--text-color);
+
+      > span {
+        text-decoration: none;
+      }
     }
   }
 }

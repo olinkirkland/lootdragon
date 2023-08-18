@@ -102,7 +102,13 @@ input[type='password'] {
   align-items: center;
   height: 3.6rem;
   border-radius: 5px;
-  border: 1px solid var(--surface-color-2);
+  border: 1px solid var(--surface-color-3);
+  background-color: var(--surface-color-2);
+  color: var(--text-color);
+
+  + i {
+    color: var(--text-color);
+  }
 
   &:focus {
     outline: none;

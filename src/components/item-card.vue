@@ -43,7 +43,7 @@ const settingsStore = useSettingsStore();
     content: '';
     width: 100%;
     position: absolute;
-    background-color: #00000010;
+    background-color: rgba(0, 0, 0, 0.05);
     height: 100%;
     pointer-events: none;
   }
@@ -65,7 +65,7 @@ const settingsStore = useSettingsStore();
     border: none;
 
     &:not(:last-child) {
-      border-bottom: 1px solid var(--shadow);
+      border-bottom: 1px solid var(--surface-color-3);
     }
 
     @include alternating-shade();
@@ -73,7 +73,7 @@ const settingsStore = useSettingsStore();
     :deep(.price) {
       color: var(--text-color);
       background-color: transparent;
-      border-right: 1px solid var(--shadow);
+      border-right: 1px solid var(--surface-color-3);
     }
   }
 
@@ -86,7 +86,8 @@ const settingsStore = useSettingsStore();
     text-decoration: none;
     background-color: transparent;
     color: var(--text-color);
-
+    border-radius: 0;
+    border: none;
     > .rarity {
       margin-left: 0.8rem;
       font-size: 1.2rem;
@@ -143,9 +144,11 @@ const settingsStore = useSettingsStore();
 }
 
 :deep(.price) {
-  color: white;
-  background-color: rgba(34, 34, 34, 0.8);
+  color: var(--text-color);
+  background-color: var(--surface-color-2);
+  border-right: 1px solid var(--surface-color-3);
   height: 100%;
+  z-index: 1;
 }
 
 @media (max-width: 768px) {
@@ -156,7 +159,7 @@ const settingsStore = useSettingsStore();
 
     &:not(:last-child) {
       border: none;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+      border-bottom: 1px solid var(--surface-color-3);
     }
   }
 }

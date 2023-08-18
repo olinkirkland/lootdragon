@@ -3,7 +3,7 @@
     <h1>404</h1>
     <h2>Page not found.</h2>
     <div class="actions">
-      <button @click="router.push({ name: 'home' })">
+      <button class="primary" @click="router.push({ name: 'home' })">
         <i class="fas fa-home"></i>
         <span>Back to Home</span>
       </button>
@@ -42,11 +42,6 @@ import router from '@/router';
 
   > h2 {
     color: #fab44d;
-  }
-
-  button {
-    background-color: #fab44d !important;
-    color: #222 !important;
   }
 
   .actions {
