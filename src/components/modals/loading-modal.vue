@@ -3,7 +3,7 @@
     <section>
       <img src="/assets/images/logo.webp" alt="logo" />
       <p class="loading-text">
-        <span>Loading</span>
+        Loading
         <i class="fas fa-spinner fa-spin"></i>
       </p>
     </section>
@@ -14,8 +14,10 @@
 
 <style scoped lang="scss">
 .modal {
-  width: fit-content;
-  height: fit-content;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   min-width: 0;
   min-height: 0;
   padding: 2rem 4rem;
@@ -27,6 +29,9 @@
     flex-direction: column;
     gap: 0.8rem;
     padding: 1.2rem;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 
     > img {
       width: 24rem;
