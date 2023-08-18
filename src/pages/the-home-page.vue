@@ -22,7 +22,7 @@
           <span>Loot Generator</span>
         </button>
       </div>
-      <p>
+      <p class="blurb">
         Simplifying the way you pick items, design shops, and create loot for
         Pathfinder 2E games.
       </p>
@@ -167,6 +167,10 @@ const dailyItem = computed(() => {
     > button {
       width: 100%;
     }
+  }
+
+  .blurb {
+    display: none;
   }
 
   .home-container {
