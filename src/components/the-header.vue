@@ -4,16 +4,16 @@
       <img src="/assets/images/logo.png" alt="logo" />
       <h1>Loot Dragon</h1>
     </div>
-    <button class="icon" @click="ModalController.open(SettingsModal)">
-      <i class="fas fa-cog"></i>
+    <button class="icon" @click="ModalController.open(MenuModal)">
+      <i class="fas fa-bars"></i>
     </button>
   </header>
 </template>
 
 <script setup lang="ts">
-import SettingsModal from '@/components/modals/settings-modal.vue';
 import { ModalController } from '@/controllers/modal-controller';
 import { useRouter } from 'vue-router';
+import MenuModal from './modals/menu-modal.vue';
 
 const router = useRouter();
 </script>
@@ -25,7 +25,7 @@ header.app-header {
   justify-content: space-between;
   background-color: var(--dark);
   padding: 1.2rem;
-  border-bottom: 1px solid var(--shadow);
+  border-bottom: 1px solid var(--dark-translucent);
 
   h1,
   button.icon {

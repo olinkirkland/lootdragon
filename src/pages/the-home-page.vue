@@ -1,5 +1,6 @@
 <template>
   <div class="home-container">
+    <div class="wallpaper"></div>
     <div class="home">
       <!-- <p>home page</p> -->
       <!-- <button @click="router.push({ name: 'register' })">register</button> -->
@@ -68,16 +69,31 @@ const dailyItem = computed(() => {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  // background: var(--wallpaper) repeat center center fixed;
-  background: url('/assets/images/prism-dark.jpg') repeat center center fixed;
+  position: relative;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+
+  > .wallpaper {
+    background: url('/assets/images/wallpaper.jpg');
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    z-index: -1;
+    -webkit-filter: blur(10px);
+    transform: scale(1.1);
+  }
 
   p {
     color: var(--primary-color);
   }
 
   .home {
-    width: 100%;
-    height: 100%;
+    padding: 2rem;
+    border: 1px solid var(--primary-color);
+    background-color: var(--shadow);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -117,11 +133,12 @@ const dailyItem = computed(() => {
     width: 100%;
     padding: 1.2rem;
     border-top: 1px dashed var(--primary-color);
-    background-color: rgb(250, 180, 77, 0.1);
+    background-color: var(--dark-translucent);
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: auto;
+    position: absolute;
+    bottom: 0;
 
     > .header {
       display: flex;
@@ -150,6 +167,20 @@ const dailyItem = computed(() => {
     > button {
       width: 100%;
     }
+  }
+
+  .home-container {
+    gap: 0;
+  }
+  .home {
+    border: none !important;
+    flex: 1;
+  }
+
+  .daily-item {
+    position: static !important;
+    bottom: unset;
+    background-color: var(--dark-translucent) !important;
   }
 }
 </style>
