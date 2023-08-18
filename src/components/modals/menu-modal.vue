@@ -48,7 +48,7 @@
         </ul>
       </section>
       <section>
-        <p><strong>Credits</strong></p>
+        <p><strong>Message from the Developer</strong></p>
         <p>
           Hi! I'm the developer of this site, Olin. You can find me online at
           <a href="https://olinkirk.land">olinkirk.land</a>
@@ -79,7 +79,7 @@
         </p>
         <p>
           Because a copy of the Open Game License must accompany derivative
-          works, I've included it below.
+          works, I have included it below.
         </p>
         <button @click="ModalController.open(LicenseModal)">
           <i class="fas fa-file-alt"></i>
