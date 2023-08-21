@@ -7,6 +7,33 @@
       </button>
     </header>
     <div class="modal__content">
+      <section v-if="!!user">
+        <p><strong>Account</strong></p>
+        <p>
+          You are logged in as <strong>{{ user?.username }}</strong>
+        </p>
+        <button>
+          <i class="fas fa-user"></i>
+          <span>Account</span>
+        </button>
+        <button>
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span>
+        </button>
+      </section>
+      <section v-else>
+        <p><strong>Account</strong></p>
+        <p>You are not logged in.</p>
+        <div class="flex">
+          <button @click="ModalController.open(RegisterModal)">
+            <span>Sign up</span>
+          </button>
+          <button @click="ModalController.open(LoginModal)">
+            <i class="fas fa-sign-in-alt"></i>
+            <span>Log in</span>
+          </button>
+        </div>
+      </section>
       <section>
         <p><strong>Change Settings</strong></p>
         <p>Customize the appearance or behavior of the app.</p>
@@ -83,7 +110,7 @@
         </p>
         <button @click="ModalController.open(LicenseModal)">
           <i class="fas fa-file-alt"></i>
-          <span>Open Game License</span>
+          <span>Read the Open Game License</span>
         </button>
       </section>
     </div>
@@ -92,8 +119,15 @@
 
 <script setup lang="ts">
 import { ModalController } from '@/controllers/modal-controller';
-import SettingsModal from './settings-modal.vue';
+import { useUserStore } from '@/stores/userStore';
+import { User } from '@/types';
+import { ref } from 'vue';
 import LicenseModal from './license-modal.vue';
+import SettingsModal from './settings-modal.vue';
+import LoginModal from './login-modal.vue';
+import RegisterModal from './register-modal.vue';
+
+const user = ref<null | User>(useUserStore().user);
 </script>
 
 <style scoped lang="scss">

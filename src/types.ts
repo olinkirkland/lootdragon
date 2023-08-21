@@ -1,3 +1,12 @@
+export type User = {
+  id: string;
+  username: string;
+  password: string;
+  bookmarks: string[]; // The ids of the items the user has bookmarked
+  collections: string[]; // The ids of the collections the user owns
+  games: string[]; // The ids of the games the user owns
+};
+
 export type Link = {
   text: string;
   url: string;
