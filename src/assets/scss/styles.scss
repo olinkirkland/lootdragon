@@ -205,3 +205,8 @@ header.page-header {
   display: flex;
   flex-direction: column;
 }
+
+*:disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}

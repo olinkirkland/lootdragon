@@ -5,6 +5,9 @@
         <div class="search-box">
           <input type="text" v-model="search" placeholder="Search..." />
           <i class="fas fa-search"></i>
+          <button @click="search = ''" v-if="search.length > 0" class="icon">
+            <i class="fas fa-times-circle"></i>
+          </button>
         </div>
         <!-- Filter by -->
         <button
@@ -397,13 +400,20 @@ function openRandomItem() {
           width: 100%;
           min-width: 8rem;
           padding-left: 3.2rem;
+          padding-right: 3.2rem;
         }
 
-        > i {
+        i {
           position: absolute;
           pointer-events: none;
           opacity: 0.4;
           left: 1.4rem;
+        }
+
+        button {
+          position: absolute;
+          top: 0;
+          right: 0;
         }
       }
     }

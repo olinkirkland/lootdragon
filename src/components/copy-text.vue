@@ -1,11 +1,16 @@
 <template>
   <div class="copy-text-container">
     <p v-if="!!props.label">{{ props.label }}</p>
-    <div class="copy-text">
-      <input type="text" :value="text" readonly />
-      <button class="text" @click="copyText">
-        <i class="fas" :class="justClicked ? 'fa-check' : 'fa-copy'"></i>
-        <span v-if="justClicked">Copied!</span>
+    <div class="flex">
+      <div class="copy-text">
+        <input type="text" :value="text" readonly />
+        <button class="text" @click="copyText">
+          <i class="fas" :class="justClicked ? 'fa-check' : 'fa-copy'"></i>
+          <span v-if="justClicked">Copied!</span>
+        </button>
+      </div>
+      <button v-if="props.link" class="icon" @click="navigateToLink">
+        <i class="fas fa-external-link-alt"></i>
       </button>
     </div>
   </div>
@@ -22,6 +27,11 @@ const props = defineProps({
   label: {
     type: String,
     required: false
+  },
+  link: {
+    type: Boolean,
+    required: false,
+    default: false
   }
 });
 
@@ -34,6 +44,10 @@ function copyText() {
     justClicked.value = false;
   }, 4000);
 }
+
+function navigateToLink() {
+  window.open(props.text, '_blank');
+}
 </script>
 
 <style scoped lang="scss">
@@ -43,7 +57,8 @@ function copyText() {
     font-size: 1.2rem;
     opacity: 0.6;
   }
-  > .copy-text {
+  .copy-text {
+    flex: 1;
     display: flex;
     position: relative;
     align-items: center;

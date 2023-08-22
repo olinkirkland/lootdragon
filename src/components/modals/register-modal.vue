@@ -1,5 +1,5 @@
 <template>
-  <div class="modal">
+  <div class="modal" :class="{ busy: isBusy }">
     <header>
       <h2>Sign up</h2>
       <button class="icon" @click="ModalController.close">
@@ -35,8 +35,8 @@
               id="confirm-password"
               v-model="confirmPassword"
             />
-            <badge ref="badgeRef" :show="password !== confirmPassword">
-              Passwords do not match
+            <badge ref="badgeRef">
+              {{ errorMessage }}
             </badge>
           </div>
 
@@ -69,16 +69,52 @@ const username = ref('');
 const password = ref('');
 const confirmPassword = ref('');
 const badgeRef = ref<InstanceType<typeof Badge> | null>(null);
+const errorMessage = ref('');
+const isBusy = ref(false);
 
-function registerUser() {
-  console.log('register');
+async function registerUser() {
+  isBusy.value = true;
+  badgeRef.value?.hide();
   if (password.value !== confirmPassword.value) {
-    badgeRef.value?.validate();
+    errorMessage.value = 'Passwords do not match.';
+    badgeRef.value?.show();
     return;
   }
 
-  register(username.value, password.value);
+  const error = await register(username.value, password.value);
+  isBusy.value = false;
+  if (!!error) {
+    let message = `An error occurred. (${error})`;
+    switch (error) {
+      case 409:
+        message = 'Username already exists.';
+        break;
+    }
+    errorMessage.value = message;
+    badgeRef.value?.show();
+    return;
+  }
+
+  // The user has been registered successfully and logged in (automatically)
+  // so we can close the modal.
+  ModalController.close();
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.busy {
+  pointer-events: none;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    opacity: 0.8;
+    background-color: var(--surface-color);
+  }
+}
+</style>

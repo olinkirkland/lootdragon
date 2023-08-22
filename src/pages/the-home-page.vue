@@ -13,14 +13,14 @@
           <i class="fas fa-box-open"></i>
           <span>Item Browser</span>
         </button>
-        <button class="primary" disabled>
+        <!-- <button class="primary" disabled>
           <i class="fas fa-store"></i>
           <span>Shop Generator</span>
         </button>
         <button class="primary" disabled>
           <i class="fas fa-coins"></i>
           <span>Loot Generator</span>
-        </button>
+        </button> -->
       </div>
       <p class="blurb">
         Simplifying the way you pick items, design shops, and create loot for
@@ -75,7 +75,7 @@ const dailyItem = computed(() => {
   align-items: center;
 
   > .wallpaper {
-    background: url('/assets/images/wallpaper.jpg');
+    background: url('/assets/images/wallpaper.webp');
     width: 100%;
     height: 100%;
     background-size: cover;
@@ -174,7 +174,7 @@ const dailyItem = computed(() => {
   }
 
   #logo {
-    max-width: 16rem;
+    max-width: 16rem !important;
   }
 
   .home-container {

@@ -18,13 +18,15 @@ import MenuModal from './modals/menu-modal.vue';
 const router = useRouter();
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 header.app-header {
   width: 100%;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   background-color: var(--dark);
-  padding: 1.2rem;
+  min-height: 6.4rem !important;
+  padding: 0 1.4rem;
   border-bottom: 1px solid var(--dark-translucent);
 
   h1,

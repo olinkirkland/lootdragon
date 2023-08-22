@@ -7,7 +7,7 @@
       </button>
     </header>
     <div class="modal__content">
-      <section v-if="!!user">
+      <!-- <section v-if="!!user">
         <p><strong>Account</strong></p>
         <p>
           You are logged in as <strong>{{ user?.username }}</strong>
@@ -33,7 +33,7 @@
             <span>Log in</span>
           </button>
         </div>
-      </section>
+      </section> -->
       <section>
         <p><strong>Change Settings</strong></p>
         <p>Customize the appearance or behavior of the app.</p>

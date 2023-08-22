@@ -12,20 +12,18 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const props = defineProps({
-  show: {
-    type: Boolean,
-    default: true
-  }
-});
+const isShown = ref(false);
+function show() {
+  isShown.value = true;
+}
 
-const isShown = ref(props.show);
-function validate() {
-  isShown.value = props.show;
+function hide() {
+  isShown.value = false;
 }
 
 defineExpose({
-  validate
+  show,
+  hide
 });
 </script>
 
@@ -39,6 +37,7 @@ defineExpose({
   > p {
     color: var(--surface-color);
     flex: 1;
+    margin: 0.6rem;
     margin-left: 1.2rem;
   }
   button {

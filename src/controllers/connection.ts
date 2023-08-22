@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import StatusCode from 'status-code-enum';
 
 const BASE_URL = 'http://localhost:3005/';
@@ -11,28 +11,34 @@ const server = axios.create({
 
 export default server;
 
-console.log('axiosInstance', server);
-export async function login(username: string, password: string) {
-  console.log('login', username, password);
+export async function login(
+  username: string,
+  password: string
+): Promise<number | null> {
   try {
-    const response = await server.post('login', { username, password });
-    console.log('response', response);
+    await server.post('login', { username, password });
+    return null; // Return null if success
   } catch (error) {
-    throw error;
+    return (error as AxiosError).response!.status;
   }
 }
 
-export async function register(username: string, password: string) {
+export async function register(
+  username: string,
+  password: string
+): Promise<number | null> {
   console.log('register', username, password);
   try {
     const response = await server.post('register', {
       username,
       password
     });
-    if (response.status === StatusCode.SuccessOK) login(username, password);
-    else throw response;
+
+    if (response.status === StatusCode.SuccessOK) {
+      return await login(username, password);
+    } else return response.status;
   } catch (error) {
-    throw error;
+    return (error as AxiosError).response!.status;
   }
 }
 
