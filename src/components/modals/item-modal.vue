@@ -69,7 +69,7 @@
       </section>
       <section>
         <div class="spread">
-          <button @click="reportItem" :disabled="isItemReported">
+          <button @click="reportItem" :disabled="isItemReported" v-if="!!user">
             <i class="fas fa-bug"></i>
             <span>Report</span>
           </button>
@@ -77,10 +77,10 @@
             <i class="fas fa-copy"></i>
             <span>Copy JSON</span>
           </button>
-          <button v-if="!!user" @click="favoriteItem">
+          <!-- <button v-if="!!user" @click="favoriteItem">
             <i :class="isItemFavorited ? 'fas' : 'far' + ' fa-heart'"></i>
             <span>Favorite</span>
-          </button>
+          </button> -->
         </div>
       </section>
     </div>
