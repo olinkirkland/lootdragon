@@ -141,9 +141,9 @@ function reportItem() {
   ModalController.open(ReportModal, { item });
 }
 
-const isItemFavorited = false;
+// const isItemFavorited = false;
 
-function favoriteItem() {}
+// function favoriteItem() {}
 </script>
 
 <style scoped lang="scss">
