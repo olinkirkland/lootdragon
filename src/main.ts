@@ -7,7 +7,6 @@ import TestModal from './components/modals/test-modal.vue';
 import router from './router';
 import { useItemsStore } from './stores/itemsStore';
 import { useSettingsStore } from './stores/settingsStore';
-import { fetchMe } from './controllers/connection';
 
 // Create the app
 const app = createApp(App);
@@ -46,7 +45,3 @@ if (window.location.hostname !== 'localhost') {
 } else {
   console.warn('Accessing from localhost; Mixpanel is disabled.');
 }
-
-// Try to log in with the refresh token
-
-await fetchMe();

@@ -1,30 +1,30 @@
 <template>
   <div class="modal" :class="{ busy: isBusy }">
     <header>
-      <h2>Login</h2>
+      <h2>Change Password</h2>
       <button class="icon" @click="ModalController.close">
         <i class="fas fa-times"></i>
       </button>
     </header>
     <div class="modal__content">
       <section>
-        <form @submit.prevent="loginUser">
+        <form @submit.prevent="resetUserPassword">
           <div class="form-group">
-            <label for="username">Username</label>
-            <input
-              type="text"
-              placeholder="Username"
-              id="username"
-              v-model="username"
-            />
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
+            <label for="password">Current Password</label>
             <input
               type="password"
               placeholder="Password"
               id="password"
               v-model="password"
+            />
+          </div>
+          <div class="form-group">
+            <label for="newPassword">New Password</label>
+            <input
+              type="password"
+              placeholder="New Password"
+              id="newPassword"
+              v-model="newPassword"
             />
             <badge ref="badgeRef">
               {{ errorMessage }}
@@ -32,40 +32,33 @@
           </div>
           <div class="form-group">
             <button type="submit">
-              <span>Login</span>
+              <span>Reset Password</span>
             </button>
           </div>
         </form>
-      </section>
-      <section>
-        <p>Don't have an account?</p>
-        <button @click="ModalController.open(RegisterModal)">
-          <i class="fas fa-sign-in-alt"></i>
-          <span>Sign up</span>
-        </button>
       </section>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { login } from '@/controllers/connection';
+import { resetPassword } from '@/controllers/connection';
 import { ModalController } from '@/controllers/modal-controller';
 import { ref } from 'vue';
 import Badge from '../badge.vue';
-import RegisterModal from './register-modal.vue';
+import ConfirmModal from './confirm-modal.vue';
 
-const username = ref('');
+const newPassword = ref('');
 const password = ref('');
 const badgeRef = ref<InstanceType<typeof Badge> | null>(null);
 const errorMessage = ref('');
 const isBusy = ref(false);
 
-async function loginUser() {
+async function resetUserPassword() {
   isBusy.value = true;
   badgeRef.value?.hide();
 
-  const error = await login(username.value, password.value);
+  const error = await resetPassword(password.value, newPassword.value);
   isBusy.value = false;
   if (!!error) {
     let message = `An error occurred. (${error})`;
@@ -79,11 +72,16 @@ async function loginUser() {
     return;
   }
 
-  // The user has been logged in successfully
-  // so we can close the modal.
-  ModalController.close();
+  // The user has successfully changed their password.
+  ModalController.open(ConfirmModal, {
+    title: 'Password Reset',
+    text: 'Your password was successfully changed.',
+    confirmText: 'OK',
+    confirmCallback: () => {
+      ModalController.close();
+    }
+  });
 }
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

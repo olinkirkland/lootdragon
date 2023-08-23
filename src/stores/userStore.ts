@@ -1,9 +1,6 @@
-import { User } from '@/types';
 import { defineStore } from 'pinia';
+import { User } from '@/types';
 
-export const useUserStore = defineStore({
-  id: 'user',
-  state: () => ({
-    user: null as User | null
-  })
+export const useUserStore = defineStore('user', () => {
+  return { user: null as User | null };
 });

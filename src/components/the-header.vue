@@ -4,18 +4,33 @@
       <img src="/assets/images/logo.png" alt="logo" />
       <h1>Loot Dragon</h1>
     </div>
-    <button class="icon" @click="ModalController.open(MenuModal)">
-      <i class="fas fa-bars"></i>
-    </button>
+    <div class="flex">
+      <button
+        v-if="!!user"
+        class="icon"
+        @click="ModalController.open(AccountModal)"
+      >
+        <i class="fas fa-user-circle"></i>
+      </button>
+      <button class="icon" @click="ModalController.open(MenuModal)">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
   </header>
 </template>
 
 <script setup lang="ts">
 import { ModalController } from '@/controllers/modal-controller';
+import { useUserStore } from '@/stores/userStore';
 import { useRouter } from 'vue-router';
+import AccountModal from './modals/account-modal.vue';
 import MenuModal from './modals/menu-modal.vue';
+import { computed } from 'vue';
 
 const router = useRouter();
+const user = computed(() => {
+  return useUserStore().user || null;
+});
 </script>
 
 <style lang="scss" scoped>
@@ -48,7 +63,7 @@ header.app-header {
     }
 
     > img {
-      height: 4rem;
+      height: 3.2rem;
       margin-right: 0.8rem;
     }
   }

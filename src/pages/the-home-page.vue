@@ -9,13 +9,12 @@
           <i class="fas fa-box-open"></i>
           <span>Item Browser</span>
         </button>
-        <!-- <button class="primary" disabled>
-          <i class="fas fa-store"></i>
-          <span>Shop Generator</span>
+        <button v-if="!user" @click="ModalController.open(RegisterModal)">
+          <span>Sign up for an account</span>
         </button>
-        <button class="primary" disabled>
-          <i class="fas fa-coins"></i>
-          <span>Loot Generator</span>
+        <!-- <button class="primary">
+          <i class="fas fa-magic"></i>
+          <span>Custom Items</span>
         </button> -->
       </div>
       <p class="blurb">
@@ -45,6 +44,9 @@ import router from '@/router';
 import { computed } from 'vue';
 import seedrandom from 'seedrandom';
 import { useItemsStore } from '@/stores/itemsStore';
+import { useUserStore } from '@/stores/userStore';
+import { ModalController } from '@/controllers/modal-controller';
+import RegisterModal from '@/components/modals/register-modal.vue';
 
 const dailyItem = computed(() => {
   const date = new Date();
@@ -54,6 +56,10 @@ const dailyItem = computed(() => {
   return useItemsStore().items[
     Math.floor(randomNumber() * useItemsStore().items.length)
   ];
+});
+
+const user = computed(() => {
+  return useUserStore().user;
 });
 </script>
 
@@ -159,10 +165,7 @@ const dailyItem = computed(() => {
 @media (max-width: 768px) {
   .actions {
     flex-direction: column;
-
-    > button {
-      width: 100%;
-    }
+    align-items: center;
   }
 
   .blurb {

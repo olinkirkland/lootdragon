@@ -20,8 +20,16 @@ button {
     }
   }
 
+  &.danger {
+    background-color: var(--danger-color);
+    border: none;
+    > * {
+      color: var(--dark);
+    }
+  }
+
   // transition: all 0.2s ease-in-out;
-  
+
   &.icon {
     background-color: transparent;
     color: var(--text-color);

@@ -69,13 +69,17 @@
       </section>
       <section>
         <div class="spread">
-          <button class="text" @click="copyJSON">
+          <button @click="reportItem" :disabled="isItemReported">
+            <i class="fas fa-bug"></i>
+            <span>Report</span>
+          </button>
+          <button @click="copyJSON">
             <i class="fas fa-copy"></i>
             <span>Copy JSON</span>
           </button>
-          <button class="text" @click="reportItem" :disabled="isItemReported">
-            <i class="fas fa-bug"></i>
-            <span>Report Item</span>
+          <button v-if="!!user" @click="favoriteItem">
+            <i :class="isItemFavorited ? 'fas' : 'far' + ' fa-heart'"></i>
+            <span>Favorite</span>
           </button>
         </div>
       </section>
@@ -91,12 +95,17 @@ import { PropType, computed, ref } from 'vue';
 import CopyText from '../copy-text.vue';
 import PriceDisplay from '../price-display.vue';
 import ReportModal from './report-modal.vue';
+import { useUserStore } from '@/stores/userStore';
 
 const props = defineProps({
   item: {
     type: Object as PropType<Item>,
     required: true
   }
+});
+
+const user = computed(() => {
+  return useUserStore().user || null;
 });
 
 const item = props.item;
@@ -130,6 +139,10 @@ function reportItem() {
 
   ModalController.open(ReportModal, { item });
 }
+
+const isItemFavorited = false;
+
+function favoriteItem() {}
 </script>
 
 <style scoped lang="scss">

@@ -2,7 +2,8 @@ import { useUserStore } from '@/stores/userStore';
 import axios, { AxiosError } from 'axios';
 import StatusCode from 'status-code-enum';
 
-const BASE_URL = 'http://localhost:3005/';
+// const BASE_URL = 'http://localhost:3005/';
+const BASE_URL = 'https://stash-server-production.up.railway.app/';
 
 const server = axios.create({
   baseURL: BASE_URL,
@@ -44,8 +45,6 @@ server.interceptors.response.use(
         );
       }
 
-      console.log('Access token refreshed');
-
       const config = error.config;
       config.headers['Authorization'] = `Bearer ${accessToken}`;
       return server(config);
@@ -56,17 +55,20 @@ server.interceptors.response.use(
 );
 
 export async function fetchAccessToken(): Promise<boolean> {
-  console.log('Fetching access token ...');
   let didFetch = false;
 
   try {
+    console.log('Authenticating ...');
     const response = await server.put('token', {
       refreshToken
     });
     accessToken = response.data.accessToken;
+    console.log('Authenticated successfully');
     didFetch = true;
   } catch (error) {
-    console.log('Refresh token is invalid, removing it from the local storage');
+    console.log(
+      'Authentication failed; Refresh token is invalid, removing it from the local storage'
+    );
     refreshToken = accessToken = null;
     localStorage.removeItem('refreshToken');
     didFetch = false;
@@ -88,8 +90,8 @@ export async function login(
     refreshToken = response.data.refreshToken;
     accessToken = response.data.accessToken;
     localStorage.setItem('refreshToken', refreshToken as string);
-    const didFetchMe = await fetchMe();
-    if (!didFetchMe) return StatusCode.ClientErrorUnauthorized;
+    const didFetch = await fetchMe();
+    if (!didFetch) return StatusCode.ClientErrorUnauthorized;
     return null; // Return null if success
   } catch (error) {
     return (error as AxiosError).response!.status;
@@ -130,7 +132,6 @@ export async function logout() {
 }
 
 export async function fetchMe() {
-  console.log('Fetch me ...');
   let didFetch = false;
 
   try {
@@ -139,8 +140,34 @@ export async function fetchMe() {
     didFetch = true;
   } catch (error) {
     didFetch = false;
-    console.log(error);
   }
 
   return didFetch;
+}
+
+export async function deleteAccount(password: string) {
+  console.log('Delete Account');
+  try {
+    const response = await server.delete('me', {
+      data: {
+        password: password
+      }
+    });
+    return response.status === StatusCode.SuccessOK ? null : response.status;
+  } catch (error) {
+    return (error as AxiosError).response!.status;
+  }
+}
+
+export async function resetPassword(password: string, newPassword: string) {
+  console.log('Reset Password');
+  try {
+    const response = await server.put('password', {
+      password: password,
+      newPassword: newPassword
+    });
+    return response.status === StatusCode.SuccessOK ? null : response.status;
+  } catch (error) {
+    return (error as AxiosError).response!.status;
+  }
 }

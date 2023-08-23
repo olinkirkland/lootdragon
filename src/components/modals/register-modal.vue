@@ -78,6 +78,7 @@ async function registerUser() {
   if (password.value !== confirmPassword.value) {
     errorMessage.value = 'Passwords do not match.';
     badgeRef.value?.show();
+    isBusy.value = false;
     return;
   }
 
@@ -101,21 +102,4 @@ async function registerUser() {
 }
 </script>
 
-<style scoped lang="scss">
-.busy {
-  pointer-events: none;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 99;
-
-    opacity: 0.8;
-    background-color: var(--surface-color);
-  }
-}
-</style>
+<style scoped lang="scss"></style>

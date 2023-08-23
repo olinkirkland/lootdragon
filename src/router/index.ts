@@ -1,5 +1,5 @@
 import LoadingModal from '@/components/modals/loading-modal.vue';
-import { fetchMe } from '@/controllers/connection';
+import { fetchAccessToken, fetchMe } from '@/controllers/connection';
 import { ModalController } from '@/controllers/modal-controller';
 import Home from '@/pages/the-home-page.vue';
 import ItemsPage from '@/pages/the-items-page.vue';
@@ -8,8 +8,6 @@ import { useItemsStore } from '@/stores/itemsStore';
 import { useUserStore } from '@/stores/userStore';
 import { createRouter, createWebHistory } from 'vue-router';
 import ShopsPage from '../pages/the-shops-page.vue';
-
-console.log('Router');
 
 const routes = [
   {
@@ -58,21 +56,22 @@ router.beforeEach(async (to, from, next) => {
   console.log('Page routed from', from.name, '➡️', to.name);
   if (useItemsStore().items.length === 0) {
     console.log('Loading items JSON ...');
-    // Load the items
+
     ModalController.open(LoadingModal);
-    await fetch('/assets/items.json')
-      .then((response) => response.json())
-      .then((data) => {
-        useItemsStore().items = data;
-        ModalController.close();
-      });
-    console.log('Items loaded');
+    try {
+      const response = await fetch('/assets/items.json');
+      const data = await response.json();
+      useItemsStore().items = data;
+      ModalController.close();
+      console.log('Items loaded successfully');
+    } catch (error) {
+      console.error('Error loading items:', error);
+    }
   }
 
-  console.log('Page loaded');
-  if (useUserStore().user === null) {
+  if (useUserStore().user === null && !!localStorage.getItem('refreshToken')) {
     ModalController.open(LoadingModal);
-    await fetchMe();
+    if (await fetchAccessToken()) await fetchMe();
     ModalController.close();
   }
 

@@ -7,17 +7,17 @@
       </button>
     </header>
     <div class="modal__content">
-      <section v-if="!!user">
+      <section class="account" v-if="!!user">
         <p><strong>Account</strong></p>
         <p>
-          Welcome, <strong class="my-name">{{ user?.username }}</strong
-          >!
+          Welcome,
+          <span class="primary"> {{ user?.username }} </span>!
         </p>
 
         <div class="flex">
-          <button>
-            <i class="fas fa-user"></i>
-            <span>Account</span>
+          <button @click="ModalController.open(AccountModal)">
+            <i class="fas fa-user-circle"></i>
+            <span>My Account</span>
           </button>
           <button @click="logoutUser">
             <i class="fas fa-sign-out-alt"></i>
@@ -122,18 +122,17 @@
 </template>
 
 <script setup lang="ts">
+import { logout } from '@/controllers/connection';
 import { ModalController } from '@/controllers/modal-controller';
 import { useUserStore } from '@/stores/userStore';
-import { User } from '@/types';
-import { ref } from 'vue';
+import AccountModal from './account-modal.vue';
+import ConfirmModal from './confirm-modal.vue';
 import LicenseModal from './license-modal.vue';
-import SettingsModal from './settings-modal.vue';
 import LoginModal from './login-modal.vue';
 import RegisterModal from './register-modal.vue';
-import { logout } from '@/controllers/connection';
-import ConfirmModal from './confirm-modal.vue';
+import SettingsModal from './settings-modal.vue';
 
-const user = ref<null | User>(useUserStore().user);
+const user = useUserStore().user;
 
 function logoutUser() {
   ModalController.open(ConfirmModal, {
@@ -149,8 +148,21 @@ function logoutUser() {
 </script>
 
 <style scoped lang="scss">
-.my-name {
-  color: var(--primary-color);
+section.account {
+  position: relative;
+  z-index: 0;
+  &::before {
+    content: '';
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.2;
+    z-index: -1;
+    background-color: var(--primary-color);
+    pointer-events: none;
+  }
 }
 
 p {
