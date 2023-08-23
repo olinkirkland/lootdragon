@@ -2,8 +2,10 @@ import { useUserStore } from '@/stores/userStore';
 import axios, { AxiosError } from 'axios';
 import StatusCode from 'status-code-enum';
 
-const BASE_URL = 'http://localhost:3005/';
-// const BASE_URL = 'https://stash-server-production.up.railway.app/';
+// TODO add a toggle to the header to switch between production and development
+// ONLY make this visible when running in localhost
+// const BASE_URL = 'http://localhost:3005/';
+const BASE_URL = 'https://stash-server-production.up.railway.app/';
 
 const server = axios.create({
   baseURL: BASE_URL,
