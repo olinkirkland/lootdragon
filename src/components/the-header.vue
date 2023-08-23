@@ -50,7 +50,7 @@ const isLocalHost = window.location.hostname === 'localhost';
 
 function toggleBaseUrlAndReload() {
   localStorage.setItem(
-    BASE_URL,
+    'baseUrl',
     BASE_URL === PROD_BASE_URL ? DEV_BASE_URL : PROD_BASE_URL
   );
   location.reload();
