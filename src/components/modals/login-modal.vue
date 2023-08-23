@@ -68,13 +68,7 @@ async function loginUser() {
   const error = await login(username.value, password.value);
   isBusy.value = false;
   if (!!error) {
-    let message = `An error occurred. (${error})`;
-    switch (error) {
-      case 401:
-        message = 'Invalid username or password.';
-        break;
-    }
-    errorMessage.value = message;
+    errorMessage.value = error;
     badgeRef.value?.show();
     return;
   }
@@ -85,5 +79,4 @@ async function loginUser() {
 }
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

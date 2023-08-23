@@ -85,13 +85,7 @@ async function registerUser() {
   const error = await register(username.value, password.value);
   isBusy.value = false;
   if (!!error) {
-    let message = `An error occurred. (${error})`;
-    switch (error) {
-      case 409:
-        message = 'Username already exists.';
-        break;
-    }
-    errorMessage.value = message;
+    errorMessage.value = error;
     badgeRef.value?.show();
     return;
   }
