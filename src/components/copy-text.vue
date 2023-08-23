@@ -4,14 +4,15 @@
     <div class="flex">
       <div class="copy-text">
         <input type="text" :value="text" readonly />
-        <button class="text" @click="copyText">
-          <i class="fas" :class="justClicked ? 'fa-check' : 'fa-copy'"></i>
-          <span v-if="justClicked">Copied!</span>
-        </button>
+        <div class="buttons">
+          <button class="icon" @click="copyText">
+            <i class="fas" :class="justClicked ? 'fa-check' : 'fa-copy'"></i>
+          </button>
+          <button v-if="props.link" class="icon" @click="navigateToLink">
+            <i class="fas fa-external-link-alt"></i>
+          </button>
+        </div>
       </div>
-      <button v-if="props.link" class="icon" @click="navigateToLink">
-        <i class="fas fa-external-link-alt"></i>
-      </button>
     </div>
   </div>
 </template>
@@ -62,25 +63,14 @@ function navigateToLink() {
     display: flex;
     position: relative;
     align-items: center;
+    overflow: hidden;
+
     > input {
       width: 100%;
-      padding-right: 2.8rem;
-      padding-left: 0.8rem;
     }
-    > button {
-      position: absolute;
-      background-color: var(--surface-color-2);
-      border: 1px solid var(--surface-color-3);
-      border-left: none;
-      padding: 0 0.8rem;
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-      right: 0;
-      color: var(--text-color);
-
-      > span {
-        text-decoration: none;
-      }
+    > .buttons {
+      padding-left: 0.8rem;
+      display: flex;
     }
   }
 }

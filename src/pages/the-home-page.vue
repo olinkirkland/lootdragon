@@ -2,10 +2,6 @@
   <div class="home-container">
     <div class="wallpaper"></div>
     <div class="home">
-      <!-- <p>home page</p> -->
-      <!-- <button @click="router.push({ name: 'register' })">register</button> -->
-      <!-- <button @click="router.push({ name: 'login' })">login</button> -->
-      <!-- <button @click="openModal">Open Modal</button> -->
       <img src="/assets/images/logo.webp" id="logo" alt="logo" />
       <h1>Loot Dragon</h1>
       <div class="actions">

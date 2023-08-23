@@ -7,19 +7,23 @@
       </button>
     </header>
     <div class="modal__content">
-      <!-- <section v-if="!!user">
+      <section v-if="!!user">
         <p><strong>Account</strong></p>
         <p>
-          You are logged in as <strong>{{ user?.username }}</strong>
+          Welcome, <strong class="my-name">{{ user?.username }}</strong
+          >!
         </p>
-        <button>
-          <i class="fas fa-user"></i>
-          <span>Account</span>
-        </button>
-        <button>
-          <i class="fas fa-sign-out-alt"></i>
-          <span>Logout</span>
-        </button>
+
+        <div class="flex">
+          <button>
+            <i class="fas fa-user"></i>
+            <span>Account</span>
+          </button>
+          <button @click="logoutUser">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+          </button>
+        </div>
       </section>
       <section v-else>
         <p><strong>Account</strong></p>
@@ -33,7 +37,7 @@
             <span>Log in</span>
           </button>
         </div>
-      </section> -->
+      </section>
       <section>
         <p><strong>Change Settings</strong></p>
         <p>Customize the appearance or behavior of the app.</p>
@@ -126,11 +130,29 @@ import LicenseModal from './license-modal.vue';
 import SettingsModal from './settings-modal.vue';
 import LoginModal from './login-modal.vue';
 import RegisterModal from './register-modal.vue';
+import { logout } from '@/controllers/connection';
+import ConfirmModal from './confirm-modal.vue';
 
 const user = ref<null | User>(useUserStore().user);
+
+function logoutUser() {
+  ModalController.open(ConfirmModal, {
+    title: 'Logout',
+    text: 'Are you sure you want to log out?',
+    confirmText: 'Logout',
+    confirmCallback: () => {
+      logout();
+      ModalController.close();
+    }
+  });
+}
 </script>
 
 <style scoped lang="scss">
+.my-name {
+  color: var(--primary-color);
+}
+
 p {
   line-height: 2rem;
   a {

@@ -8,7 +8,7 @@
     </header>
     <div class="modal__content">
       <section class="actions">
-        <copy-text label="Direct Link" :text="directLink" :link="true"/>
+        <copy-text label="Direct Link" :text="directLink" :link="true" />
         <copy-text label="Archives of Nethys" :text="nethysLink" :link="true" />
       </section>
       <section>
@@ -143,10 +143,6 @@ function reportItem() {
       margin-bottom: 0.8rem;
     }
 
-    &.actions {
-      flex-direction: row;
-    }
-
     p {
       display: flex;
       width: fit-content;
@@ -202,9 +198,6 @@ function reportItem() {
     height: 100%;
     max-width: 100%;
     max-height: 100%;
-    section.actions {
-      flex-direction: column;
-    }
   }
 }
 </style>

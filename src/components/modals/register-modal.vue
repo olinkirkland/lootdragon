@@ -112,6 +112,7 @@ async function registerUser() {
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: 99;
 
     opacity: 0.8;
     background-color: var(--surface-color);

@@ -1,7 +1,7 @@
 <template>
-  <div class="modal">
+  <div class="modal" :class="{ busy: isBusy }">
     <header>
-      <h2>Log in</h2>
+      <h2>Login</h2>
       <button class="icon" @click="ModalController.close">
         <i class="fas fa-times"></i>
       </button>
@@ -26,26 +26,22 @@
               id="password"
               v-model="password"
             />
+            <badge ref="badgeRef">
+              {{ errorMessage }}
+            </badge>
           </div>
           <div class="form-group">
             <button type="submit">
-              <span>Log in</span>
+              <span>Login</span>
             </button>
           </div>
         </form>
       </section>
       <section>
-        <p>Dont have an account?</p>
+        <p>Don't have an account?</p>
         <button @click="ModalController.open(RegisterModal)">
           <i class="fas fa-sign-in-alt"></i>
           <span>Sign up</span>
-        </button>
-      </section>
-      <section>
-        <p>Forgot your password?</p>
-        <button>
-          <i class="fas fa-key"></i>
-          <span>Reset Password</span>
         </button>
       </section>
     </div>
@@ -53,16 +49,57 @@
 </template>
 
 <script setup lang="ts">
-import { ModalController } from '@/controllers/modal-controller';
-import RegisterModal from './register-modal.vue';
-import { ref } from 'vue';
 import { login } from '@/controllers/connection';
+import { ModalController } from '@/controllers/modal-controller';
+import { ref } from 'vue';
+import Badge from '../badge.vue';
+import RegisterModal from './register-modal.vue';
+
 const username = ref('');
 const password = ref('');
+const badgeRef = ref<InstanceType<typeof Badge> | null>(null);
+const errorMessage = ref('');
+const isBusy = ref(false);
 
-function loginUser() {
-  login(username.value, password.value);
+async function loginUser() {
+  isBusy.value = true;
+  badgeRef.value?.hide();
+
+  const error = await login(username.value, password.value);
+  isBusy.value = false;
+  if (!!error) {
+    let message = `An error occurred. (${error})`;
+    switch (error) {
+      case 401:
+        message = 'Invalid username or password.';
+        break;
+    }
+    errorMessage.value = message;
+    badgeRef.value?.show();
+    return;
+  }
+
+  // The user has been logged in successfully
+  // so we can close the modal.
+  ModalController.close();
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.busy {
+  pointer-events: none;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+
+    opacity: 0.8;
+    background-color: var(--surface-color);
+  }
+}
+</style>
