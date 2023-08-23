@@ -6,6 +6,17 @@
     </div>
     <div class="flex">
       <button
+        v-if="isLocalHost"
+        class="text primary"
+        @click="toggleBaseUrlAndReload"
+      >
+        <i
+          :class="
+            isUsingProductionUrl ? 'fas fa-satellite-dish' : 'fas fa-laptop'
+          "
+        ></i>
+      </button>
+      <button
         v-if="!!user"
         class="icon"
         @click="ModalController.open(AccountModal)"
@@ -31,6 +42,24 @@ const router = useRouter();
 const user = computed(() => {
   return useUserStore().user || null;
 });
+
+const isLocalHost = window.location.hostname === 'localhost';
+
+const devBaseUrl = 'http://localhost:3005/';
+const prodBaseUrl = 'https://stash-server-production.up.railway.app/';
+
+function toggleBaseUrlAndReload() {
+  const baseUrl = localStorage.getItem('baseUrl') || devBaseUrl;
+  localStorage.setItem(
+    'baseUrl',
+    baseUrl === devBaseUrl ? prodBaseUrl : devBaseUrl
+  );
+  location.reload();
+}
+
+const isUsingProductionUrl =
+  localStorage.getItem('baseUrl') ===
+  'https://stash-server-production.up.railway.app/';
 </script>
 
 <style lang="scss" scoped>

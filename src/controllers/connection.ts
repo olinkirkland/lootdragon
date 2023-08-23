@@ -4,8 +4,7 @@ import StatusCode from 'status-code-enum';
 
 // TODO add a toggle to the header to switch between production and development
 // ONLY make this visible when running in localhost
-// const BASE_URL = 'http://localhost:3005/';
-const BASE_URL = 'https://stash-server-production.up.railway.app/';
+const BASE_URL = localStorage.getItem('baseUrl') || 'http://localhost:3005/';
 
 const server = axios.create({
   baseURL: BASE_URL,

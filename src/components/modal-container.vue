@@ -33,6 +33,7 @@ ModalController.getInstance().addEventListener(({ modal, options }) => {
 .modal-container {
   width: 100%;
   height: 100vh;
+  height: -webkit-fill-available;
   position: absolute;
   top: 0;
 
