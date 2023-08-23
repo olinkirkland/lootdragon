@@ -5,11 +5,7 @@
       <h1>Loot Dragon</h1>
     </div>
     <div class="flex">
-      <button
-        v-if="isLocalHost"
-        class="text primary"
-        @click="toggleBaseUrlAndReload"
-      >
+      <button v-if="isLocalHost" class="icon" @click="toggleBaseUrlAndReload">
         <i
           :class="
             BASE_URL === PROD_BASE_URL
@@ -76,7 +72,6 @@ header.app-header {
   button.icon {
     color: var(--primary-color);
   }
-
   > .logo {
     display: flex;
     align-items: center;
