@@ -12,7 +12,9 @@
       >
         <i
           :class="
-            isUsingProductionUrl ? 'fas fa-satellite-dish' : 'fas fa-laptop'
+            BASE_URL === PROD_BASE_URL
+              ? 'fas fa-satellite-dish'
+              : 'fas fa-laptop'
           "
         ></i>
       </button>
@@ -37,6 +39,11 @@ import { useRouter } from 'vue-router';
 import AccountModal from './modals/account-modal.vue';
 import MenuModal from './modals/menu-modal.vue';
 import { computed } from 'vue';
+import {
+  BASE_URL,
+  DEV_BASE_URL,
+  PROD_BASE_URL
+} from '@/controllers/connection';
 
 const router = useRouter();
 const user = computed(() => {
@@ -45,21 +52,13 @@ const user = computed(() => {
 
 const isLocalHost = window.location.hostname === 'localhost';
 
-const devBaseUrl = 'http://localhost:3005/';
-const prodBaseUrl = 'https://stash-server-production.up.railway.app/';
-
 function toggleBaseUrlAndReload() {
-  const baseUrl = localStorage.getItem('baseUrl') || devBaseUrl;
   localStorage.setItem(
-    'baseUrl',
-    baseUrl === devBaseUrl ? prodBaseUrl : devBaseUrl
+    BASE_URL,
+    BASE_URL === PROD_BASE_URL ? DEV_BASE_URL : PROD_BASE_URL
   );
   location.reload();
 }
-
-const isUsingProductionUrl =
-  localStorage.getItem('baseUrl') ===
-  'https://stash-server-production.up.railway.app/';
 </script>
 
 <style lang="scss" scoped>
