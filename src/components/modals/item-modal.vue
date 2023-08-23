@@ -131,7 +131,8 @@ function reportItem() {
   // Report the item to Mixpanel
   mixpanel.track('Item Reported', {
     item: item.name.text,
-    id: item.id
+    id: item.id,
+    username: user.value?.username
   });
 
   reportedItems.value.push(item.id);
