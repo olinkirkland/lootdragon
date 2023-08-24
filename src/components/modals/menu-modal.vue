@@ -83,6 +83,15 @@
               <a href="https://icons8.com/" target="_blank">Icons8.com</a>
             </p>
           </li>
+          <li>
+            <p>
+              The Aloevera font was created by Salamahtype and is available for
+              purchase from
+              <a href="https://salamahtype.com/product/aloevera/">
+                Salamahtype.com
+              </a>
+            </p>
+          </li>
         </ul>
       </section>
       <section>

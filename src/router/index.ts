@@ -8,6 +8,7 @@ import { useItemsStore } from '@/stores/itemsStore';
 import { useUserStore } from '@/stores/userStore';
 import { createRouter, createWebHistory } from 'vue-router';
 import ShopsPage from '../pages/the-shops-page.vue';
+import { useNavStore } from '@/stores/navStore';
 
 const routes = [
   {
@@ -52,6 +53,8 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   // Ensure that the modal is closed
   ModalController.close();
+
+  useNavStore().nav = to.name as string;
 
   console.log('Page routed from', from.name, '➡️', to.name);
   if (useItemsStore().items.length === 0) {

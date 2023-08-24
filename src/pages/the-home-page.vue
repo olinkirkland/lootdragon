@@ -68,7 +68,6 @@ const user = computed(() => {
 </script>
 
 <style scoped lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Allura&display=swap');
 .home-container {
   width: 100%;
   height: 100vh;
@@ -112,10 +111,9 @@ const user = computed(() => {
     }
 
     > h1 {
-      font-size: 1.6rem;
-      font-weight: lighter;
-      letter-spacing: 2px;
-      text-transform: uppercase;
+      font-size: 4rem;
+      font-weight: normal;
+      font-family: 'Aloevera';
       color: var(--primary-color);
     }
 
