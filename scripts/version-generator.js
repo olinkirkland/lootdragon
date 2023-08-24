@@ -34,4 +34,7 @@ fs.writeFileSync(
   JSON.stringify({ version: newVersion })
 );
 
-console.log(`\x1b[35m%s\x1b[0m`, `Version updated to ${newVersion}`);
+console.log(
+  `\x1b[35m%s\x1b[0m`,
+  `Version incremented from ${version} to ${newVersion}`
+);
