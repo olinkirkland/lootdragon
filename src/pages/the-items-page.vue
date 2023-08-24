@@ -515,7 +515,6 @@ function openRandomItem() {
 @media (max-width: 768px) {
   .library-container {
     padding: 0;
-    border: 2px dashed greenyellow;
     > header {
       > .search-container > .search-box {
         max-width: initial;
