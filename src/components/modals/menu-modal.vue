@@ -117,6 +117,9 @@
           <span>Read the Open Game License</span>
         </button>
       </section>
+      <section>
+        <p class="version">Loot Dragon 🐉 Version {{ version }}</p>
+      </section>
     </div>
   </div>
 </template>
@@ -131,8 +134,10 @@ import LicenseModal from './license-modal.vue';
 import LoginModal from './login-modal.vue';
 import RegisterModal from './register-modal.vue';
 import SettingsModal from './settings-modal.vue';
+import versionJson from '@/data/version.json';
 
 const user = useUserStore().user;
+const version = versionJson.version;
 
 function logoutUser() {
   ModalController.open(ConfirmModal, {
@@ -148,6 +153,9 @@ function logoutUser() {
 </script>
 
 <style scoped lang="scss">
+.version {
+  color: var(--text-color-3);
+}
 section.account {
   position: relative;
   z-index: 0;
