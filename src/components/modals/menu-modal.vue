@@ -189,7 +189,7 @@ ul {
   > li {
     display: flex;
     padding: 0.8rem;
-    background-color: var(--surface-color);
+    background-color: var(--surface-color-2);
   }
 }
 </style>
