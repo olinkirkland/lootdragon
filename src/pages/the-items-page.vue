@@ -385,13 +385,13 @@ function openRandomItem() {
   background-color: var(--surface-color);
 
   > header {
-    height: fit-content;
-    border: 1px solid yellowgreen;
+    min-height: fit-content;
+    border: 1px solid purple;
     > .search-container {
       display: flex;
       gap: 0.8rem;
       padding: 0.8rem;
-      border: 1px solid red;
+      border: 1px solid pink;
 
       .search-box {
         display: flex;

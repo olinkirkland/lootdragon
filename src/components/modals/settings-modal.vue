@@ -99,26 +99,4 @@ import { useSettingsStore } from '@/stores/settingsStore';
 const settingsStore = useSettingsStore();
 </script>
 
-<style scoped lang="scss">
-.modal {
-  section {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-    padding: 1.2rem;
-
-    &:not(:last-child) {
-      border-bottom: 1px solid #ddd;
-    }
-  }
-}
-
-@media (max-width: 768px) {
-  .modal {
-    width: 100%;
-    height: 100%;
-    max-width: 100%;
-    max-height: 100%;
-  }
-}
-</style>
+<style scoped lang="scss"></style>
