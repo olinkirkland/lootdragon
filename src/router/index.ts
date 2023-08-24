@@ -81,41 +81,4 @@ router.beforeEach(async (to, from, next) => {
   next();
 });
 
-//   // If the user is coming from another route, we don't need to check
-//   if (from.name !== undefined) return next();
-
-//   // Coming from undefined (new tab, refresh, etc.)
-//   // If there's a refresh token in local storage, copy it to session storage
-//   if (useConfig().rememberMe)
-//     setRefreshToken(localStorage.getItem('refreshToken')!);
-
-//   ModalDispatcher.open({
-//     type: ModalType.LOADING
-//   });
-
-//   const refreshToken = useAuthStore().refreshToken;
-//   if (!refreshToken) {
-//     ModalDispatcher.close(ModalType.LOADING);
-//     return to.name === 'login' ? next() : next('/login');
-//   }
-
-//   if (to.name === 'login') {
-//     ModalDispatcher.close(ModalType.LOADING);
-//     return next('/dashboard');
-//   }
-
-//   if (!(await fetchAccessToken())) {
-//     ModalDispatcher.close(ModalType.LOADING);
-//     return next('/login');
-//   }
-
-//   if (!(await fetchAll())) {
-//     ModalDispatcher.close(ModalType.LOADING);
-//     return next('/login');
-//   }
-
-//   ModalDispatcher.close(ModalType.LOADING);
-//   return next();
-// });
-
 export default router;
