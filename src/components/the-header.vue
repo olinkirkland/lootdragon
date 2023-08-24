@@ -3,7 +3,7 @@
     <div @click="router.push('/')" class="logo">
       <img src="/assets/images/logo.png" alt="logo" />
       <h1>Loot Dragon</h1>
-      <span v-if="nav" class="nav-headline">
+      <span v-if="nav && nav !== 'home'" class="nav">
         {{ nav }}
       </span>
     </div>
@@ -33,9 +33,9 @@
 
 <script setup lang="ts">
 import {
-  BASE_URL,
-  DEV_BASE_URL,
-  PROD_BASE_URL
+BASE_URL,
+DEV_BASE_URL,
+PROD_BASE_URL
 } from '@/controllers/connection';
 import { ModalController } from '@/controllers/modal-controller';
 import { useNavStore } from '@/stores/navStore';
@@ -91,24 +91,33 @@ header.app-header {
       font-family: 'Aloevera' !important;
       font-size: 2.4rem;
       font-weight: normal;
+      z-index: 2;
     }
 
-    > span.nav-headline {
+    > span.nav {
+      white-space: nowrap;
+      max-width: 12rem;
+      flex: 1;
+      text-overflow: ellipsis;
+      overflow: hidden;
+
       z-index: 1;
       font-weight: bold;
-      position: absolute;
-      transform: rotate(-3deg);
-      top: 2.6rem;
-      left: -0.4rem;
       text-transform: uppercase;
-      padding: 0.4rem 0.6rem;
+      margin-left: 0.4rem;
       font-size: 1.2rem;
-      background-color: var(--surface-color-2);
+      opacity: 0.6;
+      color: var(--primary-color);
       box-shadow: 0 0 0.4rem var(--dark);
       pointer-events: none;
+      &::before {
+        content: '|';
+        margin-right: 0.2rem;
+      }
     }
 
     > img {
+      display: none;
       height: 3.2rem;
       margin-right: 2.4rem;
       z-index: 2;
