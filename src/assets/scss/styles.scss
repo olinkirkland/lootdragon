@@ -199,16 +199,13 @@ pre {
 }
 
 header.page-header {
-  z-index: 1;
   background-color: var(--surface-color);
   box-shadow: 0 0 1.2rem 0rem rgba(0, 0, 0, 0.2);
-  border-bottom: 1px solid var(--shadow);
-  height: fit-content;
-  max-height: 100vh;
-  max-height: -webkit-fill-available;
+  border-bottom: 1px solid var(--surface-color-3);
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  // Grow to fill the available space
 }
 
 *:disabled {

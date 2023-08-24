@@ -385,12 +385,10 @@ function openRandomItem() {
   background-color: var(--surface-color);
 
   > header {
-    border: 1px solid purple;
     > .search-container {
       display: flex;
       gap: 0.8rem;
       padding: 0.8rem;
-      border: 1px solid pink;
 
       .search-box {
         display: flex;
@@ -519,6 +517,8 @@ function openRandomItem() {
     padding: 0;
     > header {
       &::after {
+        pointer-events: none;
+        opacity: 0.6;
         position: absolute;
         content: 'version 1';
         padding: 0.4rem;
