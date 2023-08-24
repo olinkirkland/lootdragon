@@ -386,10 +386,12 @@ function openRandomItem() {
 
   > header {
     height: fit-content;
+    border: 1px solid yellowgreen;
     > .search-container {
       display: flex;
       gap: 0.8rem;
       padding: 0.8rem;
+      border: 1px solid red;
 
       .search-box {
         display: flex;
