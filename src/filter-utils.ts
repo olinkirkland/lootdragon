@@ -112,11 +112,11 @@ export function getPriceFilters(
 export function getFavoritesFilters(items: any[], favorites: any[]) {
   return [
     {
-      name: 'Favorites',
+      name: 'Favorited',
       count: favorites.length
     },
     {
-      name: 'Other',
+      name: 'Not Favorited',
       count: items.length - favorites.length
     }
   ];

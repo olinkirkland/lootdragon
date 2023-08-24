@@ -41,6 +41,7 @@
 
         <!-- Favorites -->
         <filter-block
+          v-if="!!user"
           name="Favorites"
           :items="items"
           :filters="favorites"
@@ -205,11 +206,11 @@ const sortBy = ref<string>('name-ascending');
 // Search
 const search = ref<string>('');
 
-// Favorites (My Favorites/Other)
+// Favorites
 const favorites = computed(() =>
   getFavoritesFilters(items.value, user.value?.favorites || [])
 );
-const initialFavoritesFilter = ref(['Favorites', 'Other']);
+const initialFavoritesFilter = ref(['Favorited', 'Not Favorited']);
 
 // Rarity
 const rarities = computed(() => getFiltersByKey(items.value, 'rarity'));
@@ -276,8 +277,8 @@ const filteredItems = computed(() => {
   sortedItems = sortedItems.filter((item) => {
     const isFavorite = useUserStore().isFavorite(item.id);
     return (
-      (favoritesFilter.value.includes('Favorites') && isFavorite) ||
-      (favoritesFilter.value.includes('Other') && !isFavorite)
+      (favoritesFilter.value.includes('Favorited') && isFavorite) ||
+      (favoritesFilter.value.includes('Not Favorited') && !isFavorite)
     );
   });
 
