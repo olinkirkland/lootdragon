@@ -1,11 +1,11 @@
 {
   "name": "stash-app",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build && node scripts/copy-index-as-404.js",
+    "build": "node scripts/version-generator.js && vue-tsc && vite build && node scripts/copy-index-as-404.js",
     "preview": "vite preview",
     "deploy": "npm run build && gh-pages -d dist"
   },
