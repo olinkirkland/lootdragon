@@ -518,6 +518,13 @@ function openRandomItem() {
   .library-container {
     padding: 0;
     > header {
+      &::after {
+        position: absolute;
+        content: 'version 1';
+        padding: 0.4rem;
+        right: 0;
+        background-color: aliceblue;
+      }
       > .search-container > .search-box {
         max-width: initial;
       }
