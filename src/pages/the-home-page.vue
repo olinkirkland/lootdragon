@@ -9,11 +9,7 @@
           <i class="fas fa-box-open"></i>
           <span>Item Browser</span>
         </button>
-        <button
-          v-if="!user"
-          class="primary"
-          @click="ModalController.open(RegisterModal)"
-        >
+        <button v-if="!user" @click="ModalController.open(RegisterModal)">
           <span>Sign up for an account</span>
         </button>
         <!-- <button class="primary">

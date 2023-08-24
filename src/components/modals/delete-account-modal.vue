@@ -16,7 +16,7 @@
           <div class="form-group">
             <label for="password">Password</label>
             <input
-              type="text"
+              type="password"
               placeholder="Password"
               id="password"
               v-model="password"
