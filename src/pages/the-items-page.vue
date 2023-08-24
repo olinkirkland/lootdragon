@@ -385,7 +385,6 @@ function openRandomItem() {
   background-color: var(--surface-color);
 
   > header {
-    min-height: fit-content;
     border: 1px solid purple;
     > .search-container {
       display: flex;
@@ -434,7 +433,6 @@ function openRandomItem() {
       margin-bottom: 0.8rem;
       flex: 1;
       overflow: auto;
-      border: 2px solid red;
 
       border-radius: 5px;
       background-color: var(--surface-color);
