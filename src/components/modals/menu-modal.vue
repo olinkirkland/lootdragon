@@ -175,7 +175,7 @@ function logoutUser() {
 <style scoped lang="scss">
 .version {
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   color: var(--text-color-3);
 }
 section.account {
