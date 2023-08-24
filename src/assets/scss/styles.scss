@@ -205,7 +205,8 @@ header.page-header {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  // Grow to fill the available space
+  flex-shrink: 0;
+  height: fit-content;
 }
 
 *:disabled {
