@@ -97,14 +97,14 @@ header.app-header {
       z-index: 1;
       font-weight: bold;
       position: absolute;
-      transform: rotate(-5deg);
+      transform: rotate(-3deg);
       top: 2.6rem;
       left: -0.4rem;
       text-transform: uppercase;
       padding: 0.4rem 0.6rem;
       font-size: 1.2rem;
-      background-color: var(--surface-color);
-      box-shadow: 0 0 0.4rem var(--shadow);
+      background-color: var(--surface-color-2);
+      box-shadow: 0 0 0.4rem var(--dark);
       pointer-events: none;
     }
 
