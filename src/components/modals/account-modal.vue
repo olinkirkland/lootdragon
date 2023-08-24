@@ -25,10 +25,16 @@
           </button>
         </div>
       </section>
-      <section></section>
+      <section>
+        <p>Use this option to clear your list of favorite items.</p>
+        <button @click="askClearFavorites">
+          <i class="fas fa-trash"></i>
+          <span>Clear Favorites ({{ user?.favorites.length }})</span>
+        </button>
+      </section>
       <section>
         <p>Click below to delete your account. This action is irreversible.</p>
-        <button class="text" @click="ModalController.open(DeleteAccountModal)">
+        <button @click="ModalController.open(DeleteAccountModal)">
           <span>Delete Account</span>
         </button>
       </section>
@@ -37,10 +43,11 @@
 </template>
 
 <script setup lang="ts">
-import { logout } from '@/controllers/connection';
+import { clearFavorites, logout } from '@/controllers/connection';
 import { ModalController } from '@/controllers/modal-controller';
 import { useUserStore } from '@/stores/userStore';
 import { computed } from 'vue';
+import AccountModal from './account-modal.vue';
 import ConfirmModal from './confirm-modal.vue';
 import DeleteAccountModal from './delete-account-modal.vue';
 import ResetPasswordModal from './reset-password-modal.vue';
@@ -57,6 +64,18 @@ function logoutUser() {
     confirmCallback: () => {
       logout();
       ModalController.close();
+    }
+  });
+}
+
+function askClearFavorites() {
+  ModalController.open(ConfirmModal, {
+    title: 'Clear favorites',
+    text: 'This will clear your list of favorite items. Are you sure?',
+    confirmText: "Yes, I'm sure",
+    confirmCallback: async () => {
+      await clearFavorites();
+      ModalController.open(AccountModal);
     }
   });
 }

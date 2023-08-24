@@ -187,3 +187,15 @@ export async function favoriteItem(id: string) {
     return (error as AxiosError).response!.status;
   }
 }
+
+export async function clearFavorites() {
+  console.log('Clear Favorites');
+  try {
+    const response = await server.delete(`favorite`);
+    const newFavorites = response.data;
+    useUserStore().user!.favorites = newFavorites;
+    return response.status === StatusCode.SuccessOK ? null : response.status;
+  } catch (error) {
+    return (error as AxiosError).response!.status;
+  }
+}

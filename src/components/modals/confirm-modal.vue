@@ -1,5 +1,5 @@
 <template>
-  <div class="modal">
+  <div class="modal" :class="{ busy: isBusy }">
     <header>
       <h2>{{ props.title }}</h2>
       <button class="icon" @click="ModalController.close">
@@ -15,7 +15,7 @@
           <button @click="ModalController.close">
             {{ props.cancelText }}
           </button>
-          <button class="primary" @click="props.confirmCallback">
+          <button class="primary" @click="busyAndCallback">
             <span>{{ props.confirmText }}</span>
           </button>
         </div>
@@ -26,7 +26,9 @@
 
 <script setup lang="ts">
 import { ModalController } from '@/controllers/modal-controller';
-import { PropType } from 'vue';
+import { PropType, ref } from 'vue';
+
+const isBusy = ref(false);
 
 const props = defineProps({
   title: {
@@ -60,6 +62,11 @@ const props = defineProps({
     default: () => ModalController.close()
   }
 });
+
+const busyAndCallback = async () => {
+  isBusy.value = true;
+  await props.confirmCallback();
+};
 </script>
 
 <style scoped lang="scss"></style>
