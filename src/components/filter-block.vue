@@ -25,6 +25,7 @@
           </span>
         </label>
         <button
+          v-if="props.infoModal"
           class="icon info"
           @click.stop="ModalController.open(props.infoModal)"
         >
@@ -67,7 +68,7 @@ const props = defineProps({
   },
   infoModal: {
     type: Object as PropType<ComponentOptions<any>>,
-    required: true
+    required: false
   },
   showCounts: {
     type: Boolean,

@@ -108,3 +108,16 @@ export function getPriceFilters(
 
   return filters;
 }
+
+export function getFavoritesFilters(items: any[], favorites: any[]) {
+  return [
+    {
+      name: 'Favorites',
+      count: favorites.length
+    },
+    {
+      name: 'Other',
+      count: items.length - favorites.length
+    }
+  ];
+}

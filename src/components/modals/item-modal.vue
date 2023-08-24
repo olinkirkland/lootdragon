@@ -157,7 +157,7 @@ async function favoriteItemAndWait() {
 }
 
 const isItemFavorited = computed(() => {
-  return user.value?.favorites.includes(item.id);
+  return useUserStore().isFavorite(item.id);
 });
 </script>
 

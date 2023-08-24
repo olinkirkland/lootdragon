@@ -38,7 +38,7 @@ const props = defineProps({
 const item = props.item;
 const settingsStore = useSettingsStore();
 const isFavorite = computed(() => {
-  return useUserStore().user?.favorites.includes(item.id) ?? false;
+  return useUserStore().isFavorite(item.id) ?? false;
 });
 </script>
 

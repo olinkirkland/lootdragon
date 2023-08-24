@@ -39,6 +39,15 @@
       <div v-if="showFilters" class="filters">
         <p>Filter</p>
 
+        <!-- Favorites -->
+        <filter-block
+          name="Favorites"
+          :items="items"
+          :filters="favorites"
+          v-model="favoritesFilter"
+          show-counts
+        />
+
         <!-- Rarity -->
         <filter-block
           name="Rarity"
@@ -156,6 +165,7 @@ import ItemCard from '@/components/item-card.vue';
 import ItemModal from '@/components/modals/item-modal.vue';
 import { ModalController } from '@/controllers/modal-controller';
 import {
+  getFavoritesFilters,
   getFiltersByKey,
   getPriceFilters,
   getSourcesFilters,
@@ -163,6 +173,7 @@ import {
 } from '@/filter-utils';
 import { useItemsStore } from '@/stores/itemsStore';
 import { useSettingsStore } from '@/stores/settingsStore';
+import { useUserStore } from '@/stores/userStore';
 import { Item } from '@/types';
 import { computed, ref, watch } from 'vue';
 import FilterBlock from '../components/filter-block.vue';
@@ -185,10 +196,20 @@ const localFilters =
 const showFilters = ref<boolean>(false);
 const showSorting = ref<boolean>(false);
 
+const user = computed(() => {
+  return useUserStore().user;
+});
+
 const sortBy = ref<string>('name-ascending');
 
 // Search
 const search = ref<string>('');
+
+// Favorites (My Favorites/Other)
+const favorites = computed(() =>
+  getFavoritesFilters(items.value, user.value?.favorites || [])
+);
+const initialFavoritesFilter = ref(['Favorites', 'Other']);
 
 // Rarity
 const rarities = computed(() => getFiltersByKey(items.value, 'rarity'));
@@ -237,6 +258,7 @@ const traitsFilter = ref<string[]>(initialTraitsFilter.value);
 const categoryFilter = ref<string[]>(initialCategoryFilter.value);
 const priceFilter = ref<string[]>(initialPriceFilter.value);
 const levelFilter = ref<string[]>(initialLevelFilter.value);
+const favoritesFilter = ref<string[]>(initialFavoritesFilter.value);
 
 const filteredItems = computed(() => {
   let sortedItems = [...items.value];
@@ -249,6 +271,15 @@ const filteredItems = computed(() => {
       item.name.text.toLowerCase().includes(searchText)
     );
   }
+
+  // Filter by favorites
+  sortedItems = sortedItems.filter((item) => {
+    const isFavorite = useUserStore().isFavorite(item.id);
+    return (
+      (favoritesFilter.value.includes('Favorites') && isFavorite) ||
+      (favoritesFilter.value.includes('Other') && !isFavorite)
+    );
+  });
 
   // Filter by rarity
   sortedItems = sortedItems.filter((item) =>
