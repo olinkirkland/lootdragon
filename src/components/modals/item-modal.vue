@@ -77,10 +77,16 @@
             <i class="fas fa-copy"></i>
             <span>Copy JSON</span>
           </button>
-          <!-- <button v-if="!!user" @click="favoriteItem">
-            <i :class="isItemFavorited ? 'fas' : 'far' + ' fa-heart'"></i>
+          <button
+            v-if="!!user"
+            @click="favoriteItemAndWait"
+            :disabled="isBusyFavoriting"
+          >
+            <i
+              :class="(isItemFavorited ? 'favorite fas' : 'far') + ' fa-heart'"
+            ></i>
             <span>Favorite</span>
-          </button> -->
+          </button>
         </div>
       </section>
     </div>
@@ -88,14 +94,15 @@
 </template>
 
 <script setup lang="ts">
+import { favoriteItem } from '@/controllers/connection';
 import { ModalController } from '@/controllers/modal-controller';
+import { useUserStore } from '@/stores/userStore';
 import { Item } from '@/types';
 import mixpanel from 'mixpanel-browser';
 import { PropType, computed, ref } from 'vue';
 import CopyText from '../copy-text.vue';
 import PriceDisplay from '../price-display.vue';
 import ReportModal from './report-modal.vue';
-import { useUserStore } from '@/stores/userStore';
 
 const props = defineProps({
   item: {
@@ -141,9 +148,17 @@ function reportItem() {
   ModalController.open(ReportModal, { item });
 }
 
-// const isItemFavorited = false;
+const isBusyFavoriting = ref(false);
 
-// function favoriteItem() {}
+async function favoriteItemAndWait() {
+  isBusyFavoriting.value = true;
+  await favoriteItem(item.id);
+  isBusyFavoriting.value = false;
+}
+
+const isItemFavorited = computed(() => {
+  return user.value?.favorites.includes(item.id);
+});
 </script>
 
 <style scoped lang="scss">
@@ -204,6 +219,10 @@ function reportItem() {
       background-color: var(--unique-color);
     }
   }
+}
+
+.favorite {
+  color: var(--red);
 }
 
 @media (max-width: 768px) {

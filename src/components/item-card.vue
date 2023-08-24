@@ -15,6 +15,7 @@
         <i class="fas fa-star"></i>
       </div>
       <span class="single-line">{{ item.name.text }}</span>
+      <i v-if="isFavorite" class="favorite fas fa-heart"></i>
     </button>
   </div>
 </template>
@@ -25,6 +26,8 @@ import { ModalController } from '@/controllers/modal-controller';
 import { Item } from '@/types';
 import ItemModal from './modals/item-modal.vue';
 import { useSettingsStore } from '@/stores/settingsStore';
+import { useUserStore } from '@/stores/userStore';
+import { computed } from 'vue';
 const props = defineProps({
   item: {
     type: Object as () => Item,
@@ -34,6 +37,9 @@ const props = defineProps({
 
 const item = props.item;
 const settingsStore = useSettingsStore();
+const isFavorite = computed(() => {
+  return useUserStore().user?.favorites.includes(item.id) ?? false;
+});
 </script>
 
 <style scoped lang="scss">
@@ -92,6 +98,12 @@ const settingsStore = useSettingsStore();
     > .rarity {
       margin-left: 0.8rem;
       font-size: 1.2rem;
+    }
+
+    > .favorite {
+      font-size: 1.2rem;
+      color: var(--red);
+      margin-right: 0.8rem;
     }
 
     > span {

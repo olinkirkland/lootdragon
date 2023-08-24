@@ -175,3 +175,15 @@ export async function resetPassword(password: string, newPassword: string) {
     return (error as AxiosError).response!.status;
   }
 }
+
+export async function favoriteItem(id: string) {
+  console.log('Favorite Item');
+  try {
+    const response = await server.put(`favorite/${id}`);
+    const newFavorites = response.data;
+    useUserStore().user!.favorites = newFavorites;
+    return response.status === StatusCode.SuccessOK ? null : response.status;
+  } catch (error) {
+    return (error as AxiosError).response!.status;
+  }
+}
