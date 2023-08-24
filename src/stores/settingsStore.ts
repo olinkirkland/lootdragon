@@ -7,8 +7,7 @@ export const useSettingsStore = defineStore({
     language: 'en',
     tableMode: false,
     largeNumberAbbreviation: true,
-    obviousRarity: false,
-    saveFilterChoices: true
+    obviousRarity: false
   }),
   actions: {
     setDarkTheme(darkTheme: boolean) {
@@ -26,9 +25,6 @@ export const useSettingsStore = defineStore({
     setObviousRarity(obviousRarity: boolean) {
       this.obviousRarity = obviousRarity;
     },
-    setSaveFilterChoices(saveFilterChoices: boolean) {
-      this.saveFilterChoices = saveFilterChoices;
-    },
     loadFromLocalStorage() {
       const settings = localStorage.getItem('settings');
       if (settings) {
@@ -38,7 +34,6 @@ export const useSettingsStore = defineStore({
         this.tableMode = parsedSettings.tableMode;
         this.largeNumberAbbreviation = parsedSettings.largeNumberAbbreviation;
         this.obviousRarity = parsedSettings.obviousRarity;
-        this.saveFilterChoices = parsedSettings.saveFilterChoices;
       }
     },
     saveToLocalStorage() {

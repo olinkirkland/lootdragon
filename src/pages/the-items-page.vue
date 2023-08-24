@@ -166,11 +166,11 @@ import ItemCard from '@/components/item-card.vue';
 import ItemModal from '@/components/modals/item-modal.vue';
 import { ModalController } from '@/controllers/modal-controller';
 import {
-  getFavoritesFilters,
-  getFiltersByKey,
-  getPriceFilters,
-  getSourcesFilters,
-  getTraitsFilters
+getFavoritesFilters,
+getFiltersByKey,
+getPriceFilters,
+getSourcesFilters,
+getTraitsFilters
 } from '@/filter-utils';
 import { useItemsStore } from '@/stores/itemsStore';
 import { useSettingsStore } from '@/stores/settingsStore';
@@ -357,18 +357,17 @@ watch(
     levelFilter
   ],
   () => {
-    if (settingsStore.saveFilterChoices)
-      localStorage.setItem(
-        'filters',
-        JSON.stringify({
-          rarity: rarityFilter.value,
-          source: sourceFilter.value,
-          traits: traitsFilter.value,
-          category: categoryFilter.value,
-          price: priceFilter.value,
-          level: levelFilter.value
-        })
-      );
+    localStorage.setItem(
+      'filters',
+      JSON.stringify({
+        rarity: rarityFilter.value,
+        source: sourceFilter.value,
+        traits: traitsFilter.value,
+        category: categoryFilter.value,
+        price: priceFilter.value,
+        level: levelFilter.value
+      })
+    );
   }
 );
 
@@ -387,23 +386,6 @@ function openRandomItem() {
     filteredItems.value[Math.floor(Math.random() * filteredItems.value.length)];
   ModalController.open(ItemModal, { item: randomItem });
 }
-
-// function resetFilters() {
-//   rarityFilter.value = initialRarityFilter.value;
-//   sourceFilter.value = initialSourceFilter.value;
-//   traitsFilter.value = initialTraitsFilter.value;
-//   categoryFilter.value = initialCategoryFilter.value;
-//   priceFilter.value = initialPriceFilter.value;
-//   levelFilter.value = initialLevelFilter.value;
-
-//   // Todo fix this workaround; the filter panel doesn't update when the filters are reset
-//   if (showFilters.value) {
-//     showFilters.value = false;
-//     setTimeout(() => {
-//       showFilters.value = true;
-//     });
-//   }
-// }
 </script>
 
 <style scoped lang="scss">

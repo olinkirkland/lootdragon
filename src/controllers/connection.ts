@@ -199,3 +199,14 @@ export async function clearFavorites() {
     return (error as AxiosError).response!.status;
   }
 }
+
+export async function createGame() {
+  console.log('Create Game');
+  // Try post request to /game
+  try {
+    const response = await server.post('game');
+    return response.status === StatusCode.SuccessOK ? null : response.status;
+  } catch (error) {
+    return (error as AxiosError).response!.status;
+  }
+}

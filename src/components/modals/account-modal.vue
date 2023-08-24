@@ -1,7 +1,7 @@
 <template>
   <div class="modal">
     <header>
-      <h2>{{ user?.username }}'s Account</h2>
+      <h2>My Account</h2>
       <button class="icon" @click="ModalController.close">
         <i class="fas fa-times"></i>
       </button>

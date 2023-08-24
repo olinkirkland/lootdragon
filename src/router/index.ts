@@ -5,10 +5,10 @@ import Home from '@/pages/the-home-page.vue';
 import ItemsPage from '@/pages/the-items-page.vue';
 import Lost from '@/pages/the-lost-page.vue';
 import { useItemsStore } from '@/stores/itemsStore';
+import { useNavStore } from '@/stores/navStore';
 import { useUserStore } from '@/stores/userStore';
 import { createRouter, createWebHistory } from 'vue-router';
-import ShopsPage from '../pages/the-shops-page.vue';
-import { useNavStore } from '@/stores/navStore';
+import GamesPage from '../pages/the-games-page.vue';
 
 const routes = [
   {
@@ -25,16 +25,13 @@ const routes = [
     },
     name: 'items'
   },
-  { path: '/library', redirect: '/item-browser' },
-  { path: '/item-browser', redirect: '/items' },
   {
-    path: '/shops',
+    path: '/games',
     components: {
-      app: ShopsPage
+      app: GamesPage
     },
-    name: 'shops'
+    name: 'games'
   },
-
   {
     path: '/:pathMatch(.*)*',
     components: {

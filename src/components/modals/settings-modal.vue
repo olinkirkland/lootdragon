@@ -70,24 +70,6 @@
           </label>
         </div>
       </section>
-      <section>
-        <h3>Filters</h3>
-        <!-- Save filter choices locally -->
-        <div class="checkbox-group">
-          <input
-            type="checkbox"
-            id="saveFilterChoices"
-            v-model="settingsStore.saveFilterChoices"
-          />
-          <label for="saveFilterChoices">
-            <p><strong>Save Filter Choices</strong></p>
-            <p>
-              Save the filter choices you make so that they are automatically
-              applied when you return to the site.
-            </p>
-          </label>
-        </div>
-      </section>
     </div>
   </div>
 </template>
