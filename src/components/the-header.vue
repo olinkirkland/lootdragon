@@ -64,7 +64,7 @@ header.app-header {
   align-items: center;
   justify-content: space-between;
   background-color: var(--dark);
-  min-height: 6.4rem !important;
+  height: 6.4rem !important;
   padding: 0 1.4rem;
   border-bottom: 1px solid var(--dark-translucent);
 

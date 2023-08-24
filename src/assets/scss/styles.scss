@@ -207,7 +207,7 @@ header.page-header {
 
   overflow-y: auto;
   flex-shrink: 0;
-  max-height: 100%;
+  max-height: calc(100vh - 6.4rem);
   border: 2px dashed red;
 }
 
