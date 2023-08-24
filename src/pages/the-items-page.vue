@@ -385,6 +385,7 @@ function openRandomItem() {
   background-color: var(--surface-color);
 
   > header {
+    height: fit-content;
     > .search-container {
       display: flex;
       gap: 0.8rem;
