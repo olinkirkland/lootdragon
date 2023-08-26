@@ -166,11 +166,11 @@ import ItemCard from '@/components/item-card.vue';
 import ItemModal from '@/components/modals/item-modal.vue';
 import { ModalController } from '@/controllers/modal-controller';
 import {
-getFavoritesFilters,
-getFiltersByKey,
-getPriceFilters,
-getSourcesFilters,
-getTraitsFilters
+  getFavoritesFilters,
+  getFiltersByKey,
+  getPriceFilters,
+  getSourcesFilters,
+  getTraitsFilters
 } from '@/filter-utils';
 import { useItemsStore } from '@/stores/itemsStore';
 import { useSettingsStore } from '@/stores/settingsStore';
@@ -394,7 +394,7 @@ function openRandomItem() {
   flex-direction: column;
   width: 100%;
   height: 100vh;
-  height: -webkit-fill-available;
+  max-height: -webkit-fill-available;
   overflow: hidden;
   background-color: var(--surface-color);
 
@@ -403,34 +403,6 @@ function openRandomItem() {
       display: flex;
       gap: 0.8rem;
       padding: 0.8rem;
-
-      .search-box {
-        display: flex;
-        flex: 1;
-        max-width: 24rem;
-        position: relative;
-        align-items: center;
-
-        > input {
-          width: 100%;
-          min-width: 8rem;
-          padding-left: 3.2rem;
-          padding-right: 3.2rem;
-        }
-
-        i {
-          position: absolute;
-          pointer-events: none;
-          opacity: 0.4;
-          left: 1.4rem;
-        }
-
-        button {
-          position: absolute;
-          top: 0;
-          right: 0;
-        }
-      }
     }
 
     > p.item-count {

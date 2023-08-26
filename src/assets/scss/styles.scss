@@ -153,7 +153,8 @@ form {
 
 input[type='text'],
 input[type='email'],
-input[type='password'] {
+input[type='password'],
+input[type='number'] {
   padding: 0 1.2rem;
   display: flex;
   align-items: center;
@@ -224,9 +225,17 @@ pre {
   }
 }
 
+.fill {
+  width: 100%;
+}
+
 .flex {
   display: flex;
   gap: 0.8rem;
+
+  &.flex--right {
+    justify-content: flex-end;
+  }
 }
 
 .wrap {
@@ -268,5 +277,37 @@ header.page-header {
 
     opacity: 0.8;
     background-color: var(--surface-color);
+  }
+}
+
+.muted {
+  opacity: 0.6;
+}
+
+.search-box {
+  display: flex;
+  flex: 1;
+  max-width: 24rem;
+  position: relative;
+  align-items: center;
+
+  > input {
+    width: 100%;
+    min-width: 8rem;
+    padding-left: 3.2rem;
+    padding-right: 3.2rem;
+  }
+
+  i {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.4;
+    left: 1.4rem;
+  }
+
+  button {
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 }

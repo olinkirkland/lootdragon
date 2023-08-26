@@ -70,6 +70,24 @@
           </label>
         </div>
       </section>
+      <section>
+        <h3>Source Bindings</h3>
+        <p>
+          If you own PDFs of source material from Paizo, you can set paths to
+          them here, and the links to the Archives of Nethys sources page will
+          be replaced with links to your PDF opened to the relevant page.
+        </p>
+        <p>
+          <em>
+            This feature requires a browser extension and will probably not work
+            on mobile devices.
+          </em>
+        </p>
+        <button @click="ModalController.open(SourceBindingsModal)">
+          <i class="fas fa-edit"></i>
+          <span>Edit Source Bindings</span>
+        </button>
+      </section>
     </div>
   </div>
 </template>
@@ -77,6 +95,7 @@
 <script setup lang="ts">
 import { ModalController } from '@/controllers/modal-controller';
 import { useSettingsStore } from '@/stores/settingsStore';
+import SourceBindingsModal from './source-bindings-modal.vue';
 
 const settingsStore = useSettingsStore();
 </script>

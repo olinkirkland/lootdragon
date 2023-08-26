@@ -33,8 +33,15 @@
         <div class="detail-group">
           <p><strong>Sources:</strong></p>
           <ul class="text">
-            <li v-for="source in item.source" :key="source.text">
-              <a :href="'https://2e.aonprd.com' + source.url" target="_blank">{{
+            <li
+              v-for="source in item.source"
+              :key="source.text"
+              :class="{
+                'source-binding':
+                  !!useSettingsStore().sourceBindings[source.text]
+              }"
+            >
+              <a :href="getSourceUrl(source)" target="_blank">{{
                 source.text
               }}</a>
               <span> (Page {{ source.page }})</span>
@@ -73,20 +80,23 @@
             <i class="fas fa-bug"></i>
             <span>Report</span>
           </button>
-          <button @click="copyJSON">
-            <i class="fas fa-copy"></i>
-            <span>Copy JSON</span>
-          </button>
-          <button
-            v-if="!!user"
-            @click="favoriteItemAndWait"
-            :disabled="isBusyFavoriting"
-          >
-            <i
-              :class="(isItemFavorited ? 'favorite fas' : 'far') + ' fa-heart'"
-            ></i>
-            <span>Favorite</span>
-          </button>
+          <div class="flex">
+            <button @click="copyJSON">
+              <i class="fas fa-copy"></i>
+              <span>Copy JSON</span>
+            </button>
+            <button
+              v-if="!!user"
+              @click="favoriteItemAndWait"
+              :disabled="isBusyFavoriting"
+            >
+              <i
+                :class="
+                  (isItemFavorited ? 'favorite fas' : 'far') + ' fa-heart'
+                "
+              ></i>
+            </button>
+          </div>
         </div>
       </section>
     </div>
@@ -97,12 +107,15 @@
 import { favoriteItem } from '@/controllers/connection';
 import { ModalController } from '@/controllers/modal-controller';
 import { useUserStore } from '@/stores/userStore';
-import { Item } from '@/types';
+import { Item, Source } from '@/types';
 import mixpanel from 'mixpanel-browser';
 import { PropType, computed, ref } from 'vue';
 import CopyText from '../copy-text.vue';
 import PriceDisplay from '../price-display.vue';
 import ReportModal from './report-modal.vue';
+import { useSettingsStore } from '@/stores/settingsStore';
+
+const settingsStore = useSettingsStore();
 
 const props = defineProps({
   item: {
@@ -159,6 +172,13 @@ async function favoriteItemAndWait() {
 const isItemFavorited = computed(() => {
   return useUserStore().isFavorite(item.id);
 });
+
+function getSourceUrl(source: Source) {
+  const binding = settingsStore.sourceBindings[source.text];
+  if (binding)
+    return binding.path + '#page=' + (source.page! + binding.pageOffset);
+  return 'https://2e.aonprd.com' + source.url;
+}
 </script>
 
 <style scoped lang="scss">
@@ -223,6 +243,17 @@ const isItemFavorited = computed(() => {
 
 .favorite {
   color: var(--red);
+}
+
+.source-binding {
+  > * {
+    color: var(--primary-color);
+  }
+
+  i {
+    font-size: 1.6rem;
+    margin-right: 0.4rem;
+  }
 }
 
 @media (max-width: 768px) {

@@ -25,7 +25,7 @@ import router from '@/router';
 .lost-container {
   width: 100%;
   height: 100vh;
-  height: -webkit-fill-available;
+  max-height: -webkit-fill-available;
   background-color: #222;
   display: flex;
   flex-direction: column;

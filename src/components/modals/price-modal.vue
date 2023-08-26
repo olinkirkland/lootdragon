@@ -27,7 +27,7 @@
           readability.
         </p>
       </section>
-      <section class="coin-legend-container">
+      <div class="coin-legend-container">
         <span class="coin-legend">
           <span class="coin-legend__diagram">
             <img class="coin" src="/assets/images/copper.png" />
@@ -43,7 +43,7 @@
             <span>1</span>
           </span>
         </span>
-      </section>
+      </div>
       <section>
         <p>You can read more about currency on the Archives of Nethys page.</p>
         <a href="https://2e.aonprd.com/Rules.aspx?ID=25" target="_blank">
@@ -60,13 +60,11 @@ import { ModalController } from '@/controllers/modal-controller';
 
 <style scoped lang="scss">
 .coin-legend-container {
-  border: 1px solid #ffebce;
+  border: 1px solid var(--surface-color-3);
+  padding: 1rem;
   margin: 2rem auto 0 auto;
   width: fit-content;
-  background-color: #fff7ec;
-  * {
-    color: var(--dark);
-  }
+  background-color: var(--surface-color-2);
 }
 .coin-legend {
   display: flex;
@@ -86,7 +84,7 @@ import { ModalController } from '@/controllers/modal-controller';
   }
 
   > span:not(.coin-legend__diagram) {
-    color: #adadad;
+    color: var(--text-color-3);
   }
 }
 

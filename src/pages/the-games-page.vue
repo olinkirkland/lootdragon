@@ -28,7 +28,7 @@ const user = computed(() => {
   flex-direction: column;
   width: 100%;
   height: 100vh;
-  height: -webkit-fill-available;
+  max-height: -webkit-fill-available;
   overflow: hidden;
   background-color: var(--surface-color);
 

@@ -21,7 +21,9 @@ const currentModalOptions = shallowRef<Record<string, unknown> | null>(null);
 
 ModalController.getInstance().addEventListener(({ modal, options }) => {
   // Close
-  if (!modal) return (currentModal.value = null);
+  if (!modal) {
+    return (currentModal.value = null);
+  }
 
   // Open
   currentModal.value = { ...modal };
@@ -33,7 +35,7 @@ ModalController.getInstance().addEventListener(({ modal, options }) => {
 .modal-container {
   width: 100%;
   height: 100vh;
-  height: -webkit-fill-available;
+  max-height: -webkit-fill-available;
   position: absolute;
   top: 0;
 
