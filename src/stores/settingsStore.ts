@@ -43,7 +43,7 @@ export const useSettingsStore = defineStore({
         this.tableMode = parsedSettings.tableMode;
         this.largeNumberAbbreviation = parsedSettings.largeNumberAbbreviation;
         this.obviousRarity = parsedSettings.obviousRarity;
-        this.sourceBindings = parsedSettings.sourceBindings;
+        this.sourceBindings = parsedSettings.sourceBindings || {};
       }
     },
     saveToLocalStorage() {
