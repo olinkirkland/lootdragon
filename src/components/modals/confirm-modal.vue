@@ -12,10 +12,14 @@
       </section>
       <section>
         <div class="flex">
-          <button @click="ModalController.close">
+          <button @click="ModalController.close" v-if="props.cancelText">
             {{ props.cancelText }}
           </button>
-          <button class="primary" @click="busyAndCallback">
+          <button
+            class="primary"
+            @click="busyAndCallback"
+            v-if="props.confirmText"
+          >
             <span>{{ props.confirmText }}</span>
           </button>
         </div>

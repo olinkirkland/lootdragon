@@ -35,3 +35,9 @@ export type Item = {
   usage: string;
   spoilers: string;
 };
+
+export type Game = {
+  id: string;
+  owner: string;
+  name: string;
+};

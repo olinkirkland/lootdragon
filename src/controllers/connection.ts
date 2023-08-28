@@ -1,4 +1,5 @@
 import { useUserStore } from '@/stores/userStore';
+import { Game } from '@/types';
 import axios, { AxiosError } from 'axios';
 import StatusCode from 'status-code-enum';
 
@@ -138,6 +139,8 @@ export async function logout() {
 export async function fetchMe() {
   let didFetch = false;
 
+  console.log('Fetching my user data ...');
+
   try {
     const response = await server.get('me');
     useUserStore().user = response.data;
@@ -146,6 +149,9 @@ export async function fetchMe() {
     didFetch = false;
   }
 
+  console.log(
+    didFetch ? '✔️ User data fetched' : '❌ Failed to fetch user data'
+  );
   return didFetch;
 }
 
@@ -208,5 +214,27 @@ export async function createGame() {
     return response.status === StatusCode.SuccessOK ? null : response.status;
   } catch (error) {
     return (error as AxiosError).response!.status;
+  }
+}
+
+export async function deleteGame(id: string) {
+  console.log('Delete Game');
+  // Try delete request to /game
+  try {
+    const response = await server.delete(`game/${id}`);
+    return response.status === StatusCode.SuccessOK ? null : response.status;
+  } catch (error) {
+    return (error as AxiosError).response!.status;
+  }
+}
+
+export async function fetchGame(id: string): Promise<Game | null> {
+  console.log('Fetch Game');
+  // Try get request to /game
+  try {
+    const response = await server.get(`game/${id}`);
+    return response.status === StatusCode.SuccessOK ? response.data : null;
+  } catch (error) {
+    return null;
   }
 }
