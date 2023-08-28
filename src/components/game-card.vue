@@ -16,9 +16,11 @@
 
 <script setup lang="ts">
 import { deleteGame, fetchMe } from '@/controllers/connection';
+import { ModalController } from '@/controllers/modal-controller';
 import { useGamesStore } from '@/stores/gamesStore';
 import { Game } from '@/types';
 import { computed, ref } from 'vue';
+import ConfirmModal from './modals/confirm-modal.vue';
 
 const props = defineProps({
   gameId: {
@@ -37,10 +39,18 @@ const game = computed(() => {
 });
 
 async function tryDeleteGame(gameId: string) {
-  isBusy.value = true;
-  const response = await deleteGame(gameId);
-  console.log(response);
-  await fetchMe();
+  ModalController.open(ConfirmModal, {
+    title: 'Delete Game',
+    message: 'Are you sure you want to delete this game?',
+    confirmText: 'Yes, delete it',
+    confirmCallback: async () => {
+      ModalController.close();
+      isBusy.value = true;
+      await deleteGame(gameId);
+      await fetchMe();
+      isBusy.value = false;
+    }
+  });
 }
 </script>
 
