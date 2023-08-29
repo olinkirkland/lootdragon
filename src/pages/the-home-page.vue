@@ -7,10 +7,10 @@
       <div class="actions">
         <button class="primary" @click="router.push({ name: 'items' })">
           <i class="fas fa-box-open"></i>
-          <span>Item Browser</span>
+          <span>Items</span>
         </button>
         <button v-if="!user" @click="ModalController.open(RegisterModal)">
-          <span>Sign up for an account</span>
+          <span>Sign up</span>
         </button>
         <!-- <button class="primary">
           <i class="fas fa-magic"></i>

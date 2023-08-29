@@ -16,7 +16,7 @@
     </ul>
   </div>
   <div class="games-container games-container--no-user" v-else>
-    <p>Not logged in</p>
+    <p>Not logged in.</p>
     <button @click="ModalController.open(LoginModal)">
       <i class="fas fa-sign-in-alt"></i>
       <span>Login</span>
@@ -45,7 +45,7 @@ async function tryCreateGame() {
   if (response) {
     ModalController.open(ConfirmModal, {
       title: 'Error Creating Game',
-      message: 'Code:' + response,
+      text: `Code: ${response}`,
       confirmText: 'Ok',
       cancelText: null
     });
@@ -65,12 +65,17 @@ async function tryCreateGame() {
   overflow: hidden;
   background-color: var(--surface-color);
 
+  &--no-user {
+    justify-content: center;
+    align-items: center;
+    gap: 0.8rem;
+  }
 
-  
   .actions-container {
     padding: 0.8rem;
     display: flex;
     align-items: center;
+    gap: 0.8rem;
   }
 
   ul {

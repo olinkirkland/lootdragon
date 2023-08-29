@@ -8,6 +8,7 @@ import { useItemsStore } from '@/stores/itemsStore';
 import { useNavStore } from '@/stores/navStore';
 import { useUserStore } from '@/stores/userStore';
 import { createRouter, createWebHistory } from 'vue-router';
+import GamePage from '../pages/the-game-page.vue';
 import GamesPage from '../pages/the-games-page.vue';
 
 const routes = [
@@ -31,6 +32,13 @@ const routes = [
       app: GamesPage
     },
     name: 'games'
+  },
+  {
+    path: '/game/:id',
+    components: {
+      app: GamePage
+    },
+    name: 'game'
   },
   {
     path: '/:pathMatch(.*)*',
