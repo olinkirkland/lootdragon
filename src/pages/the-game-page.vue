@@ -5,6 +5,9 @@
         <p>{{ gameId }}</p>
       </div>
     </header>
+    <div class="game-content">
+      <pre>{{ game }}</pre>
+    </div>
   </div>
   <div class="game-container game-container--not-found" v-else>
     <p>Game not found</p>
@@ -16,13 +19,27 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { fetchGame } from '@/controllers/connection';
+import { connectToWebSocket } from '@/controllers/socket-client';
+import { Game } from '@/types';
+import { computed, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 const route = useRoute();
 const gameId = computed(() => {
-  return route.params.id;
+  return route.params.id as string;
 });
+
+const game = ref(null as Game | null);
+
+function updateGameData() {
+  fetchGame(gameId.value).then((res) => {
+    console.log(gameId.value);
+    if (res) game.value = res;
+  });
+}
+
+connectToWebSocket();
 
 // const user = computed(() => {
 //   return useUserStore().user || null;
@@ -51,7 +68,12 @@ const router = useRouter();
     padding: 0.8rem;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.8rem;
+  }
+
+  .game-content {
+    padding: 0.8rem;
   }
 }
 
