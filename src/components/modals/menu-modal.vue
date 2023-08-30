@@ -11,7 +11,7 @@
         <p><strong>Account</strong></p>
         <p>
           Welcome,
-          <span class="primary"> {{ user?.username }} </span>!
+          <span class="primary"> {{ capitalize(user?.username) }} </span>!
         </p>
 
         <div class="flex">
@@ -155,6 +155,7 @@ import LoginModal from './login-modal.vue';
 import RegisterModal from './register-modal.vue';
 import SettingsModal from './settings-modal.vue';
 import versionJson from '@/data/version.json';
+import { capitalize } from '@/utils';
 
 const user = useUserStore().user;
 const version = versionJson.version;

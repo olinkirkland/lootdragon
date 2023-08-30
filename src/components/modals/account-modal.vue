@@ -10,7 +10,7 @@
       <section>
         <p>
           Hi,
-          <span class="primary">{{ user?.username }}</span
+          <span class="primary">{{ capitalize(user?.username) }}</span
           >. This is your account overview.
         </p>
       </section>
@@ -51,6 +51,7 @@ import AccountModal from './account-modal.vue';
 import ConfirmModal from './confirm-modal.vue';
 import DeleteAccountModal from './delete-account-modal.vue';
 import ResetPasswordModal from './reset-password-modal.vue';
+import { capitalize } from '@/utils';
 
 const user = computed(() => {
   return useUserStore().user;

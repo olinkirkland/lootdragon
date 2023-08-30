@@ -26,3 +26,8 @@ export function applyTheme(theme: string) {
   document.documentElement.className = `theme-${theme}`;
   console.log('Theme applied:', theme);
 }
+
+export function capitalize(str: string | undefined) {
+  if (!str) return '';
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
