@@ -1,5 +1,10 @@
 import LoadingModal from '@/components/modals/loading-modal.vue';
-import { fetchAccessToken, fetchMe } from '@/controllers/connection';
+import {
+  PROD_BASE_URL,
+  fetchAccessToken,
+  fetchMe,
+  login
+} from '@/controllers/connection';
 import { ModalController } from '@/controllers/modal-controller';
 import Home from '@/pages/the-home-page.vue';
 import ItemsPage from '@/pages/the-items-page.vue';
@@ -79,6 +84,19 @@ router.beforeEach(async (to, from, next) => {
 
   if (useUserStore().user === null && !!localStorage.getItem('refreshToken')) {
     ModalController.open(LoadingModal);
+
+    // Login with the saved credentials if in development mode
+    if (localStorage.getItem('baseUrl') !== PROD_BASE_URL) {
+      const { username, password } = JSON.parse(
+        localStorage.getItem('login') as string
+      ) as {
+        username: string;
+        password: string;
+      };
+
+      await login(username, password);
+    }
+
     if (await fetchAccessToken()) await fetchMe();
     ModalController.close();
   }

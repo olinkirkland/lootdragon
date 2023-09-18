@@ -97,6 +97,8 @@ export async function login(
     localStorage.setItem('refreshToken', refreshToken as string);
     const didFetch = await fetchMe();
     if (!didFetch) return 'Failed to fetch user data';
+    if (localStorage.getItem('baseUrl') !== PROD_BASE_URL)
+      localStorage.setItem('login', JSON.stringify({ username, password }));
     return null; // Return null if success
   } catch (error) {
     const response = (error as AxiosError).response!;
