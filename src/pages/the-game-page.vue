@@ -2,12 +2,12 @@
   <div class="game-container" v-if="true" :class="{ busy: isBusy }">
     <header class="page-header">
       <div class="actions-container">
-        <p>{{ gameId }}</p>
+        <p>{{ game?.name }}</p>
       </div>
     </header>
     <div class="game-content">
-      <button @click="updateGameData">Refresh</button>
-      <div class="game-owner" v-if="isGameOwner">
+      <!-- <button @click="updateGameData">Refresh</button> -->
+      <div class="game-controls" v-if="isGameOwner">
         <p>
           <i class="fas fa-crown"></i>
           You are the <span class="primary">owner</span> of this game.
@@ -18,13 +18,21 @@
               text: 'Enter a new name for the game:',
               placeholder: game?.name,
               confirmCallback: (newName: string) => {
-                console.log(newName);
+                server.patch('/game/' + gameId, {
+                  property: 'name',
+                  value: newName
+                });
+                ModalController.close();
               }
             })
           "
         >
           <i class="fas fa-edit"></i>
           <span>Change Name</span>
+        </button>
+        <button @click="ModalController.open(ManagePlayersModal, { gameId })">
+          <i class="fas fa-users"></i>
+          <span>Manage Characters</span>
         </button>
       </div>
       <pre>{{ game }}</pre>
@@ -41,38 +49,43 @@
 
 <script setup lang="ts">
 import InputModal from '@/components/modals/input-modal.vue';
-import { fetchGame } from '@/controllers/connection';
+import ManagePlayersModal from '@/components/modals/manage-players-modal.vue';
+import server, { fetchGame } from '@/controllers/connection';
 import { ModalController } from '@/controllers/modal-controller';
-import { connectToWebSocket } from '@/controllers/socket-client';
+import {
+  connectToWebSocket,
+  disconnectFromWebSocket
+} from '@/controllers/socket-client';
 import { useUserStore } from '@/stores/userStore';
-import { Game } from '@/types';
-import { computed, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { useGamesStore } from '../stores/gamesStore';
 
+const isBusy = ref(false);
 const route = useRoute();
 const gameId = computed(() => {
   return route.params.id as string;
 });
 
-const game = ref(null as Game | null);
-const isBusy = ref(false);
+const game = useGamesStore().getGameById(gameId.value);
+
 const user = computed(() => {
   return useUserStore().user || null;
 });
 const isGameOwner = computed(() => {
+  if (!game.value || !user.value) return false;
   return game.value?.owner === user.value?.id;
 });
 
-async function updateGameData() {
-  isBusy.value = true;
-  await fetchGame(gameId.value).then((res) => {
-    console.log(gameId.value);
-    if (res) game.value = res;
+onMounted(() => {
+  fetchGame(gameId.value).then(() => {
+    connectToWebSocket({ gameId: gameId.value });
   });
-  isBusy.value = false;
-}
+});
 
-connectToWebSocket();
+onUnmounted(() => {
+  disconnectFromWebSocket();
+});
 
 // const user = computed(() => {
 //   return useUserStore().user || null;
@@ -112,9 +125,12 @@ const router = useRouter();
     gap: 0.8rem;
     padding: 0.8rem;
 
-    .game-owner {
+    .game-controls {
       border: 1px solid var(--surface-color-2);
       padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
 
       > p {
         i {

@@ -1,7 +1,7 @@
 import { fetchGame } from '@/controllers/connection';
 import { Game } from '@/types';
 import { defineStore } from 'pinia';
-import { watch } from 'vue';
+import { computed, watch } from 'vue';
 import { useUserStore } from './userStore';
 
 export const useGamesStore = defineStore('games', () => {
@@ -16,6 +16,11 @@ export const useGamesStore = defineStore('games', () => {
 
       // Filter out any null or undefined values (if fetchGame didn't return a game).
       this.games = fetchedGames.filter((game) => !!game) as Game[];
+    },
+    getGameById(gameId: string) {
+      return computed(() => {
+        return this.games.find((g) => g.id === gameId);
+      });
     }
   };
 });

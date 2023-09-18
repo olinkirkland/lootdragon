@@ -1,5 +1,7 @@
+import { useGamesStore } from '@/stores/gamesStore';
 import { useUserStore } from '@/stores/userStore';
 import { Game } from '@/types';
+import { deepMerge } from '@/utils';
 import axios, { AxiosError } from 'axios';
 import StatusCode from 'status-code-enum';
 
@@ -229,12 +231,32 @@ export async function deleteGame(id: string) {
 }
 
 export async function fetchGame(id: string): Promise<Game | null> {
-  console.log('Fetch Game');
   // Try get request to /game
   try {
     const response = await server.get(`game/${id}`);
-    return response.status === StatusCode.SuccessOK ? response.data : null;
+    if (response.status === StatusCode.SuccessOK) {
+      const game = response.data as Game;
+      // Deep merge the game into the games store at the correct index
+      const gamesStore = useGamesStore();
+      const index = gamesStore.games.findIndex((g) => g.id === game.id);
+      if (index !== -1)
+        gamesStore.games[index] = deepMerge(gamesStore.games[index], game);
+      else gamesStore.games.push(game);
+      return game;
+    }
+
+    return null;
   } catch (error) {
     return null;
+  }
+}
+
+export async function addPlayer(gameId: string) {
+  console.log('Add Player');
+  try {
+    const response = await server.post(`game/${gameId}/player`);
+    return response.status === StatusCode.SuccessOK ? null : response.status;
+  } catch (error) {
+    return (error as AxiosError).response!.status;
   }
 }

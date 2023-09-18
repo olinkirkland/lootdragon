@@ -31,3 +31,24 @@ export function capitalize(str: string | undefined) {
   if (!str) return '';
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+export function deepMerge<T>(target: T, source: Partial<T>): T {
+  for (const key in source) {
+    if (source.hasOwnProperty(key)) {
+      const sourceValue = source[key];
+      if (typeof sourceValue === 'object' && sourceValue !== null) {
+        const targetValue = target[key];
+        if (targetValue && typeof targetValue === 'object') {
+          target[key] = deepMerge(targetValue, sourceValue);
+        } else {
+          //@ts-ignore
+          target[key] = sourceValue as T[keyof T];
+        }
+      } else {
+        //@ts-ignore
+        target[key] = sourceValue as T[keyof T];
+      }
+    }
+  }
+  return target;
+}
