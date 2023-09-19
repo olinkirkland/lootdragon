@@ -36,25 +36,24 @@ export type Item = {
   spoilers: string;
 };
 
-export type ItemAndQuantity = {
-  id: string;
-  quantity: number;
-};
+// export type ItemAndQuantity = {
+//   id: string;
+//   quantity: number;
+// };
 
-export type Stash = {
-  id: string;
-  type: string;
-  useBulk: boolean;
-  bulkAllowance: number;
-  itemsAndQuantities: ItemAndQuantity[];
-  hidden: boolean;
-  locked: boolean;
-};
+// export type Stash = {
+//   id: string;
+//   type: string;
+//   useBulk: boolean;
+//   bulkAllowance: number;
+//   itemsAndQuantities: ItemAndQuantity[];
+//   hidden: boolean;
+//   locked: boolean;
+// };
 
-export type Game = {
-  id: string;
-  owner: string;
+export type GameState = {
+  gameId: string;
+  ownerId: string;
   name: string;
-  players: string[];
-  stashes: Stash[];
+  users: { [nickname: string]: string };
 };

@@ -7,7 +7,6 @@ import TestModal from './components/modals/test-modal.vue';
 import router from './router';
 import { useItemsStore } from './stores/itemsStore';
 import { useSettingsStore } from './stores/settingsStore';
-import { setupGamesStore } from './stores/gamesStore';
 
 // Create the app
 const app = createApp(App);
@@ -28,7 +27,6 @@ settingsStore.$subscribe(() => {
 });
 
 useItemsStore();
-setupGamesStore();
 
 console.log('Pinia initialized');
 

@@ -38,6 +38,9 @@
           <span>Delete Account</span>
         </button>
       </section>
+      <section>
+        <p class="muted">ID: {{ user?.id }}</p>
+      </section>
     </div>
   </div>
 </template>

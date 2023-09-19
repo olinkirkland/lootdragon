@@ -2,7 +2,7 @@
   <div class="game-container" v-if="true" :class="{ busy: isBusy }">
     <header class="page-header">
       <div class="actions-container">
-        <p>{{ game?.name }}</p>
+        <p>{{ 'TODO' }}</p>
       </div>
     </header>
     <div class="game-content">
@@ -16,7 +16,7 @@
           @click="
             ModalController.open(InputModal, {
               text: 'Enter a new name for the game:',
-              placeholder: game?.name,
+              placeholder: 'TODO',
               confirmCallback: (newName: string) => {
                 server.patch('/game/' + gameId, {
                   property: 'name',
@@ -30,12 +30,8 @@
           <i class="fas fa-edit"></i>
           <span>Change Name</span>
         </button>
-        <button @click="ModalController.open(ManagePlayersModal, { gameId })">
-          <i class="fas fa-users"></i>
-          <span>Manage Characters</span>
-        </button>
       </div>
-      <pre>{{ game }}</pre>
+      <pre>{{ useGameStore().game }}</pre>
     </div>
   </div>
   <div class="game-container game-container--not-found" v-else>
@@ -49,17 +45,12 @@
 
 <script setup lang="ts">
 import InputModal from '@/components/modals/input-modal.vue';
-import ManagePlayersModal from '@/components/modals/manage-players-modal.vue';
-import server, { fetchGame } from '@/controllers/connection';
+import server from '@/controllers/connection';
 import { ModalController } from '@/controllers/modal-controller';
-import {
-  connectToWebSocket,
-  disconnectFromWebSocket
-} from '@/controllers/socket-client';
-import { useUserStore } from '@/stores/userStore';
+import { disconnectFromWebSocket } from '@/controllers/socket-client';
+import { useGameStore } from '@/stores/gameStore';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useGamesStore } from '../stores/gamesStore';
 
 const isBusy = ref(false);
 const route = useRoute();
@@ -67,29 +58,23 @@ const gameId = computed(() => {
   return route.params.id as string;
 });
 
-const game = useGamesStore().getGameById(gameId.value);
+// const user = computed(() => {
+//   return useUserStore().user || null;
+// });
 
-const user = computed(() => {
-  return useUserStore().user || null;
-});
 const isGameOwner = computed(() => {
-  if (!game.value || !user.value) return false;
-  return game.value?.owner === user.value?.id;
+  // if (!game.value || !user.value) return false;
+  // return game.value?.ownerId === user.value?.id;
+  return false;
 });
 
 onMounted(() => {
-  fetchGame(gameId.value).then(() => {
-    connectToWebSocket({ gameId: gameId.value });
-  });
+  useGameStore().refresh(gameId.value);
 });
 
 onUnmounted(() => {
   disconnectFromWebSocket();
 });
-
-// const user = computed(() => {
-//   return useUserStore().user || null;
-// });
 
 const router = useRouter();
 </script>
@@ -146,3 +131,4 @@ const router = useRouter();
 @media (max-width: 768px) {
 }
 </style>
+../stores/gameStore

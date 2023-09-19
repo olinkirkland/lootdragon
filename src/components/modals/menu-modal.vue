@@ -47,6 +47,30 @@
         </button>
       </section>
       <section>
+        <p><strong>Message from the Developer</strong></p>
+        <p>
+          Hi! I'm the developer of this site, Olin. You can find me online at
+          <a href="https://olinkirk.land" target="_blank">olinkirk.land</a>
+        </p>
+        <p>
+          My thanks go out to the folks at
+          <a href="https://paizo.com/" target="_blank">Paizo</a> and
+          <a href="https://2e.aonprd.com/" target="_blank"
+            >Archives of Nethys</a
+          >
+          who create and maintain the troves of content that I scrape and parse.
+        </p>
+        <p>
+          Development is a work in progress, and I'm always looking for ways to
+          improve it: Your feedback is super appreciated! You can reach me at
+          <a href="mailto:me@olinkirk.land" target="_blank">me@olinkirk.land</a>
+        </p>
+        <p>
+          I hope this tool helps you on your journey from Otari to Absalom and
+          beyond, whether you're a player or a GM.
+        </p>
+      </section>
+      <section>
         <p><strong>Attributions</strong></p>
         <ul>
           <li>
@@ -66,7 +90,8 @@
               The logo was created using an artist-agnostic prompt using
               <a href="https://www.midjourney.com/home/" target="_blank"
                 >Midjourney</a
-              >, an AI art generator
+              >, an AI art generator. If you want to make an original logo for
+              the site, this attribution space could be yours!
             </p>
           </li>
           <li>
@@ -93,30 +118,6 @@
             </p>
           </li>
         </ul>
-      </section>
-      <section>
-        <p><strong>Message from the Developer</strong></p>
-        <p>
-          Hi! I'm the developer of this site, Olin. You can find me online at
-          <a href="https://olinkirk.land" target="_blank">olinkirk.land</a>
-        </p>
-        <p>
-          My thanks go out to the folks at
-          <a href="https://paizo.com/" target="_blank">Paizo</a> and
-          <a href="https://2e.aonprd.com/" target="_blank"
-            >Archives of Nethys</a
-          >
-          who create and maintain the huge troves of content I scrape and parse.
-        </p>
-        <p>
-          Development is a work in progress, and I'm always looking for ways to
-          improve it: Your feedback is super appreciated! You can reach me at
-          <a href="mailto:me@olinkirk.land" target="_blank">me@olinkirk.land</a>
-        </p>
-        <p>
-          I hope this tool helps you on your journey from Otari to Absalom and
-          beyond, whether you're a player or a GM.
-        </p>
       </section>
       <section>
         <p><strong>License</strong></p>

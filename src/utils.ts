@@ -34,21 +34,29 @@ export function capitalize(str: string | undefined) {
 
 export function deepMerge<T>(target: T, source: Partial<T>): T {
   for (const key in source) {
-    if (source.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(source, key)) {
+      const targetValue = target[key];
       const sourceValue = source[key];
-      if (typeof sourceValue === 'object' && sourceValue !== null) {
-        const targetValue = target[key];
-        if (targetValue && typeof targetValue === 'object') {
-          target[key] = deepMerge(targetValue, sourceValue);
-        } else {
-          //@ts-ignore
-          target[key] = sourceValue as T[keyof T];
-        }
+
+      if (
+        sourceValue !== undefined &&
+        targetValue !== undefined &&
+        typeof sourceValue === 'object' &&
+        typeof targetValue === 'object'
+      ) {
+        // Recursively merge objects
+        (target as any)[key] = deepMerge(targetValue, sourceValue);
       } else {
-        //@ts-ignore
-        target[key] = sourceValue as T[keyof T];
+        if (sourceValue === undefined) {
+          // If sourceValue is undefined, delete the key from target
+          delete (target as any)[key];
+        } else {
+          // Assign or overwrite values
+          (target as any)[key] = sourceValue;
+        }
       }
     }
   }
+
   return target;
 }

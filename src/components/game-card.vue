@@ -1,18 +1,20 @@
 <template>
-  <div class="game-card game-card--empty" v-if="!game">
+  <div class="game-card game-card--empty" v-if="!props.gameId">
     <p>
       <i class="fas fa-spinner fa-spin"></i>
     </p>
   </div>
 
   <div class="game-card" :class="{ busy: isBusy }" v-else>
-    <h2>{{ game.name }}</h2>
-    <pre>{{ JSON.stringify(game, null, 2) }}</pre>
+    <h2>{{ props.gameId }}</h2>
+    <pre>{{ JSON.stringify(props.gameId, null, 2) }}</pre>
     <div class="flex">
-      <button @click="router.push({ name: 'game', params: { id: game.id } })">
+      <button
+        @click="router.push({ name: 'game', params: { id: props.gameId } })"
+      >
         <span>View Game</span>
       </button>
-      <button @click="tryDeleteGame(game.id)">
+      <button @click="tryDeleteGame()">
         <i class="fas fa-trash"></i>
         <span>Delete Game</span>
       </button>
@@ -23,9 +25,7 @@
 <script setup lang="ts">
 import { deleteGame, fetchMe } from '@/controllers/connection';
 import { ModalController } from '@/controllers/modal-controller';
-import { useGamesStore } from '@/stores/gamesStore';
-import { Game } from '@/types';
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import ConfirmModal from './modals/confirm-modal.vue';
 
@@ -38,15 +38,8 @@ const props = defineProps({
 const isBusy = ref(false);
 const router = useRouter();
 
-const games = computed(() => {
-  return useGamesStore().games || [];
-});
-
-const game = computed(() => {
-  return games.value.find((game: Game) => game.id === props.gameId) || null;
-});
-
-async function tryDeleteGame(gameId: string) {
+async function tryDeleteGame() {
+  if (!props.gameId) return;
   ModalController.open(ConfirmModal, {
     title: 'Delete Game',
     message: 'Are you sure you want to delete this game?',
@@ -54,7 +47,7 @@ async function tryDeleteGame(gameId: string) {
     confirmCallback: async () => {
       ModalController.close();
       isBusy.value = true;
-      await deleteGame(gameId);
+      await deleteGame(props.gameId!);
       await fetchMe();
       isBusy.value = false;
     }
@@ -82,3 +75,4 @@ async function tryDeleteGame(gameId: string) {
   }
 }
 </style>
+@/stores/gameStore

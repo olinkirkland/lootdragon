@@ -1,10 +1,18 @@
+import { useGameStore } from '@/stores/gameStore';
 import { BASE_URL, fetchGame } from './connection';
 
 const socketUrl = BASE_URL.replace('http', 'ws').replace('3005', '3006');
 let ws: WebSocket;
 
+type WebSocketMessage = {
+  type: 'refresh' | 'update';
+  data?: any;
+};
+
 export function connectToWebSocket(options: any) {
   // Event listener for when the WebSocket connection is established
+  if (ws) ws.close();
+
   ws = new WebSocket(socketUrl + '?' + new URLSearchParams(options));
   ws.addEventListener('open', onConnectionOpen);
   ws.addEventListener('message', onConnectionMessage);
@@ -23,9 +31,16 @@ function onConnectionOpen() {
 }
 
 function onConnectionMessage(event: { data: any }) {
-  console.log('Message received from server', event.data);
-  const data = JSON.parse(event.data);
-  if (data.command === 'refresh') fetchGame(data.gameId);
+  const message: WebSocketMessage = JSON.parse(event.data);
+  console.log('WebSocket message received', message);
+  switch (message.type) {
+    case 'refresh':
+      // fetchGame(message.data);
+      break;
+    case 'update':
+      useGameStore().update(message.data);
+      break;
+  }
 }
 
 function onConnectionError(event: any) {

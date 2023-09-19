@@ -1,7 +1,5 @@
-import { useGamesStore } from '@/stores/gamesStore';
 import { useUserStore } from '@/stores/userStore';
-import { Game } from '@/types';
-import { deepMerge } from '@/utils';
+import { GameState } from '@/types';
 import axios, { AxiosError } from 'axios';
 import StatusCode from 'status-code-enum';
 
@@ -15,8 +13,8 @@ const server = axios.create({
   withCredentials: true
 });
 
-let refreshToken: String | null = localStorage.getItem('refreshToken');
-let accessToken: String | null;
+export let refreshToken: String | null = localStorage.getItem('refreshToken');
+export let accessToken: String | null;
 
 // Add an interceptor to inject the access token to requests
 server.interceptors.request.use((config) => {
@@ -232,18 +230,12 @@ export async function deleteGame(id: string) {
   }
 }
 
-export async function fetchGame(id: string): Promise<Game | null> {
+export async function fetchGame(id: string): Promise<GameState | null> {
   // Try get request to /game
   try {
     const response = await server.get(`game/${id}`);
     if (response.status === StatusCode.SuccessOK) {
-      const game = response.data as Game;
-      // Deep merge the game into the games store at the correct index
-      const gamesStore = useGamesStore();
-      const index = gamesStore.games.findIndex((g) => g.id === game.id);
-      if (index !== -1)
-        gamesStore.games[index] = deepMerge(gamesStore.games[index], game);
-      else gamesStore.games.push(game);
+      const game = response.data as GameState;
       return game;
     }
 
@@ -253,12 +245,12 @@ export async function fetchGame(id: string): Promise<Game | null> {
   }
 }
 
-export async function addPlayer(gameId: string) {
-  console.log('Add Player');
-  try {
-    const response = await server.post(`game/${gameId}/player`);
-    return response.status === StatusCode.SuccessOK ? null : response.status;
-  } catch (error) {
-    return (error as AxiosError).response!.status;
-  }
-}
+// export async function addPlayer(gameId: string) {
+//   console.log('Add Player');
+//   try {
+//     const response = await server.post(`game/${gameId}/player`);
+//     return response.status === StatusCode.SuccessOK ? null : response.status;
+//   } catch (error) {
+//     return (error as AxiosError).response!.status;
+//   }
+// }

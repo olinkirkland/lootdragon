@@ -27,7 +27,7 @@
           </div>
           <div class="form-group">
             <button type="submit" class="danger">
-              <span>I'm sure. Delete my account</span>
+              <span>Delete my account</span>
             </button>
           </div>
         </form>
