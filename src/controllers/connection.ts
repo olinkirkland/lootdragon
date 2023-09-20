@@ -208,6 +208,42 @@ export async function clearFavorites() {
   }
 }
 
+export async function createCollection() {
+  console.log('Create Collection');
+  try {
+    const response = await server.post(`collection`);
+    const newCollections = response.data;
+    useUserStore().user!.collections = newCollections;
+    return response.status === StatusCode.SuccessOK ? null : response.status;
+  } catch (error) {
+    return (error as AxiosError).response!.status;
+  }
+}
+
+export async function deleteCollection(id: string) {
+  console.log('Delete Collection');
+  try {
+    const response = await server.delete(`collection/${id}`);
+    const newCollections = response.data;
+    useUserStore().user!.collections = newCollections;
+    return response.status === StatusCode.SuccessOK ? null : response.status;
+  } catch (error) {
+    return (error as AxiosError).response!.status;
+  }
+}
+
+export async function cloneCollection(id: string) {
+  console.log('Clone Collection');
+  try {
+    const response = await server.post(`collection/${id}/clone`);
+    const newCollections = response.data;
+    useUserStore().user!.collections = newCollections;
+    return response.status === StatusCode.SuccessOK ? null : response.status;
+  } catch (error) {
+    return (error as AxiosError).response!.status;
+  }
+}
+
 export async function createGame() {
   console.log('Create Game');
   // Try post request to /game

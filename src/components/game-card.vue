@@ -63,7 +63,6 @@ async function tryDeleteGame() {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  min-height: 20rem;
 
   &--empty {
     justify-content: center;

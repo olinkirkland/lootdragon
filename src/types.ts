@@ -57,3 +57,8 @@ export type GameState = {
   name: string;
   users: { [nickname: string]: string };
 };
+
+export type Collection = {
+  id: string;
+  name: string;
+};

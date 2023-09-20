@@ -4,7 +4,7 @@
       <div class="actions-container">
         <button @click="tryCreateGame" :disabled="busyCreating">
           <i class="fas fa-plus"></i>
-          <span> Create Game </span>
+          <span>Create New Game</span>
         </button>
         <p>{{ user.games.length }} / 3</p>
       </div>
@@ -72,30 +72,18 @@ async function tryCreateGame() {
   }
 
   .actions-container {
-    padding: 0.8rem;
+    padding: 1.2rem;
     display: flex;
     align-items: center;
     gap: 0.8rem;
   }
 
   ul {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-direction: column;
     gap: 0.8rem;
     padding: 0.8rem;
     width: 100%;
-
-    > li {
-      overflow: hidden;
-    }
-  }
-}
-
-@media (max-width: 768px) {
-  .games-container {
-    ul {
-      grid-template-columns: 1fr;
-    }
   }
 }
 </style>

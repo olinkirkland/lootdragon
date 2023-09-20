@@ -2,15 +2,15 @@
   <div class="collections-container" v-if="user">
     <header class="page-header">
       <div class="actions-container">
-        <button @click="tryCreateCollection" :disabled="busyCreating">
+        <button @click="tryCreateCollection" :disabled="isBusyCreating">
           <i class="fas fa-plus"></i>
-          <span> Create Collection </span>
+          <span>Create New Collection ({{ user.collections.length }})</span>
         </button>
       </div>
     </header>
     <ul>
       <li v-for="collectionId in user.collections" :key="collectionId">
-        <pre>{{ collectionId }}</pre>
+        <collection-card :collectionId="collectionId"></collection-card>
       </li>
     </ul>
   </div>
@@ -24,31 +24,33 @@
 </template>
 
 <script lang="ts" setup>
+import CollectionCard from '@/components/collection-card.vue';
 import LoginModal from '@/components/modals/login-modal.vue';
+import { createCollection, fetchMe } from '@/controllers/connection';
 import { ModalController } from '@/controllers/modal-controller';
 import { useUserStore } from '@/stores/userStore';
 import { computed, ref } from 'vue';
+import ConfirmModal from '../components/modals/confirm-modal.vue';
 
 const user = computed(() => {
   return useUserStore().user || null;
 });
 
-const busyCreating = ref(false);
+const isBusyCreating = ref(false);
 
 async function tryCreateCollection() {
-  busyCreating.value = true;
-  // const response = await createGame();
-  // if (response) {
-  //   ModalController.open(ConfirmModal, {
-  //     title: 'Error Creating Game',
-  //     text: `Code: ${response}`,
-  //     confirmText: 'Ok',
-  //     cancelText: null
-  //   });
-  // }
-  // await fetchMe();
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  busyCreating.value = false;
+  isBusyCreating.value = true;
+  const response = await createCollection();
+  if (response) {
+    ModalController.open(ConfirmModal, {
+      title: 'Error Creating Collection',
+      text: `Code: ${response}`,
+      confirmText: 'Ok',
+      cancelText: null
+    });
+  }
+  await fetchMe();
+  isBusyCreating.value = false;
 }
 </script>
 
@@ -69,30 +71,19 @@ async function tryCreateCollection() {
   }
 
   .actions-container {
-    padding: 0.8rem;
+    padding: 1.2rem;
     display: flex;
     align-items: center;
     gap: 0.8rem;
   }
 
   ul {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-direction: column;
     gap: 0.8rem;
     padding: 0.8rem;
     width: 100%;
-
-    > li {
-      overflow: hidden;
-    }
-  }
-}
-
-@media (max-width: 768px) {
-  .collections-container {
-    ul {
-      grid-template-columns: 1fr;
-    }
+    overflow-y: auto;
   }
 }
 </style>
