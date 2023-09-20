@@ -15,6 +15,7 @@ import { useUserStore } from '@/stores/userStore';
 import { createRouter, createWebHistory } from 'vue-router';
 import GamePage from '../pages/the-game-page.vue';
 import GamesPage from '../pages/the-games-page.vue';
+import CollectionsPage from '../pages/the-collections-page.vue';
 
 const routes = [
   {
@@ -30,6 +31,13 @@ const routes = [
       app: ItemsPage
     },
     name: 'items'
+  },
+  {
+    path: '/collections',
+    components: {
+      app: CollectionsPage
+    },
+    name: 'collections'
   },
   {
     path: '/games',

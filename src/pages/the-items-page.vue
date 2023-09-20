@@ -140,9 +140,7 @@
         </ul>
       </div>
 
-      <p class="item-count muted">
-        Showing {{ filteredItems.length }} / {{ items.length }} items
-      </p>
+      <p class="item-count muted">Showing {{ filteredItems.length }} items</p>
     </header>
 
     <div
