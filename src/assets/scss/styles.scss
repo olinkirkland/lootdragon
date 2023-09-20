@@ -18,13 +18,10 @@ html {
   font-size: 62.5%; // 1rem = 10px
 }
 
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=Croissant+One&display=swap');
+
 // Variables
-
-@font-face {
-  font-family: 'Aloevera';
-  src: url('/assets/fonts/Aloevera.ttf') format('truetype');
-}
-
 :root {
   // Colors
   --primary-color: #d48611;

@@ -87,7 +87,7 @@
           </li>
           <li>
             <p>
-              The logo was created using an artist-agnostic prompt using
+              The logo is a placeholder created using
               <a href="https://www.midjourney.com/home/" target="_blank"
                 >Midjourney</a
               >, an AI art generator. If you want to make an original logo for
@@ -104,17 +104,8 @@
           </li>
           <li>
             <p>
-              The coin icons were created using vector graphics from
+              The coin icons use vector graphics from
               <a href="https://icons8.com/" target="_blank">Icons8.com</a>
-            </p>
-          </li>
-          <li>
-            <p>
-              The Aloevera font was created by Salamahtype and is available for
-              purchase from
-              <a href="https://salamahtype.com/product/aloevera/">
-                Salamahtype.com
-              </a>
             </p>
           </li>
         </ul>
@@ -139,7 +130,7 @@
         </button>
       </section>
       <section>
-        <p class="version">Loot Dragon 🐉 Version {{ version }}</p>
+        <p class="version">Loot Dragon · Version {{ version }}</p>
       </section>
     </div>
   </div>
@@ -177,7 +168,6 @@ function logoutUser() {
 <style scoped lang="scss">
 .version {
   text-align: center;
-  font-size: 1.4rem;
   color: var(--text-color-3);
 }
 section.account {

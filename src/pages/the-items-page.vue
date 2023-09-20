@@ -140,7 +140,7 @@
         </ul>
       </div>
 
-      <p class="item-count">
+      <p class="item-count muted">
         Showing {{ filteredItems.length }} / {{ items.length }} items
       </p>
     </header>
@@ -406,7 +406,6 @@ function openRandomItem() {
     }
 
     > p.item-count {
-      font-size: 1.4rem;
       padding: 0.8rem;
       padding-top: 0;
     }

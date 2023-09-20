@@ -88,7 +88,7 @@ header.app-header {
     cursor: pointer;
 
     > h1 {
-      font-family: 'Aloevera' !important;
+      font-family: 'Croissant One' !important;
       font-size: 2.4rem;
       font-weight: normal;
       z-index: 2;

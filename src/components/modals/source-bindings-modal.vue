@@ -20,30 +20,34 @@
           </strong>
           <span>
             For security reasons, browsers don't allow links to local files to
-            be opened. You will need to enable this
+            be opened. To use the source bindings feature on this site, you must
+            enable the
             <a
               href="https://chrome.google.com/webstore/detail/enable-local-file-links/nikfmfgobenbhmocjaaboihbeocackld/related"
               target="_blank"
             >
-              Chrome extension
-            </a>
-            , or the equivalent extension or setting for your browser.</span
+              Enable Local File Links</a
+            >
+            Chrome extension, or the equivalent extension or setting for your
+            browser.</span
           >
-        </p>
-        <p>
-          Without the extension, the links will not work. If you have the
-          extension enabled, be sure to refresh the page and the links should
-          work.
         </p>
       </section>
       <section class="search">
         <div class="search-box">
-          <input type="text" v-model="search" placeholder="Search..." />
+          <input
+            type="text"
+            v-model="search"
+            placeholder="Search for a source..."
+          />
           <i class="fas fa-search"></i>
           <button @click="search = ''" v-if="search.length > 0" class="icon">
             <i class="fas fa-times-circle"></i>
           </button>
         </div>
+        <p class="muted">
+          Showing {{ filteredSources.length }} / {{ sources.length }} sources
+        </p>
       </section>
       <section class="results">
         <ul>
@@ -226,6 +230,10 @@ ul {
 @media (max-width: 768px) {
   .search-box {
     max-width: unset;
+  }
+
+  .search-box + p {
+    text-align: center;
   }
 
   form.edit-box {

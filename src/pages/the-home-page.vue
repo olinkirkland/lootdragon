@@ -108,7 +108,7 @@ const user = computed(() => {
     > h1 {
       font-size: 4rem;
       font-weight: normal;
-      font-family: 'Aloevera';
+      font-family: 'Croissant One';
       color: var(--primary-color);
     }
 
