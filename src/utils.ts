@@ -47,8 +47,8 @@ export function deepMerge<T>(target: T, source: Partial<T>): T {
         // Recursively merge objects
         (target as any)[key] = deepMerge(targetValue, sourceValue);
       } else {
-        if (sourceValue === undefined) {
-          // If sourceValue is undefined, delete the key from target
+        if (sourceValue === null) {
+          // If sourceValue is null, delete the key from target
           delete (target as any)[key];
         } else {
           // Assign or overwrite values

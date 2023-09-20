@@ -94,7 +94,6 @@ const user = computed(() => {
 
   .home {
     padding: 2rem;
-    border: 1px solid var(--primary-color);
     background-color: var(--dark-translucent);
     display: flex;
     flex-direction: column;
@@ -133,7 +132,6 @@ const user = computed(() => {
     bottom: 0.4rem;
     width: 100%;
     padding: 1.2rem;
-    border-top: 1px dashed var(--primary-color);
     background-color: var(--dark-translucent);
     display: flex;
     flex-direction: column;

@@ -2,7 +2,7 @@
   <div class="game-container" v-if="true" :class="{ busy: isBusy }">
     <header class="page-header">
       <div class="actions-container">
-        <p>{{ 'TODO' }}</p>
+        <p>{{ useGameStore().game?.name }}</p>
       </div>
     </header>
     <div class="game-content">

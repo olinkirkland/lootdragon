@@ -86,7 +86,10 @@ router.beforeEach(async (to, from, next) => {
     ModalController.open(LoadingModal);
 
     // Login with the saved credentials if in development mode
-    if (localStorage.getItem('baseUrl') !== PROD_BASE_URL) {
+    if (
+      localStorage.getItem('baseUrl') !== PROD_BASE_URL &&
+      !!localStorage.getItem('login')
+    ) {
       const { username, password } = JSON.parse(
         localStorage.getItem('login') as string
       ) as {
