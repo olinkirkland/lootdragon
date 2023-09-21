@@ -1,7 +1,7 @@
 <template>
   <div
     class="collection-card collection-card--empty"
-    v-if="!props.collectionId"
+    v-if="!props.collectionId || !collection"
   >
     <p>
       <i class="fas fa-spinner fa-spin"></i>
@@ -9,7 +9,8 @@
   </div>
 
   <div class="collection-card" :class="{ busy: isBusy }" v-else>
-    <h2>{{ props.collectionId }}</h2>
+    <h2>{{ collection.name }}</h2>
+    <pre>{{ collection }}</pre>
     <div class="flex wrap">
       <button
         @click="
@@ -35,8 +36,8 @@
 
 <script setup lang="ts">
 import server, {
-cloneCollection,
-deleteCollection
+  cloneCollection,
+  deleteCollection
 } from '@/controllers/connection';
 import { ModalController } from '@/controllers/modal-controller';
 import { Collection } from '@/types';
@@ -52,12 +53,12 @@ const props = defineProps({
 
 const collection = ref<Collection | null>(null);
 
-// onMounted(() => {
-//   if (!props.collectionId) return;
-//   const response = await server.get('collection/' + props.collectionId);
-//   if (!response) return;
-//   collection.value = response.data as Collection;
-// });
+onMounted(() => {
+  if (!props.collectionId) return;
+  server.get('collection/' + props.collectionId).then((response) => {
+    collection.value = response.data as Collection;
+  });
+});
 
 const isBusy = ref(false);
 const router = useRouter();
