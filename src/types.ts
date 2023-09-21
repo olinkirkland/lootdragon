@@ -54,11 +54,14 @@ export type Item = {
 export type GameState = {
   gameId: string;
   ownerId: string;
+  isPublic: boolean;
   name: string;
   users: { [nickname: string]: string };
 };
 
 export type Collection = {
-  id: string;
+  collectionId: string;
+  ownerId: string;
+  isPublic: boolean;
   name: string;
 };

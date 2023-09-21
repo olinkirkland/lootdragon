@@ -1,26 +1,30 @@
 <template>
-  <div class="game-container" v-if="true" :class="{ busy: isBusy }">
+  <div class="collection-container" v-if="true" :class="{ busy: isBusy }">
     <header class="page-header">
       <div class="actions-container">
-        <p>{{ game?.name }}</p>
+        <p>{{ collection?.name }}</p>
       </div>
     </header>
-    <div class="game-content">
-      <div class="game-controls" v-if="isGameOwner">
+    <div class="collection-content">
+      <!-- <button @click="updatecollectionData">Refresh</button> -->
+      <div class="collection-controls" v-if="isOwner">
         <p>
           <i class="fas fa-crown"></i>
-          You are the <span class="primary">owner</span> of this game.
+          You are the <span class="primary">owner</span> of this collection.
         </p>
         <button
           @click="
             ModalController.open(InputModal, {
-              text: 'Enter a new name for the game:',
-              placeholder: 'TODO',
+              text: 'Enter a new name for the collection:',
+              placeholder: collection?.name,
               confirmCallback: (newName: string) => {
-                server.patch('/game/' + gameId, {
-                  property: 'name',
-                  value: newName
-                });
+                server
+                  .put('/collection/' + collectionId + '/name', {
+                    name: newName
+                  })
+                  .then(() => {
+                    collection!.name = newName;
+                  });
                 ModalController.close();
               }
             })
@@ -30,14 +34,14 @@
           <span>Change Name</span>
         </button>
       </div>
-      <pre>{{ game }}</pre>
+      <pre>{{ collection }}</pre>
     </div>
   </div>
-  <div class="game-container game-container--not-found" v-else>
-    <p>Game not found</p>
-    <button @click="router.push({ name: 'games' })">
+  <div class="collection-container collection-container--not-found" v-else>
+    <p>Collection not found</p>
+    <button @click="router.push({ name: 'collections' })">
       <i class="fas fa-arrow-left"></i>
-      <span>Back to Games</span>
+      <span>Back to Collections</span>
     </button>
   </div>
 </template>
@@ -46,43 +50,44 @@
 import InputModal from '@/components/modals/input-modal.vue';
 import server from '@/controllers/connection';
 import { ModalController } from '@/controllers/modal-controller';
-import { disconnectFromWebSocket } from '@/controllers/socket-client';
-import { useGameStore } from '@/stores/gameStore';
 import { useUserStore } from '@/stores/userStore';
-import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { Collection } from '@/types';
+import { computed, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 const isBusy = ref(false);
 const route = useRoute();
-const gameId = computed(() => {
+const collectionId = computed(() => {
   return route.params.id as string;
 });
 
-const game = computed(() => {
-  return useGameStore().game;
+const collection = ref<Collection | null>(null);
+
+onMounted(() => {
+  updateCollection();
 });
+
+function updateCollection() {
+  if (!collectionId.value) return;
+  server.get('collection/' + collectionId.value).then((response) => {
+    collection.value = response.data as Collection;
+  });
+}
+
 const user = computed(() => {
   return useUserStore().user;
 });
 
-const isGameOwner = computed(() => {
-  if (!game.value || !user.value) return false;
-  return game.value?.ownerId === user.value?.id;
-});
-
-onMounted(() => {
-  useGameStore().refresh(gameId.value);
-});
-
-onUnmounted(() => {
-  disconnectFromWebSocket();
+const isOwner = computed(() => {
+  if (!collection.value || !user.value) return false;
+  return collection.value?.ownerId === user.value?.id;
 });
 
 const router = useRouter();
 </script>
 
 <style scoped lang="scss">
-.game-container {
+.collection-container {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -106,13 +111,13 @@ const router = useRouter();
     gap: 0.8rem;
   }
 
-  .game-content {
+  .collection-content {
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
     padding: 0.8rem;
 
-    .game-controls {
+    .collection-controls {
       border: 1px solid var(--surface-color-2);
       padding: 1.2rem;
       display: flex;
@@ -129,8 +134,4 @@ const router = useRouter();
     }
   }
 }
-
-@media (max-width: 768px) {
-}
 </style>
-../stores/gameStore
