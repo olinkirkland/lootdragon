@@ -1,5 +1,5 @@
 <template>
-  <div class="collections-container" v-if="user">
+  <div class="collections-container" v-if="!!user">
     <header class="page-header">
       <div class="actions-container">
         <button @click="tryCreateCollection" :disabled="isBusyCreating">

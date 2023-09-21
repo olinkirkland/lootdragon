@@ -1,5 +1,9 @@
 <template>
-  <div class="collection-container" v-if="true" :class="{ busy: isBusy }">
+  <div
+    class="collection-container"
+    v-if="!!collection"
+    :class="{ busy: isBusy }"
+  >
     <header class="page-header">
       <div class="actions-container">
         <p>{{ collection?.name }}</p>
@@ -22,8 +26,8 @@
                   .put('/collection/' + collectionId + '/name', {
                     name: newName
                   })
-                  .then(() => {
-                    collection!.name = newName;
+                  .then((response) => {
+                    collection!.name = response.data.name;
                   });
                 ModalController.close();
               }
@@ -33,12 +37,24 @@
           <i class="fas fa-edit"></i>
           <span>Change Name</span>
         </button>
+        <div class="checkbox-group">
+          <input
+            type="checkbox"
+            id="isPublicCheckbox"
+            :checked="collection?.isPublic"
+            @change="changeIsPublic"
+          />
+          <label for="isPublicCheckbox">Public</label>
+        </div>
       </div>
       <pre>{{ collection }}</pre>
     </div>
   </div>
   <div class="collection-container collection-container--not-found" v-else>
-    <p>Collection not found</p>
+    <p>
+      <span> Collection not found.</span>
+      <span class="muted"> It's either private or doesn't exist.</span>
+    </p>
     <button @click="router.push({ name: 'collections' })">
       <i class="fas fa-arrow-left"></i>
       <span>Back to Collections</span>
@@ -70,7 +86,8 @@ onMounted(() => {
 function updateCollection() {
   if (!collectionId.value) return;
   server.get('collection/' + collectionId.value).then((response) => {
-    collection.value = response.data as Collection;
+    collection.value =
+      response.status !== 404 ? (response.data as Collection) : null;
   });
 }
 
@@ -82,6 +99,16 @@ const isOwner = computed(() => {
   if (!collection.value || !user.value) return false;
   return collection.value?.ownerId === user.value?.id;
 });
+
+function changeIsPublic(event: any) {
+  server
+    .put('/collection/' + collectionId.value + '/public', {
+      isPublic: event.target.checked
+    })
+    .then((response) => {
+      collection.value!.isPublic = response.data.isPublic;
+    });
+}
 
 const router = useRouter();
 </script>
