@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="collection-container"
-    v-if="!!collection"
-    :class="{ busy: isBusy }"
-  >
+  <div class="collection-container" v-if="!!collection && !isBusy">
     <header class="page-header">
       <div class="actions-container">
         <p>{{ collection?.name }}</p>
@@ -50,7 +46,10 @@
       <pre>{{ collection }}</pre>
     </div>
   </div>
-  <div class="collection-container collection-container--not-found" v-else>
+  <div
+    class="collection-container collection-container--not-found"
+    v-else-if="!isBusy"
+  >
     <p>
       <span> Collection not found.</span>
       <span class="muted"> It's either private or doesn't exist.</span>
@@ -59,6 +58,12 @@
       <i class="fas fa-arrow-left"></i>
       <span>Back to Collections</span>
     </button>
+  </div>
+  <div class="collection-container collection-container--not-found" v-else>
+    <p class="loading-text">
+      <span>Loading</span>
+      <i class="fas fa-spinner fa-spin"></i>
+    </p>
   </div>
 </template>
 
@@ -71,7 +76,7 @@ import { Collection } from '@/types';
 import { computed, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-const isBusy = ref(false);
+const isBusy = ref(true);
 const route = useRoute();
 const collectionId = computed(() => {
   return route.params.id as string;
@@ -85,10 +90,18 @@ onMounted(() => {
 
 function updateCollection() {
   if (!collectionId.value) return;
-  server.get('collection/' + collectionId.value).then((response) => {
-    collection.value =
-      response.status !== 404 ? (response.data as Collection) : null;
-  });
+  isBusy.value = true;
+  server
+    .get('collection/' + collectionId.value)
+    .then((response) => {
+      collection.value =
+        response.status !== 404 ? (response.data as Collection) : null;
+      isBusy.value = false;
+    })
+    .catch(() => {
+      collection.value = null;
+      isBusy.value = false;
+    });
 }
 
 const user = computed(() => {
@@ -160,5 +173,13 @@ const router = useRouter();
       }
     }
   }
+}
+
+.loading-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 0.8rem;
 }
 </style>
