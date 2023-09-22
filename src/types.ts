@@ -65,5 +65,8 @@ export type Collection = {
   isPublic: boolean;
   name: string;
   lastUpdated: string;
-  items: string[];
+  itemsAndQuantity: {
+    id: string;
+    quantity: number;
+  }[];
 };

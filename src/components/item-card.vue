@@ -103,7 +103,7 @@ const isFavorite = computed(() => {
     > .favorite {
       font-size: 1.2rem;
       color: var(--red);
-      margin-right: 0.8rem;
+      margin-right: 1rem;
     }
 
     > span {

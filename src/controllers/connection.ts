@@ -253,8 +253,8 @@ export async function addItemToCollection(
     const response = await server.post(
       `collection/${collectionId}/item/${itemId}`
     );
-    const newCollections = response.data;
-    useUserStore().user!.collections = newCollections;
+    // todo update collections > collectionId store
+
     return response.status === StatusCode.SuccessOK ? null : response.status;
   } catch (error) {
     return (error as AxiosError).response!.status;

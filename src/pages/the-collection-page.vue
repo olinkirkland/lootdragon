@@ -14,10 +14,11 @@
         </p>
         <p class="item-count">
           <span class="muted">This collection has </span>
-          <span class="primary">{{ collection?.items.length }}</span>
+          <span class="primary">{{ collection?.itemsAndQuantity.length }}</span>
           <span class="muted"> items.</span>
         </p>
       </div>
+
       <drawer v-if="isOwner" title="Collection Settings">
         <section>
           <p class="muted">Choose a new name for your collection.</p>
@@ -69,7 +70,23 @@
         </section>
       </drawer>
 
-      <pre>{{ collection }}</pre>
+      <div
+        class="item-list-container"
+        :class="{ 'table-view': settingsStore.tableMode }"
+      >
+        <ul class="item-list">
+          <li
+            v-for="itemAndQuantity in itemsAndQuantity"
+            :key="itemAndQuantity.item.id"
+          >
+            <pre>
+              {{ itemAndQuantity }}
+            </pre>
+          </li>
+        </ul>
+      </div>
+
+      <!-- <pre>{{ collection }}</pre> -->
     </div>
   </div>
   <div
@@ -99,13 +116,18 @@ import ConfirmModal from '@/components/modals/confirm-modal.vue';
 import InputModal from '@/components/modals/input-modal.vue';
 import server, { deleteCollection } from '@/controllers/connection';
 import { ModalController } from '@/controllers/modal-controller';
+import { useItemsStore } from '@/stores/itemsStore';
+import { useSettingsStore } from '@/stores/settingsStore';
 import { useUserStore } from '@/stores/userStore';
-import { Collection } from '@/types';
+import { Collection, Item } from '@/types';
 import { computed, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 const isBusy = ref(true);
 const route = useRoute();
+
+const settingsStore = useSettingsStore();
+
 const collectionId = computed(() => {
   return route.params.id as string;
 });
@@ -114,6 +136,16 @@ const collection = ref<Collection | null>(null);
 
 onMounted(() => {
   updateCollection();
+});
+
+const itemsAndQuantity = computed(() => {
+  return (collection.value?.itemsAndQuantity ?? []).map((itemAndQuantity) => {
+    const item = useItemsStore().items.find((i) => i.id === itemAndQuantity.id);
+    return {
+      item: item!,
+      quantity: itemAndQuantity.quantity
+    };
+  }) as { item: Item; quantity: number }[];
 });
 
 function updateCollection() {
@@ -196,11 +228,13 @@ const router = useRouter();
     gap: 0.8rem;
   }
 
-  .collection-content {
+  > .collection-content {
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
     padding: 0.8rem;
+    flex: 1;
+    overflow: hidden;
 
     section {
       border: 1px solid var(--surface-color-2);
@@ -230,5 +264,11 @@ const router = useRouter();
 
 .item-count {
   text-align: center;
+}
+
+.item-list-container {
+  flex: 1;
+  overflow-y: auto;
+  border: 1px solid var(--surface-color-2);
 }
 </style>

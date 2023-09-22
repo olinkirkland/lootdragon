@@ -287,7 +287,6 @@ function getSourceUrl(source: Source) {
         padding: 1.2rem;
         gap: 0.8rem;
       }
-
       .collections-drawer > ul > li {
         position: relative;
         display: flex;
