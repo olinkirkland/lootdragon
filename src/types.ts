@@ -64,4 +64,6 @@ export type Collection = {
   ownerId: string;
   isPublic: boolean;
   name: string;
+  lastUpdated: string;
+  items: string[];
 };

@@ -1,5 +1,5 @@
 import { useGameStore } from '@/stores/gameStore';
-import { BASE_URL, fetchGame } from './connection';
+import { BASE_URL } from './connection';
 
 const socketUrl = BASE_URL.replace('http', 'ws').replace('3005', '3006');
 let ws: WebSocket;

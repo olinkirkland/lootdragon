@@ -10,7 +10,10 @@
 
   <div class="collection-card" :class="{ busy: isBusy }" v-else>
     <h2>{{ collection.name }}</h2>
-    <pre>{{ collection }}</pre>
+    <p class="muted">
+      <span>Last updated: </span
+      ><span>{{ new Date(collection.lastUpdated).toLocaleDateString() }}</span>
+    </p>
     <div class="flex wrap">
       <button
         @click="
@@ -98,10 +101,6 @@ async function tryCloneCollection() {
   &--empty {
     justify-content: center;
     align-items: center;
-  }
-
-  > pre {
-    width: 100%;
   }
 }
 </style>
