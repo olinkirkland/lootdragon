@@ -7,21 +7,20 @@
     </header>
     <div class="collection-content">
       <!-- <button @click="updatecollectionData">Refresh</button> -->
-      <div class="collection-controls" v-if="isOwner">
-        <p>
+      <div>
+        <p v-if="isOwner" class="owner-text">
           <i class="fas fa-crown"></i>
           You are the <span class="primary">owner</span> of this collection.
         </p>
-        <div class="collection-controls__actions">
-          <div class="checkbox-group">
-            <input
-              type="checkbox"
-              id="isPublicCheckbox"
-              :checked="collection?.isPublic"
-              @change="changeIsPublic"
-            />
-            <label for="isPublicCheckbox">Public Collection</label>
-          </div>
+        <p class="item-count">
+          <span class="muted">This collection has </span>
+          <span class="primary">{{ collection?.items.length }}</span>
+          <span class="muted"> items.</span>
+        </p>
+      </div>
+      <drawer v-if="isOwner" title="Collection Settings">
+        <section>
+          <p class="muted">Choose a new name for your collection.</p>
           <button
             @click="
               ModalController.open(InputModal, {
@@ -43,8 +42,33 @@
             <i class="fas fa-edit"></i>
             <span>Change Name</span>
           </button>
-        </div>
-      </div>
+          <p>
+            <span class="muted">This is a </span>
+            <span class="primary">{{
+              collection?.isPublic ? 'public' : 'private'
+            }}</span>
+            <span class="muted"> collection. </span>
+            <span class="primary">{{
+              collection?.isPublic ? 'Anyone' : 'Only you'
+            }}</span>
+            <span class="muted"> can view it.</span>
+          </p>
+          <button @click="changeIsPublic">
+            <span>{{
+              collection.isPublic ? 'Make Private' : 'Make Public'
+            }}</span>
+          </button>
+
+          <p class="muted">
+            <span>Delete this collection. This action is irreversible.</span>
+          </p>
+          <button @click="tryDeleteCollection()">
+            <i class="fas fa-trash"></i>
+            <span>Delete</span>
+          </button>
+        </section>
+      </drawer>
+
       <pre>{{ collection }}</pre>
     </div>
   </div>
@@ -53,8 +77,8 @@
     v-else-if="!isBusy"
   >
     <p>
-      <span> Collection not found.</span>
-      <span class="muted"> It's either private or doesn't exist.</span>
+      <span>Collection not found.</span><br />
+      <span class="muted">It's either private or doesn't exist.</span>
     </p>
     <button @click="router.push({ name: 'collections' })">
       <i class="fas fa-arrow-left"></i>
@@ -70,8 +94,10 @@
 </template>
 
 <script setup lang="ts">
+import Drawer from '@/components/drawer.vue';
+import ConfirmModal from '@/components/modals/confirm-modal.vue';
 import InputModal from '@/components/modals/input-modal.vue';
-import server from '@/controllers/connection';
+import server, { deleteCollection } from '@/controllers/connection';
 import { ModalController } from '@/controllers/modal-controller';
 import { useUserStore } from '@/stores/userStore';
 import { Collection } from '@/types';
@@ -115,14 +141,29 @@ const isOwner = computed(() => {
   return collection.value?.ownerId === user.value?.id;
 });
 
-function changeIsPublic(event: any) {
+function changeIsPublic() {
   server
     .put('/collection/' + collectionId.value + '/public', {
-      isPublic: event.target.checked
+      isPublic: !collection.value?.isPublic
     })
     .then((response) => {
       collection.value!.isPublic = response.data.isPublic;
     });
+}
+
+async function tryDeleteCollection() {
+  ModalController.open(ConfirmModal, {
+    title: 'Delete Collection',
+    message: 'Are you sure you want to delete this collection?',
+    confirmText: 'Yes, delete it',
+    confirmCallback: async () => {
+      ModalController.close();
+      isBusy.value = true;
+      await deleteCollection(collection.value?.collectionId!);
+      isBusy.value = false;
+      router.push({ name: 'collections' });
+    }
+  });
 }
 
 const router = useRouter();
@@ -140,6 +181,8 @@ const router = useRouter();
   background-color: var(--surface-color);
 
   &--not-found {
+    padding: 4rem;
+    text-align: center;
     justify-content: center;
     align-items: center;
     gap: 0.8rem;
@@ -159,27 +202,21 @@ const router = useRouter();
     gap: 0.8rem;
     padding: 0.8rem;
 
-    .collection-controls {
+    section {
       border: 1px solid var(--surface-color-2);
       padding: 1.2rem;
       display: flex;
       flex-direction: column;
       gap: 0.8rem;
-
-      > p {
-        i {
-          margin-right: 0.6rem;
-          color: var(--primary-color);
-        }
-        margin-bottom: 0.4rem;
-      }
-
-      > .collection-controls__actions {
-        display: flex;
-        align-items: center;
-        gap: 1.2rem;
-      }
     }
+  }
+}
+
+.owner-text {
+  text-align: center;
+  > i {
+    margin-right: 0.4rem;
+    color: var(--primary-color);
   }
 }
 
@@ -189,5 +226,9 @@ const router = useRouter();
   align-items: center;
   width: 100%;
   gap: 0.8rem;
+}
+
+.item-count {
+  text-align: center;
 }
 </style>

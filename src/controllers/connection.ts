@@ -244,6 +244,23 @@ export async function cloneCollection(id: string) {
   }
 }
 
+export async function addItemToCollection(
+  collectionId: string,
+  itemId: string
+) {
+  console.log(`Add Item ${itemId} to Collection ${collectionId}`);
+  try {
+    const response = await server.post(
+      `collection/${collectionId}/item/${itemId}`
+    );
+    const newCollections = response.data;
+    useUserStore().user!.collections = newCollections;
+    return response.status === StatusCode.SuccessOK ? null : response.status;
+  } catch (error) {
+    return (error as AxiosError).response!.status;
+  }
+}
+
 export async function createGame() {
   console.log('Create Game');
   // Try post request to /game

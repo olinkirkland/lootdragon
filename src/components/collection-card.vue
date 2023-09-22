@@ -25,10 +25,6 @@
       >
         <span>View</span>
       </button>
-      <button @click="tryDeleteCollection()">
-        <i class="fas fa-trash"></i>
-        <span>Delete</span>
-      </button>
       <button @click="tryCloneCollection()">
         <i class="fas fa-copy"></i>
         <span>Clone</span>
@@ -39,14 +35,11 @@
 
 <script setup lang="ts">
 import server, {
-  cloneCollection,
-  deleteCollection
+cloneCollection
 } from '@/controllers/connection';
-import { ModalController } from '@/controllers/modal-controller';
 import { Collection } from '@/types';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import ConfirmModal from './modals/confirm-modal.vue';
 
 const props = defineProps({
   collectionId: {
@@ -65,21 +58,6 @@ onMounted(() => {
 
 const isBusy = ref(false);
 const router = useRouter();
-
-async function tryDeleteCollection() {
-  if (!props.collectionId) return;
-  ModalController.open(ConfirmModal, {
-    title: 'Delete Collection',
-    message: 'Are you sure you want to delete this collection?',
-    confirmText: 'Yes, delete it',
-    confirmCallback: async () => {
-      ModalController.close();
-      isBusy.value = true;
-      await deleteCollection(props.collectionId!);
-      isBusy.value = false;
-    }
-  });
-}
 
 async function tryCloneCollection() {
   if (!props.collectionId) return;

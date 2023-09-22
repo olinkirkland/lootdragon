@@ -7,8 +7,19 @@
       </button>
     </header>
     <div class="modal__content">
+      <section class="nav">
+        <h3>Navigation</h3>
+        <div class="button-bar">
+          <button @click="router.push('/')">
+            <i class="fas fa-home"></i>
+          </button>
+          <button @click="router.push('/collections')">
+            <i class="fas fa-boxes"></i>
+          </button>
+        </div>
+      </section>
       <section class="account" v-if="!!user">
-        <p><strong>Account</strong></p>
+        <h3>Account</h3>
         <p>
           Welcome,
           <span class="primary"> {{ capitalize(user?.username) }} </span>!
@@ -26,7 +37,7 @@
         </div>
       </section>
       <section v-else>
-        <p><strong>Account</strong></p>
+        <h3>Account</h3>
         <p>You are not logged in.</p>
         <div class="flex">
           <button @click="ModalController.open(RegisterModal)">
@@ -39,7 +50,7 @@
         </div>
       </section>
       <section>
-        <p><strong>Change Settings</strong></p>
+        <h3>Change Settings</h3>
         <p>Customize the appearance or behavior of the app.</p>
         <button @click="ModalController.open(SettingsModal)">
           <i class="fas fa-cog"></i>
@@ -47,31 +58,31 @@
         </button>
       </section>
       <section>
-        <p><strong>Message from the Developer</strong></p>
-        <p>
-          Hi! I'm the developer of this site, Olin. You can find me online at
-          <a href="https://olinkirk.land" target="_blank">olinkirk.land</a>
-        </p>
-        <p>
-          My thanks go out to the folks at
-          <a href="https://paizo.com/" target="_blank">Paizo</a> and
-          <a href="https://2e.aonprd.com/" target="_blank"
-            >Archives of Nethys</a
-          >
-          who create and maintain the troves of content that I scrape and parse.
-        </p>
+        <h3>From the Developer</h3>
+        <p>Hi! I'm Olin, and I programmed this site.</p>
         <p>
           Development is a work in progress, and I'm always looking for ways to
           improve it: Your feedback is super appreciated! You can reach me at
           <a href="mailto:me@olinkirk.land" target="_blank">me@olinkirk.land</a>
+          or message me on Discord (username: Olin).
         </p>
+        <p>
+          I want to thank the creative minds at
+          <a href="https://paizo.com/" target="_blank">Paizo</a> and
+          <a href="https://2e.aonprd.com/" target="_blank"
+            >Archives of Nethys</a
+          >
+          who create and maintain the mountains of data that I've parsed in
+          order to make this site possible.
+        </p>
+
         <p>
           I hope this tool helps you on your journey from Otari to Absalom and
           beyond, whether you're a player or a GM.
         </p>
       </section>
       <section>
-        <p><strong>Attributions</strong></p>
+        <h3>Attributions</h3>
         <ul>
           <li>
             <p>
@@ -111,7 +122,7 @@
         </ul>
       </section>
       <section>
-        <p><strong>License</strong></p>
+        <h3>License</h3>
         <p>
           I do not claim ownership of any data gathered from third-party
           sources. All data from Archives of Nethys is used under the
@@ -148,6 +159,7 @@ import RegisterModal from './register-modal.vue';
 import SettingsModal from './settings-modal.vue';
 import versionJson from '@/data/version.json';
 import { capitalize } from '@/utils';
+import router from '@/router';
 
 const user = useUserStore().user;
 const version = versionJson.version;

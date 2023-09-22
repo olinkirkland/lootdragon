@@ -33,9 +33,9 @@
 
 <script setup lang="ts">
 import {
-BASE_URL,
-DEV_BASE_URL,
-PROD_BASE_URL
+  BASE_URL,
+  DEV_BASE_URL,
+  PROD_BASE_URL
 } from '@/controllers/connection';
 import { ModalController } from '@/controllers/modal-controller';
 import { useNavStore } from '@/stores/navStore';
@@ -73,7 +73,7 @@ header.app-header {
   justify-content: space-between;
   background-color: var(--dark);
   min-height: 6.4rem !important;
-  padding: 0 1.4rem;
+  padding: 0 1.4rem 0 2rem;
   border-bottom: 1px solid var(--dark-translucent);
 
   h1,

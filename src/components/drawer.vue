@@ -7,6 +7,7 @@
       </button>
     </div>
     <slot v-if="isOpen"></slot>
+    <div class="drawer__bottom"></div>
   </div>
 </template>
 
@@ -32,5 +33,10 @@ const props = defineProps({
   align-items: center;
   min-height: initial;
   background-color: var(--surface-color-2);
+}
+
+.drawer > .drawer__bottom {
+  width: 100%;
+  border-bottom: 2px dashed var(--surface-color-2);
 }
 </style>

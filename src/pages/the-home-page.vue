@@ -9,18 +9,29 @@
           <i class="fas fa-box-open"></i>
           <span>Items</span>
         </button>
-        <button v-if="!user" @click="ModalController.open(RegisterModal)">
-          <span>Sign up</span>
+        <button
+          v-if="user"
+          class="primary"
+          @click="router.push({ name: 'collections' })"
+        >
+          <i class="fas fa-boxes"></i>
+          <span>My Collections</span>
         </button>
-        <!-- <button class="primary">
-          <i class="fas fa-magic"></i>
-          <span>Custom Items</span>
-        </button> -->
       </div>
-      <p class="blurb">
-        Simplifying the way you pick items, design shops, and create loot for
-        Pathfinder 2E games.
-      </p>
+      <div class="sign-up-box" v-if="!user">
+        <p>Sign up for a free account to unlock additional features.</p>
+        <div class="flex">
+          <button class="primary" @click="ModalController.open(RegisterModal)">
+            <span>Sign up</span>
+          </button>
+          <button
+            class="text"
+            @click="ModalController.open(AboutRegisterModal)"
+          >
+            <span class="primary">Learn more</span>
+          </button>
+        </div>
+      </div>
     </div>
     <div class="daily-item">
       <div class="header">
@@ -40,6 +51,7 @@
 </template>
 
 <script setup lang="ts">
+import AboutRegisterModal from '@/components/modals/about-register-modal.vue';
 import ItemModal from '@/components/modals/item-modal.vue';
 import RegisterModal from '@/components/modals/register-modal.vue';
 import { ModalController } from '@/controllers/modal-controller';
@@ -119,14 +131,6 @@ const user = computed(() => {
       padding: 2rem;
       gap: 0.8rem;
     }
-
-    p {
-      margin: 0 4rem;
-      max-width: 64rem;
-      opacity: 0.8;
-      font-size: 1.4rem;
-      text-align: center;
-    }
   }
 
   > .daily-item {
@@ -160,14 +164,19 @@ const user = computed(() => {
   }
 }
 
+.sign-up-box {
+  border: 1px solid var(--primary-color);
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 100%;
+}
+
 @media (max-width: 768px) {
   .actions {
     flex-direction: column;
     align-items: center;
-  }
-
-  .blurb {
-    display: none;
   }
 
   #logo {

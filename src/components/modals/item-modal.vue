@@ -1,3 +1,4 @@
+lk
 <template>
   <div class="modal">
     <header>
@@ -19,6 +20,31 @@
         </div>
         <p v-if="!!item.description">{{ item.description }}</p>
       </section>
+
+      <section class="collection" v-if="!!user">
+        <drawer title="Add to Collection">
+          <div class="collections-drawer">
+            <ul v-if="user?.collections.length > 0">
+              <li v-for="collection in user?.collections">
+                <p>{{ collection }}</p>
+                <button
+                  class="icon"
+                  @click="addItemToCollection(collection, item.id)"
+                >
+                  <i class="fas fa-plus"></i>
+                </button>
+              </li>
+            </ul>
+            <p v-else>
+              <span
+                >You don't have any collections yet. Create a new collection
+                <a class="primary" href="/collections">here</a>.</span
+              >
+            </p>
+          </div>
+        </drawer>
+      </section>
+
       <section>
         <div class="detail-group">
           <p><strong>Sources:</strong></p>
@@ -64,6 +90,7 @@
           }}</span>
         </p>
       </section>
+
       <section class="links">
         <drawer title="Links">
           <div class="links-drawer">
@@ -106,7 +133,7 @@
 </template>
 
 <script setup lang="ts">
-import { favoriteItem } from '@/controllers/connection';
+import { addItemToCollection, favoriteItem } from '@/controllers/connection';
 import { ModalController } from '@/controllers/modal-controller';
 import { useUserStore } from '@/stores/userStore';
 import { Item, Source } from '@/types';
@@ -185,6 +212,17 @@ function getSourceUrl(source: Source) {
 </script>
 
 <style scoped lang="scss">
+@mixin alternating-shade() {
+  &:nth-child(odd)::after {
+    content: '';
+    width: 100%;
+    position: absolute;
+    background-color: var(--shadow);
+    opacity: 0.1;
+    height: 100%;
+    pointer-events: none;
+  }
+}
 .modal {
   width: 80%;
   max-width: 64rem;
@@ -238,14 +276,33 @@ function getSourceUrl(source: Source) {
       }
     }
 
-    &.links {
+    &.links,
+    &.collection {
       padding: 0;
 
-      .links-drawer {
+      .links-drawer,
+      .collections-drawer {
         display: flex;
         flex-direction: column;
         padding: 1.2rem;
         gap: 0.8rem;
+      }
+
+      .collections-drawer > ul > li {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        > p {
+          padding-left: 1.2rem;
+        }
+
+        @include alternating-shade();
+
+        &:not(:last-child) {
+          border-bottom: 1px solid var(--surface-color-3);
+        }
       }
     }
   }
