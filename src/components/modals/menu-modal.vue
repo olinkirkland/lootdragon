@@ -2,22 +2,22 @@
   <div class="modal">
     <header>
       <h2>Menu</h2>
+      <div class="button-bar">
+        <button @click="router.push('/')">
+          <i class="fas fa-home"></i>
+        </button>
+        <button @click="router.push('/items')">
+          <i class="fas fa-box-open"></i>
+        </button>
+        <button @click="router.push('/collections')">
+          <i class="fas fa-boxes"></i>
+        </button>
+      </div>
       <button class="icon" @click="ModalController.close">
         <i class="fas fa-times"></i>
       </button>
     </header>
     <div class="modal__content">
-      <section class="nav">
-        <h3>Navigation</h3>
-        <div class="button-bar">
-          <button @click="router.push('/')">
-            <i class="fas fa-home"></i>
-          </button>
-          <button @click="router.push('/collections')">
-            <i class="fas fa-boxes"></i>
-          </button>
-        </div>
-      </section>
       <section class="account" v-if="!!user">
         <h3>Account</h3>
         <p>
