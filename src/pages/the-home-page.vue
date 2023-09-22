@@ -29,7 +29,7 @@
       </div>
       <div class="content">
         <button
-          @click="router.push({ name: 'items', query: { i: dailyItem.id } })"
+          @click="ModalController.open(ItemModal, { item: dailyItem })"
           class="text primary"
         >
           <span>{{ dailyItem.name.text }}</span>
@@ -40,13 +40,14 @@
 </template>
 
 <script setup lang="ts">
+import ItemModal from '@/components/modals/item-modal.vue';
+import RegisterModal from '@/components/modals/register-modal.vue';
+import { ModalController } from '@/controllers/modal-controller';
 import router from '@/router';
-import { computed } from 'vue';
-import seedrandom from 'seedrandom';
 import { useItemsStore } from '@/stores/itemsStore';
 import { useUserStore } from '@/stores/userStore';
-import { ModalController } from '@/controllers/modal-controller';
-import RegisterModal from '@/components/modals/register-modal.vue';
+import seedrandom from 'seedrandom';
+import { computed } from 'vue';
 
 const dailyItem = computed(() => {
   const date = new Date();

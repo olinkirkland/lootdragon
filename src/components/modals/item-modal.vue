@@ -7,20 +7,10 @@
       </button>
     </header>
     <div class="modal__content">
-      <section class="actions">
-        <copy-text label="Direct Link" :text="directLink" :link="true" />
-        <copy-text label="Archives of Nethys" :text="nethysLink" :link="true" />
-      </section>
       <section>
-        <div class="spread">
-          <p>
-            <strong>Name:</strong>
-            <span>{{ item.name.text }}</span>
-          </p>
+        <div class="overview">
           <price-display v-if="!!item.price" :value="item.price" />
-        </div>
-        <div class="spread">
-          <p><strong>Level:</strong>{{ item.level }}</p>
+          <p><strong>Level</strong>{{ item.level }}</p>
           <p>
             <span :class="'rarity rarity--' + item.rarity.toLowerCase()">{{
               item.rarity
@@ -74,6 +64,18 @@
           }}</span>
         </p>
       </section>
+      <section class="links">
+        <drawer title="Links">
+          <div class="links-drawer">
+            <copy-text label="Direct Link" :text="directLink" :link="true" />
+            <copy-text
+              label="Archives of Nethys"
+              :text="nethysLink"
+              :link="true"
+            />
+          </div>
+        </drawer>
+      </section>
       <section>
         <div class="spread">
           <button @click="reportItem" :disabled="isItemReported" v-if="!!user">
@@ -114,6 +116,7 @@ import CopyText from '../copy-text.vue';
 import PriceDisplay from '../price-display.vue';
 import ReportModal from './report-modal.vue';
 import { useSettingsStore } from '@/stores/settingsStore';
+import Drawer from '../drawer.vue';
 
 const settingsStore = useSettingsStore();
 
@@ -192,6 +195,27 @@ function getSourceUrl(source: Source) {
       margin-bottom: 0.8rem;
     }
 
+    .overview {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      > * {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+
+        justify-content: center;
+
+        &:first-child {
+          justify-content: flex-start;
+        }
+
+        &:last-child {
+          justify-content: flex-end;
+        }
+      }
+    }
+
     p {
       display: flex;
       width: fit-content;
@@ -211,6 +235,17 @@ function getSourceUrl(source: Source) {
       li:not(:last-child)::after {
         content: ', ';
         margin-right: 0.2rem;
+      }
+    }
+
+    &.links {
+      padding: 0;
+
+      .links-drawer {
+        display: flex;
+        flex-direction: column;
+        padding: 1.2rem;
+        gap: 0.8rem;
       }
     }
   }
@@ -254,6 +289,10 @@ function getSourceUrl(source: Source) {
     font-size: 1.6rem;
     margin-right: 0.4rem;
   }
+}
+
+.links-drawer {
+  padding: 0.4rem;
 }
 
 @media (max-width: 768px) {

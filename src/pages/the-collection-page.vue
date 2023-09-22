@@ -12,35 +12,37 @@
           <i class="fas fa-crown"></i>
           You are the <span class="primary">owner</span> of this collection.
         </p>
-        <button
-          @click="
-            ModalController.open(InputModal, {
-              text: 'Enter a new name for the collection:',
-              placeholder: collection?.name,
-              confirmCallback: (newName: string) => {
-                server
-                  .put('/collection/' + collectionId + '/name', {
-                    name: newName
-                  })
-                  .then((response) => {
-                    collection!.name = response.data.name;
-                  });
-                ModalController.close();
-              }
-            })
-          "
-        >
-          <i class="fas fa-edit"></i>
-          <span>Change Name</span>
-        </button>
-        <div class="checkbox-group">
-          <input
-            type="checkbox"
-            id="isPublicCheckbox"
-            :checked="collection?.isPublic"
-            @change="changeIsPublic"
-          />
-          <label for="isPublicCheckbox">Public</label>
+        <div class="collection-controls__actions">
+          <div class="checkbox-group">
+            <input
+              type="checkbox"
+              id="isPublicCheckbox"
+              :checked="collection?.isPublic"
+              @change="changeIsPublic"
+            />
+            <label for="isPublicCheckbox">Public Collection</label>
+          </div>
+          <button
+            @click="
+              ModalController.open(InputModal, {
+                text: 'Enter a new name for the collection:',
+                placeholder: collection?.name,
+                confirmCallback: (newName: string) => {
+                  server
+                    .put('/collection/' + collectionId + '/name', {
+                      name: newName
+                    })
+                    .then((response) => {
+                      collection!.name = response.data.name;
+                    });
+                  ModalController.close();
+                }
+              })
+            "
+          >
+            <i class="fas fa-edit"></i>
+            <span>Change Name</span>
+          </button>
         </div>
       </div>
       <pre>{{ collection }}</pre>
@@ -170,6 +172,12 @@ const router = useRouter();
           color: var(--primary-color);
         }
         margin-bottom: 0.4rem;
+      }
+
+      > .collection-controls__actions {
+        display: flex;
+        align-items: center;
+        gap: 1.2rem;
       }
     }
   }
