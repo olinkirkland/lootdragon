@@ -9,9 +9,9 @@
         <button @click="router.push('/items')">
           <i class="fas fa-box-open"></i>
         </button>
-        <button @click="router.push('/collections')">
+        <!-- <button @click="router.push('/collections')">
           <i class="fas fa-boxes"></i>
-        </button>
+        </button> -->
       </div>
       <button class="icon" @click="ModalController.close">
         <i class="fas fa-times"></i>
