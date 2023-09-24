@@ -45,8 +45,9 @@
             <i class="fas fa-times-circle"></i>
           </button>
         </div>
-        <p class="muted">
+        <p class="muted spread">
           Showing {{ filteredSources.length }} / {{ sources.length }} sources
+          ({{ Object.keys(settingsStore.sourceBindings).length }} bound)
         </p>
       </section>
       <section class="results">
