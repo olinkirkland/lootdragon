@@ -9,15 +9,29 @@
     <div class="modal__content">
       <section>
         <p>
-          A Loot Dragon account is a free account that allows you to create
-          collections of items and share them with others.
+          A Loot Dragon account is free and unlocks additional features on the
+          site.
         </p>
-        <p>You don't need an Email to sign up for an account, just a username and a password you can remember.</p>
+        <p>
+          You don't need an Email to sign up for an account, just choose a
+          username and a password you can remember.
+        </p>
       </section>
       <section>
         <p>Features for registered users:</p>
         <ul class="features">
-          <li></li>
+          <li>
+            <p>
+              <strong>Favorites: </strong>
+              <span>Mark items as favorites (and filter)</span>
+            </p>
+          </li>
+          <li>
+            <p>
+              <strong>Collections: </strong>
+              <span>Create and share collections of items</span>
+            </p>
+          </li>
         </ul>
       </section>
     </div>
@@ -54,6 +68,18 @@ import { ModalController } from '@/controllers/modal-controller';
   }
 
   > span:not(.coin-legend__diagram) {
+    color: var(--text-color-3);
+  }
+}
+
+ul.features > li {
+  margin-left: 2.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+
+  &::before {
+    content: '•';
     color: var(--text-color-3);
   }
 }

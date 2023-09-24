@@ -49,7 +49,7 @@ const copper = Math.floor((props.value - gold - silver) * 100);
 .price {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.8rem;
   padding: 0 0.8rem;
   color: #222;
   height: fit-content;

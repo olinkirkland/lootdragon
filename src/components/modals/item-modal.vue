@@ -21,7 +21,7 @@ lk
         <p v-if="!!item.description">{{ item.description }}</p>
       </section>
 
-      <section class="collection" v-if="!!user">
+      <!-- <section class="collection" v-if="!!user">
         <drawer title="Add to Collection">
           <div class="collections-drawer">
             <ul v-if="user?.collections.length > 0">
@@ -43,7 +43,7 @@ lk
             </p>
           </div>
         </drawer>
-      </section>
+      </section> -->
 
       <section>
         <div class="detail-group">
@@ -91,7 +91,7 @@ lk
         </p>
       </section>
 
-      <section class="links">
+      <!-- <section class="links">
         <drawer title="Links">
           <div class="links-drawer">
             <copy-text label="Direct Link" :text="directLink" :link="true" />
@@ -102,13 +102,14 @@ lk
             />
           </div>
         </drawer>
-      </section>
+      </section> -->
+
       <section>
         <div class="spread">
           <button @click="reportItem" :disabled="isItemReported" v-if="!!user">
-            <i class="fas fa-bug"></i>
             <span>Report</span>
           </button>
+
           <div class="flex">
             <button @click="copyJSON">
               <i class="fas fa-copy"></i>
@@ -128,22 +129,26 @@ lk
           </div>
         </div>
       </section>
+      <section>
+        <a :href="nethysLink" target="_blank"
+          >{{ item.name.text }} on Archives of Nethys</a
+        >
+        <a :href="directLink" target="_blank">Direct link</a>
+      </section>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { addItemToCollection, favoriteItem } from '@/controllers/connection';
+import { favoriteItem } from '@/controllers/connection';
 import { ModalController } from '@/controllers/modal-controller';
+import { useSettingsStore } from '@/stores/settingsStore';
 import { useUserStore } from '@/stores/userStore';
 import { Item, Source } from '@/types';
 import mixpanel from 'mixpanel-browser';
 import { PropType, computed, ref } from 'vue';
-import CopyText from '../copy-text.vue';
 import PriceDisplay from '../price-display.vue';
 import ReportModal from './report-modal.vue';
-import { useSettingsStore } from '@/stores/settingsStore';
-import Drawer from '../drawer.vue';
 
 const settingsStore = useSettingsStore();
 
@@ -287,20 +292,24 @@ function getSourceUrl(source: Source) {
         padding: 1.2rem;
         gap: 0.8rem;
       }
-      .collections-drawer > ul > li {
-        position: relative;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+      .collections-drawer > ul {
+        border: 1px solid var(--surface-color-3);
 
-        > p {
-          padding-left: 1.2rem;
-        }
+        > li {
+          position: relative;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
 
-        @include alternating-shade();
+          > p {
+            padding-left: 1.2rem;
+          }
 
-        &:not(:last-child) {
-          border-bottom: 1px solid var(--surface-color-3);
+          @include alternating-shade();
+
+          &:not(:last-child) {
+            border-bottom: 1px solid var(--surface-color-3);
+          }
         }
       }
     }
@@ -345,10 +354,6 @@ function getSourceUrl(source: Source) {
     font-size: 1.6rem;
     margin-right: 0.4rem;
   }
-}
-
-.links-drawer {
-  padding: 0.4rem;
 }
 
 @media (max-width: 768px) {

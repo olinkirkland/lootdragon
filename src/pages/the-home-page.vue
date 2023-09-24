@@ -9,14 +9,14 @@
           <i class="fas fa-box-open"></i>
           <span>Items</span>
         </button>
-        <button
+        <!-- <button
           v-if="user"
           class="primary"
           @click="router.push({ name: 'collections' })"
         >
           <i class="fas fa-boxes"></i>
           <span>My Collections</span>
-        </button>
+        </button> -->
       </div>
       <div class="sign-up-box" v-if="!user">
         <p>Sign up for a free account to unlock additional features.</p>

@@ -66,7 +66,7 @@ export type Collection = {
   name: string;
   lastUpdated: string;
   itemsAndQuantity: {
-    id: string;
+    itemId: string;
     quantity: number;
   }[];
 };

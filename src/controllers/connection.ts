@@ -253,7 +253,7 @@ export async function addItemToCollection(
     const response = await server.post(
       `collection/${collectionId}/item/${itemId}`
     );
-    // todo update collections > collectionId store
+    // TODO update collections > collectionId store
 
     return response.status === StatusCode.SuccessOK ? null : response.status;
   } catch (error) {

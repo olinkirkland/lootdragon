@@ -1,92 +1,49 @@
 <template>
   <div class="collection-container" v-if="!!collection && !isBusy">
+    <button class="update-button" @click="updateCollection()">
+      <i class="fas fa-sync"></i>
+      <span>Update</span>
+    </button>
     <header class="page-header">
       <div class="actions-container">
         <p>{{ collection?.name }}</p>
+        <button
+          v-if="!!isOwner"
+          class="icon"
+          @click="ModalController.open(CollectionSettingsModal, { collection })"
+        >
+          <i class="fas fa-cog"></i>
+        </button>
       </div>
     </header>
     <div class="collection-content">
-      <!-- <button @click="updatecollectionData">Refresh</button> -->
-      <div>
-        <p v-if="isOwner" class="owner-text">
-          <i class="fas fa-crown"></i>
-          You are the <span class="primary">owner</span> of this collection.
+      <div class="overview">
+        <p>
+          <span class="primary">{{ totalItems }}</span>
+          <span class="muted"> items </span>
+          <span class="muted">({{ totalUniqueItems }} unique) </span>
+          <span> · </span>
+          <span class="primary">{{ totalBulk }}</span>
+          <span class="muted"> bulk</span>
         </p>
-        <p class="item-count">
-          <span class="muted">This collection has </span>
-          <span class="primary">{{ collection?.itemsAndQuantity.length }}</span>
-          <span class="muted"> items.</span>
-        </p>
+
+        <price-display :value="totalValue" />
       </div>
-
-      <drawer v-if="isOwner" title="Collection Settings">
-        <section>
-          <p class="muted">Choose a new name for your collection.</p>
-          <button
-            @click="
-              ModalController.open(InputModal, {
-                text: 'Enter a new name for the collection:',
-                placeholder: collection?.name,
-                confirmCallback: (newName: string) => {
-                  server
-                    .put('/collection/' + collectionId + '/name', {
-                      name: newName
-                    })
-                    .then((response) => {
-                      collection!.name = response.data.name;
-                    });
-                  ModalController.close();
-                }
-              })
-            "
-          >
-            <i class="fas fa-edit"></i>
-            <span>Change Name</span>
-          </button>
-          <p>
-            <span class="muted">This is a </span>
-            <span class="primary">{{
-              collection?.isPublic ? 'public' : 'private'
-            }}</span>
-            <span class="muted"> collection. </span>
-            <span class="primary">{{
-              collection?.isPublic ? 'Anyone' : 'Only you'
-            }}</span>
-            <span class="muted"> can view it.</span>
-          </p>
-          <button @click="changeIsPublic">
-            <span>{{
-              collection.isPublic ? 'Make Private' : 'Make Public'
-            }}</span>
-          </button>
-
-          <p class="muted">
-            <span>Delete this collection. This action is irreversible.</span>
-          </p>
-          <button @click="tryDeleteCollection()">
-            <i class="fas fa-trash"></i>
-            <span>Delete</span>
-          </button>
-        </section>
-      </drawer>
 
       <div
         class="item-list-container"
         :class="{ 'table-view': settingsStore.tableMode }"
       >
         <ul class="item-list">
-          <li
-            v-for="itemAndQuantity in itemsAndQuantity"
-            :key="itemAndQuantity.item.id"
-          >
-            <pre>
-              {{ itemAndQuantity }}
-            </pre>
+          <li v-for="itemAndQuantity in itemsAndQuantity">
+            <collection-item-card
+              :item="itemAndQuantity.item"
+              :quantity="itemAndQuantity.quantity"
+              :key="itemAndQuantity.item.id"
+            ></collection-item-card>
           </li>
         </ul>
       </div>
-
-      <!-- <pre>{{ collection }}</pre> -->
     </div>
   </div>
   <div
@@ -111,10 +68,10 @@
 </template>
 
 <script setup lang="ts">
-import Drawer from '@/components/drawer.vue';
-import ConfirmModal from '@/components/modals/confirm-modal.vue';
-import InputModal from '@/components/modals/input-modal.vue';
-import server, { deleteCollection } from '@/controllers/connection';
+import CollectionItemCard from '@/components/collection-item-card.vue';
+import CollectionSettingsModal from '@/components/modals/collection-settings-modal.vue';
+import PriceDisplay from '@/components/price-display.vue';
+import server from '@/controllers/connection';
 import { ModalController } from '@/controllers/modal-controller';
 import { useItemsStore } from '@/stores/itemsStore';
 import { useSettingsStore } from '@/stores/settingsStore';
@@ -138,9 +95,38 @@ onMounted(() => {
   updateCollection();
 });
 
+const totalItems = computed(() => {
+  return itemsAndQuantity.value.reduce(
+    (acc, itemAndQuantity) => acc + itemAndQuantity.quantity,
+    0
+  );
+});
+
+const totalUniqueItems = computed(() => {
+  return itemsAndQuantity.value.length;
+});
+
+const totalBulk = computed(() => {
+  return itemsAndQuantity.value.reduce(
+    (acc, itemAndQuantity) =>
+      acc + itemAndQuantity.quantity * (+itemAndQuantity.item.bulk || 0),
+    0
+  );
+});
+
+const totalValue = computed(() => {
+  return itemsAndQuantity.value.reduce(
+    (acc, itemAndQuantity) =>
+      acc + itemAndQuantity.quantity * (itemAndQuantity.item.price || 0),
+    0
+  );
+});
+
 const itemsAndQuantity = computed(() => {
   return (collection.value?.itemsAndQuantity ?? []).map((itemAndQuantity) => {
-    const item = useItemsStore().items.find((i) => i.id === itemAndQuantity.id);
+    const item = useItemsStore().items.find(
+      (i) => i.id === itemAndQuantity.itemId
+    );
     return {
       item: item!,
       quantity: itemAndQuantity.quantity
@@ -173,31 +159,6 @@ const isOwner = computed(() => {
   return collection.value?.ownerId === user.value?.id;
 });
 
-function changeIsPublic() {
-  server
-    .put('/collection/' + collectionId.value + '/public', {
-      isPublic: !collection.value?.isPublic
-    })
-    .then((response) => {
-      collection.value!.isPublic = response.data.isPublic;
-    });
-}
-
-async function tryDeleteCollection() {
-  ModalController.open(ConfirmModal, {
-    title: 'Delete Collection',
-    message: 'Are you sure you want to delete this collection?',
-    confirmText: 'Yes, delete it',
-    confirmCallback: async () => {
-      ModalController.close();
-      isBusy.value = true;
-      await deleteCollection(collection.value?.collectionId!);
-      isBusy.value = false;
-      router.push({ name: 'collections' });
-    }
-  });
-}
-
 const router = useRouter();
 </script>
 
@@ -221,18 +182,25 @@ const router = useRouter();
   }
 
   .actions-container {
-    padding: 0.8rem;
+    padding-left: 1.2rem;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: 0.8rem;
+  }
+
+  .overview {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    align-items: center;
   }
 
   > .collection-content {
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
-    padding: 0.8rem;
+    margin-top: 0.8rem;
     flex: 1;
     overflow: hidden;
 
@@ -246,12 +214,10 @@ const router = useRouter();
   }
 }
 
-.owner-text {
-  text-align: center;
-  > i {
-    margin-right: 0.4rem;
-    color: var(--primary-color);
-  }
+.owner {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
 }
 
 .loading-text {
@@ -262,13 +228,20 @@ const router = useRouter();
   gap: 0.8rem;
 }
 
-.item-count {
-  text-align: center;
-}
-
 .item-list-container {
   flex: 1;
   overflow-y: auto;
   border: 1px solid var(--surface-color-2);
+}
+
+:deep .price {
+  width: fit-content !important;
+}
+
+.update-button {
+  position: fixed;
+  right: 1.2rem;
+  bottom: 1.2rem;
+  z-index: 99;
 }
 </style>

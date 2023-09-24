@@ -1,7 +1,7 @@
 <template>
   <div class="modal">
     <header>
-      <h2>Menu</h2>
+      <!-- <h2>Menu</h2> -->
       <div class="button-bar">
         <button @click="router.push('/')">
           <i class="fas fa-home"></i>

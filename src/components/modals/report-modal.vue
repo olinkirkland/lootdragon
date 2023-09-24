@@ -8,10 +8,8 @@
     </header>
     <div class="modal__content">
       <section>
-        <p>
-          Item {{ props.item.name.text }} ({{ props.item.id }}) was reported
-          successfully.
-        </p>
+        <p>Item {{ props.item.name.text }} was reported successfully.</p>
+        <p class="muted">{{ props.item.id }}</p>
       </section>
       <section>
         <p>
