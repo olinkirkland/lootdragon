@@ -26,12 +26,12 @@
               <span>Mark items as favorites (and filter)</span>
             </p>
           </li>
-          <li>
+          <!-- <li>
             <p>
               <strong>Collections: </strong>
               <span>Create and share collections of items</span>
             </p>
-          </li>
+          </li> -->
         </ul>
       </section>
     </div>
