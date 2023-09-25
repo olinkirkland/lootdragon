@@ -204,6 +204,10 @@ button.tile {
   border-radius: 0;
   position: relative;
 
+  * {
+    color: var(--light);
+  }
+
   > img {
     filter: brightness(0.6);
     height: 100%;
@@ -259,6 +263,7 @@ button.tile {
       > img {
         width: 100%;
         height: initial;
+        filter: brightness(0.8);
       }
     }
   }
