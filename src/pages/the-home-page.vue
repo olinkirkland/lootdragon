@@ -2,12 +2,30 @@
   <div class="home-container">
     <div class="wallpaper"></div>
     <div class="home">
-      <img src="/assets/images/logo.webp" id="logo" alt="logo" />
-      <h1>Loot Dragon</h1>
+      <!-- <img src="/assets/images/logo.webp" id="logo" alt="logo" />
+      <h1>Loot Dragon</h1> -->
       <div class="actions">
-        <button class="primary" @click="router.push({ name: 'items' })">
-          <i class="fas fa-box-open"></i>
-          <span>Items</span>
+        <button class="tile" @click="router.push({ name: 'items' })">
+          <img src="/assets/images/warehouse.png" />
+          <div class="tile__content">
+            <h3>Items</h3>
+          </div>
+        </button>
+        <button
+          v-if="!user"
+          class="tile"
+          @click="ModalController.open(RegisterModal)"
+        >
+          <img src="/assets/images/tavern.png" />
+          <div class="tile__content">
+            <h3>Sign up</h3>
+          </div>
+        </button>
+        <button v-else class="tile" @click="ModalController.open(AccountModal)">
+          <img src="/assets/images/bazaar.png" />
+          <div class="tile__content">
+            <h3>My Account</h3>
+          </div>
         </button>
         <!-- <button
           v-if="user"
@@ -17,20 +35,6 @@
           <i class="fas fa-boxes"></i>
           <span>My Collections</span>
         </button> -->
-      </div>
-      <div class="sign-up-box" v-if="!user">
-        <p>Sign up for a free account to unlock additional features.</p>
-        <div class="flex">
-          <button class="primary" @click="ModalController.open(RegisterModal)">
-            <span>Sign up</span>
-          </button>
-          <button
-            class="text"
-            @click="ModalController.open(AboutRegisterModal)"
-          >
-            <span class="primary">Learn more</span>
-          </button>
-        </div>
       </div>
     </div>
     <div class="daily-item">
@@ -51,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-import AboutRegisterModal from '@/components/modals/about-register-modal.vue';
+import AccountModal from '@/components/modals/account-modal.vue';
 import ItemModal from '@/components/modals/item-modal.vue';
 import RegisterModal from '@/components/modals/register-modal.vue';
 import { ModalController } from '@/controllers/modal-controller';
@@ -107,7 +111,6 @@ const user = computed(() => {
 
   .home {
     padding: 2rem;
-    background-color: var(--dark-translucent);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -164,15 +167,6 @@ const user = computed(() => {
   }
 }
 
-.sign-up-box {
-  border: 1px solid var(--primary-color);
-  padding: 1.6rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  width: 100%;
-}
-
 @media (max-width: 768px) {
   .actions {
     flex-direction: column;
@@ -196,6 +190,77 @@ const user = computed(() => {
     position: static !important;
     bottom: unset;
     background-color: var(--dark-translucent) !important;
+  }
+}
+
+button.tile {
+  background-color: transparent;
+  border: 1px solid var(--surface-color-3);
+  width: 16rem;
+  height: 28rem;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  position: relative;
+
+  > img {
+    filter: brightness(0.6);
+    height: 100%;
+    transition: filter 0.2s ease-in-out;
+  }
+
+  &:hover {
+    > img {
+      filter: brightness(0.8);
+    }
+
+    > .tile__content {
+      > * {
+        filter: drop-shadow(0 0 4px #000);
+      }
+    }
+  }
+
+  > .tile__content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+
+    h3 {
+      text-transform: uppercase;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+    }
+
+    > * {
+      transition: filter 0.4s ease-in-out;
+    }
+
+    > i {
+      font-size: 2rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .actions {
+    width: 100% !important;
+
+    button.tile {
+      height: 8rem;
+      width: 100%;
+
+      > img {
+        width: 100%;
+        height: initial;
+      }
+    }
   }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <header class="app-header">
     <div @click="router.push('/')" class="logo">
-      <img src="/assets/images/logo.webp" alt="logo" />
+      <img src="/assets/images/logo-primary.png" alt="logo" />
       <h1>Loot Dragon</h1>
       <span v-if="nav && nav !== 'home'" class="nav">
         {{ nav }}
@@ -117,9 +117,8 @@ header.app-header {
     }
 
     > img {
-      display: none;
       height: 3.2rem;
-      margin-right: 2.4rem;
+      margin-right: 0.8rem;
       z-index: 2;
     }
   }

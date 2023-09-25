@@ -86,28 +86,7 @@
         <ul>
           <li>
             <p>
-              The background image "Brown Rock Formation" is a photograph by
-              <a href="https://unsplash.com/@bradleycdunn" target="_blank"
-                >Bradley Dunn</a
-              >
-              and sourced from
-              <a href="https://unsplash.com/photos/rtOD6PdRAlU" target="_blank"
-                >Unsplash.com</a
-              >
-            </p>
-          </li>
-          <li>
-            <p>
-              The logo is a placeholder created using
-              <a href="https://www.midjourney.com/home/" target="_blank"
-                >Midjourney</a
-              >, an AI art generator. If you want to make an original logo for
-              the site, this attribution space could be yours!
-            </p>
-          </li>
-          <li>
-            <p>
-              Icons are provided by
+              Logo and icons are provided by
               <a href="https://fontawesome.com/license/free" target="_blank"
                 >FontAwesome.com</a
               >
@@ -115,8 +94,24 @@
           </li>
           <li>
             <p>
-              The coin icons use vector graphics from
+              The logo and coin icons use vector graphics from
               <a href="https://icons8.com/" target="_blank">Icons8.com</a>
+            </p>
+          </li>
+          <li>
+            <p>
+              The logo's font is
+              <a href="https://fonts.google.com/specimen/Croissant+One"
+                >Croissant One</a
+              >
+              by Eduardo Tunni, provided by Google Fonts.
+            </p>
+          </li>
+          <li>
+            <p>
+              <a href="https://www.midjourney.com/">Midjourney</a> is used for
+              various pieces of art like the navigation buttons on the home
+              page.
             </p>
           </li>
         </ul>
