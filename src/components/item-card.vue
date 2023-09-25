@@ -101,6 +101,9 @@ const isFavorite = computed(() => {
       padding: 0.4rem 0.8rem;
       font-size: 1.2rem;
       text-transform: uppercase;
+      * {
+        color: var(--light);
+      }
     }
 
     > .favorite {
