@@ -12,7 +12,7 @@
     <button @click="() => ModalController.open(ItemModal, { item })">
       <price-display :value="item.price || 0" />
       <div class="rarity" v-if="item.rarity !== 'Common'">
-        <i class="fas fa-star"></i>
+        <span>{{ item.rarity }}</span>
       </div>
       <span class="single-line">{{ item.name.text }}</span>
       <i v-if="isFavorite" class="favorite fas fa-heart"></i>
@@ -95,9 +95,12 @@ const isFavorite = computed(() => {
     color: var(--text-color);
     border-radius: 0;
     border: none;
+    font-weight: normal;
     > .rarity {
       margin-left: 0.8rem;
+      padding: 0.4rem 0.8rem;
       font-size: 1.2rem;
+      text-transform: uppercase;
     }
 
     > .favorite {
@@ -116,17 +119,17 @@ const isFavorite = computed(() => {
     }
   }
 
-  &--common .rarity > i {
-    color: var(--common-color);
+  &--common .rarity {
+    background-color: var(--common-color);
   }
-  &--uncommon .rarity > i {
-    color: var(--uncommon-color);
+  &--uncommon .rarity {
+    background-color: var(--uncommon-color);
   }
-  &--rare .rarity > i {
-    color: var(--rare-color);
+  &--rare .rarity {
+    background-color: var(--rare-color);
   }
-  &--unique .rarity > i {
-    color: var(--unique-color);
+  &--unique .rarity {
+    background-color: var(--unique-color);
   }
 
   &.obvious-rarity {
