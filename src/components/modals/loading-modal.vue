@@ -22,7 +22,7 @@
   min-height: 0;
   padding: 2rem 4rem;
   background-color: var(--surface-color);
-  border-color: var(--primary-color);
+  border: none;
 
   section {
     display: flex;

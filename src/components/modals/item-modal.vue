@@ -10,7 +10,7 @@ lk
     <div class="modal__content">
       <section>
         <div class="overview">
-          <price-display v-if="!!item.price" :value="item.price" />
+          <price-display :value="item.price || 0" />
           <p><strong>Level</strong>{{ item.level }}</p>
           <p>
             <span :class="'rarity rarity--' + item.rarity.toLowerCase()">{{
@@ -89,6 +89,15 @@ lk
             item.bulk.toString() === '0' ? 'Negligible' : item.bulk
           }}</span>
         </p>
+      </section>
+
+      <section>
+        <p><strong>Links:</strong></p>
+        <ul class="text">
+          <li v-for="link in item.links || []">
+            <a :href="link.url" target="_blank">{{ link.text }}</a>
+          </li>
+        </ul>
       </section>
 
       <!-- <section class="links">
@@ -274,6 +283,7 @@ function getSourceUrl(source: Source) {
     ul.text {
       display: inline-flex;
       flex-wrap: wrap;
+      text-transform: capitalize;
 
       li:not(:last-child)::after {
         content: ', ';

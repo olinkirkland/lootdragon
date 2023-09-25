@@ -10,7 +10,7 @@
     }"
   >
     <button @click="() => ModalController.open(ItemModal, { item })">
-      <price-display v-if="!!item.price" :value="item.price" />
+      <price-display :value="item.price || 0" />
       <div class="rarity" v-if="item.rarity !== 'Common'">
         <i class="fas fa-star"></i>
       </div>
