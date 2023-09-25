@@ -195,7 +195,7 @@ const user = computed(() => {
 
 button.tile {
   background-color: transparent;
-  border: 1px solid var(--surface-color-3);
+  border: 1px solid var(--text-color-2);
   width: 16rem;
   height: 28rem;
   overflow: hidden;
