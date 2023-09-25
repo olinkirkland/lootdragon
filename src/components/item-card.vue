@@ -164,6 +164,12 @@ const isFavorite = computed(() => {
   z-index: 1;
 }
 
+.item-card.table-view {
+  :deep(.price) {
+    min-width: 10rem;
+  }
+}
+
 @media (max-width: 768px) {
   .item-card {
     border-radius: 0;
@@ -174,12 +180,6 @@ const isFavorite = computed(() => {
       border: none;
       border-bottom: 1px solid var(--surface-color-3);
     }
-  }
-}
-
-.item-card.table-view {
-  :deep(.price) {
-    min-width: 10rem;
   }
 }
 </style>
