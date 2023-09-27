@@ -11,14 +11,16 @@ lk
       <section>
         <div class="overview">
           <price-display :value="item.price || 0" />
-          <p><strong>Level</strong>{{ item.level }}</p>
           <p>
             <span :class="'rarity rarity--' + item.rarity.toLowerCase()">{{
               item.rarity
             }}</span>
           </p>
+          <p><strong>Level</strong>{{ item.level }}</p>
         </div>
-        <p v-if="!!item.description">{{ item.description }}</p>
+        <p v-if="!!item.description">
+          {{ item.description }}
+        </p>
       </section>
 
       <!-- <section class="collection" v-if="!!user">
@@ -83,6 +85,7 @@ lk
         <p v-if="!!item.itemSubcategory">
           <strong>Subcategory:</strong>{{ item.itemSubcategory }}
         </p>
+        <p v-if="!!item.usage"><strong>Usage:</strong>{{ item.usage }}</p>
         <p>
           <strong>Bulk:</strong>
           <span>{{
@@ -248,24 +251,10 @@ function getSourceUrl(source: Source) {
     }
 
     .overview {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      > * {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-
-        justify-content: center;
-
-        &:first-child {
-          justify-content: flex-start;
-        }
-
-        &:last-child {
-          justify-content: flex-end;
-        }
-      }
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
     }
 
     p {
@@ -328,9 +317,8 @@ function getSourceUrl(source: Source) {
   span.rarity {
     display: inline-block;
     padding: 0.2rem 0.6rem;
-    border-radius: 5px;
     text-transform: capitalize;
-    color: var(--surface-color);
+    color: var(--light);
 
     &--common {
       background-color: var(--common-color);
