@@ -143,17 +143,9 @@
       <p class="item-count muted">Showing {{ filteredItems.length }} items</p>
     </header>
 
-    <div
-      class="item-list-container"
-      :class="{ 'table-view': settingsStore.tableMode }"
-    >
+    <div class="item-list-container">
       <ul class="item-list">
-        <item-card
-          v-for="item in filteredItems"
-          :key="item.id"
-          :item="item"
-          :class="{ 'table-view': settingsStore.tableMode }"
-        />
+        <item-card v-for="item in filteredItems" :key="item.id" :item="item" />
       </ul>
     </div>
   </div>
@@ -171,7 +163,6 @@ import {
   getTraitsFilters
 } from '@/filter-utils';
 import { useItemsStore } from '@/stores/itemsStore';
-import { useSettingsStore } from '@/stores/settingsStore';
 import { useUserStore } from '@/stores/userStore';
 import { Item } from '@/types';
 import { computed, ref, watch } from 'vue';
@@ -183,7 +174,6 @@ import RarityModal from '../components/modals/rarity-modal.vue';
 import SourcesModal from '../components/modals/sources-modal.vue';
 import TraitsModal from '../components/modals/traits-modal.vue';
 
-const settingsStore = useSettingsStore();
 const items = ref<Item[]>(useItemsStore().items);
 
 // Get the initial filters from local storage
@@ -474,22 +464,12 @@ function openRandomItem() {
 
   > .item-list-container {
     flex: 1;
-    padding: 1.6rem;
+    // padding: 1.6rem;
     overflow-y: auto;
     > ul.item-list {
       width: 100%;
       display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-    }
-
-    &.table-view {
-      padding: 0;
-
-      > ul.item-list {
-        gap: 0;
-        flex-wrap: none;
-      }
+      flex-direction: column;
     }
   }
 }
@@ -520,15 +500,6 @@ function openRandomItem() {
 
       > p.item-count {
         text-align: center;
-      }
-    }
-
-    > .item-list-container {
-      padding: 0 0.8rem;
-      padding: 0;
-      > ul.item-list {
-        width: 100%;
-        display: block;
       }
     }
   }

@@ -9,6 +9,8 @@
     <div class="modal__content">
       <section>
         <h3>Display</h3>
+        <p>Customize how the app appears.</p>
+
         <!-- Theme -->
         <div class="checkbox-group">
           <input
@@ -19,22 +21,6 @@
           <label for="darkTheme">
             <p><strong>Dark Theme</strong></p>
             <p>Use a dark theme instead of a light theme.</p>
-          </label>
-        </div>
-
-        <!-- Table Mode -->
-        <div class="checkbox-group">
-          <input
-            type="checkbox"
-            id="tableMode"
-            v-model="settingsStore.tableMode"
-          />
-          <label for="tableMode">
-            <p><strong>Table Mode</strong></p>
-            <p>
-              In desktop view, display the data in a table instead of in the
-              wrap view. In mobile view, align the width of the price column.
-            </p>
           </label>
         </div>
 
@@ -50,22 +36,6 @@
             <p>
               Display large numbers such as 4,000 and 20,000 as 4K and 20K to
               increase legibility.
-            </p>
-          </label>
-        </div>
-
-        <!-- Obvious Rarity -->
-        <div class="checkbox-group">
-          <input
-            type="checkbox"
-            id="obviousRarity"
-            v-model="settingsStore.obviousRarity"
-          />
-          <label for="obviousRarity">
-            <p><strong>High Visibility Rarity</strong></p>
-            <p>
-              Display the rarity of each item in a more obvious way, by adding a
-              colored background to the item card instead of a small icon.
             </p>
           </label>
         </div>

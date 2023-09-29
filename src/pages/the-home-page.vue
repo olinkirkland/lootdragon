@@ -8,7 +8,13 @@
         <button class="tile" @click="router.push({ name: 'items' })">
           <img src="/assets/images/warehouse.png" />
           <div class="tile__content">
-            <h3>Items</h3>
+            <h3>Pathfinder 2E<br />Items</h3>
+          </div>
+        </button>
+        <button class="tile" @click="router.push({ name: 'treasures' })">
+          <img src="/assets/images/treasure.png" />
+          <div class="tile__content">
+            <h3>Treasures</h3>
           </div>
         </button>
         <button
@@ -39,8 +45,8 @@
     </div>
     <div class="daily-item">
       <div class="header">
-        <i class="fas fa-calendar-day"></i>
-        <p>Item of the Day</p>
+        <i class="fas fa-dice-d20"></i>
+        <p>Today's Random Item</p>
       </div>
       <div class="content">
         <button
@@ -195,7 +201,7 @@ const user = computed(() => {
 
 button.tile {
   background-color: transparent;
-  border: 1px solid var(--text-color-2);
+  border: 1px solid var(--primary-color);
   width: 16rem;
   height: 28rem;
   overflow: hidden;
@@ -205,7 +211,7 @@ button.tile {
   position: relative;
 
   * {
-    color: var(--light);
+    color: var(--primary-color);
   }
 
   > img {
@@ -221,7 +227,7 @@ button.tile {
 
     > .tile__content {
       > * {
-        filter: drop-shadow(0 0 4px #000);
+        filter: drop-shadow(0 0 5px #000000);
       }
     }
   }
@@ -238,8 +244,7 @@ button.tile {
 
     h3 {
       text-transform: uppercase;
-      font-size: 1.2rem;
-      letter-spacing: 1px;
+      font-size: 1.6rem;
     }
 
     > * {
@@ -263,7 +268,7 @@ button.tile {
       > img {
         width: 100%;
         height: initial;
-        filter: brightness(0.8);
+        filter: brightness(0.6);
       }
     }
   }

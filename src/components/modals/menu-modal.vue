@@ -58,30 +58,6 @@
         </button>
       </section>
       <section>
-        <h3>From the Developer</h3>
-        <p>Hi! I'm Olin, and I programmed this site.</p>
-        <p>
-          Development is a work in progress, and I'm always looking for ways to
-          improve it: Your feedback is super appreciated! You can reach me at
-          <a href="mailto:me@olinkirk.land" target="_blank">me@olinkirk.land</a>
-          or message me on Discord (username: Olin).
-        </p>
-        <p>
-          I want to thank the creative minds at
-          <a href="https://paizo.com/" target="_blank">Paizo</a> and
-          <a href="https://2e.aonprd.com/" target="_blank"
-            >Archives of Nethys</a
-          >
-          who create and maintain the mountains of data that I've parsed in
-          order to make this site possible.
-        </p>
-
-        <p>
-          I hope this tool helps you on your journey from Otari to Absalom and
-          beyond, whether you're a player or a GM.
-        </p>
-      </section>
-      <section>
         <h3>Attributions</h3>
         <ul>
           <li>

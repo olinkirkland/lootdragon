@@ -17,6 +17,7 @@ import CollectionPage from '../pages/the-collection-page.vue';
 import CollectionsPage from '../pages/the-collections-page.vue';
 import GamePage from '../pages/the-game-page.vue';
 import GamesPage from '../pages/the-games-page.vue';
+import TreasuresPage from '../pages/the-treasures-page.vue';
 
 const routes = [
   {
@@ -32,6 +33,13 @@ const routes = [
       app: ItemsPage
     },
     name: 'items'
+  },
+  {
+    path: '/treasures',
+    components: {
+      app: TreasuresPage
+    },
+    name: 'treasures'
   },
   {
     path: '/collections',

@@ -17,6 +17,12 @@ lk
             }}</span>
           </p>
           <p><strong>Level</strong>{{ item.level }}</p>
+          <p>
+            <i class="muted fas fa-weight-hanging"></i>
+            <span>{{
+              item.bulk.toString() === '0' ? 'Negligible' : item.bulk
+            }}</span>
+          </p>
         </div>
         <p v-if="!!item.description">
           {{ item.description }}
@@ -86,12 +92,6 @@ lk
           <strong>Subcategory:</strong>{{ item.itemSubcategory }}
         </p>
         <p v-if="!!item.usage"><strong>Usage:</strong>{{ item.usage }}</p>
-        <p>
-          <strong>Bulk:</strong>
-          <span>{{
-            item.bulk.toString() === '0' ? 'Negligible' : item.bulk
-          }}</span>
-        </p>
       </section>
 
       <section>
