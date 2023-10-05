@@ -30,10 +30,7 @@
         <price-display :value="totalValue" />
       </div>
 
-      <div
-        class="item-list-container"
-        :class="{ 'table-view': settingsStore.tableMode }"
-      >
+      <div class="item-list-container">
         <ul class="item-list">
           <li v-for="itemAndQuantity in itemsAndQuantity">
             <collection-item-card
@@ -74,7 +71,6 @@ import PriceDisplay from '@/components/price-display.vue';
 import server from '@/controllers/connection';
 import { ModalController } from '@/controllers/modal-controller';
 import { useItemsStore } from '@/stores/itemsStore';
-import { useSettingsStore } from '@/stores/settingsStore';
 import { useUserStore } from '@/stores/userStore';
 import { Collection, Item } from '@/types';
 import { computed, onMounted, ref } from 'vue';
@@ -82,8 +78,6 @@ import { useRoute, useRouter } from 'vue-router';
 
 const isBusy = ref(true);
 const route = useRoute();
-
-const settingsStore = useSettingsStore();
 
 const collectionId = computed(() => {
   return route.params.id as string;
