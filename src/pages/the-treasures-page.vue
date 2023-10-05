@@ -1,24 +1,10 @@
 <template>
   <div class="treasures-container">
     <h1>Treasures</h1>
-    <h2>Page not found.</h2>
-    <div class="actions">
-      <button class="primary" @click="router.push({ name: 'home' })">
-        <i class="fas fa-home"></i>
-        <span>Back to Home</span>
-      </button>
-    </div>
-    <p>
-      The page you are looking for does not exist. It may have been moved or
-      deleted.
-    </p>
-    <p>Or maybe it never existed to begin with.</p>
   </div>
 </template>
 
-<script setup lang="ts">
-import router from '@/router';
-</script>
+<script setup lang="ts"></script>
 
 <style scoped lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Allura&display=swap');

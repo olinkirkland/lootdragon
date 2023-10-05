@@ -17,7 +17,7 @@
             <li></li>
           </ul>
         </button>
-        <button class="tile" @click="router.push({ name: 'treasures' })">
+        <!-- <button class="tile" @click="router.push({ name: 'treasures' })">
           <img src="/assets/images/treasure.jpg" />
           <div class="tile__content">
             <h3>Treasures</h3>
@@ -28,7 +28,7 @@
             <li></li>
             <li></li>
           </ul>
-        </button>
+        </button> -->
         <button
           v-if="!user"
           class="tile"
@@ -199,8 +199,7 @@ button.tile {
   background-color: transparent;
   border: 1px solid var(--primary-color);
   width: 20rem;
-  height: max-content;
-  max-height: 32rem;
+  height: 32rem;
   overflow: hidden;
   padding: 0;
   margin: 0;
