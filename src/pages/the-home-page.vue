@@ -10,12 +10,24 @@
           <div class="tile__content">
             <h3>Pathfinder 2E<br />Items</h3>
           </div>
+          <ul class="decorative-squares">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
         </button>
         <button class="tile" @click="router.push({ name: 'treasures' })">
           <img src="/assets/images/treasure.jpg" />
           <div class="tile__content">
             <h3>Treasures</h3>
           </div>
+          <ul class="decorative-squares">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
         </button>
         <button
           v-if="!user"
@@ -26,12 +38,24 @@
           <div class="tile__content">
             <h3>Sign up</h3>
           </div>
+          <ul class="decorative-squares">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
         </button>
         <button v-else class="tile" @click="ModalController.open(AccountModal)">
           <img src="/assets/images/bazaar.jpg" />
           <div class="tile__content">
             <h3>My Account</h3>
           </div>
+          <ul class="decorative-squares">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
         </button>
         <!-- <button
           v-if="user"
@@ -87,13 +111,6 @@ const user = computed(() => {
 </script>
 
 <style scoped lang="scss">
-@mixin border-squares() {
-  border-top-left-radius: 0.4rem;
-  border-top-right-radius: 0.4rem;
-  border-bottom-left-radius: 0.4rem;
-  border-bottom-right-radius: 0.4rem;
-}
-
 .home-container {
   width: 100%;
   height: 100vh;
@@ -178,32 +195,6 @@ const user = computed(() => {
   }
 }
 
-@media (max-width: 768px) {
-  .actions {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  #logo {
-    max-width: 16rem !important;
-  }
-
-  .home-container {
-    gap: 0;
-  }
-  .home {
-    border: none !important;
-    flex: 1;
-    width: 100%;
-  }
-
-  .daily-item {
-    position: static !important;
-    bottom: unset;
-    background-color: var(--dark-translucent) !important;
-  }
-}
-
 button.tile {
   background-color: transparent;
   border: 1px solid var(--primary-color);
@@ -216,7 +207,47 @@ button.tile {
   border-radius: 0;
   position: relative;
 
-  @include border-squares();
+  > ul.decorative-squares {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    > li {
+      width: 1rem;
+      height: 1rem;
+      border: 1px solid var(--primary-color);
+      position: absolute;
+      margin: 0.2rem;
+      padding: 0.2rem;
+
+      &::after {
+        content: '';
+        background-color: var(--primary-color);
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      &:nth-child(1) {
+        top: 0;
+        left: 0;
+      }
+
+      &:nth-child(2) {
+        top: 0;
+        right: 0;
+      }
+
+      &:nth-child(3) {
+        bottom: 0;
+        left: 0;
+      }
+
+      &:nth-child(4) {
+        bottom: 0;
+        right: 0;
+      }
+    }
+  }
 
   * {
     color: var(--primary-color);
@@ -264,8 +295,31 @@ button.tile {
     }
   }
 }
-
 @media (max-width: 768px) {
+  .actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #logo {
+    max-width: 16rem !important;
+  }
+
+  .home-container {
+    gap: 0;
+  }
+  .home {
+    border: none !important;
+    flex: 1;
+    width: 100%;
+  }
+
+  .daily-item {
+    position: static !important;
+    bottom: unset;
+    background-color: var(--dark-translucent) !important;
+  }
+
   .actions {
     width: 100% !important;
 
