@@ -16,14 +16,38 @@ lk
               item.rarity
             }}</span>
           </p>
-          <p><strong>Level</strong>{{ item.level }}</p>
+          <p>Level {{ item.level }}</p>
           <p>
-            <i class="muted fas fa-weight-hanging"></i>
+            <i
+              class="muted fas"
+              :class="
+                item.bulk.toString() === '0'
+                  ? 'fa-feather-alt'
+                  : 'fa-balance-scale'
+              "
+            ></i>
             <span>{{
-              item.bulk.toString() === '0' ? 'Negligible' : item.bulk
+              (item.bulk.toString() === '0'
+                ? 'Negligible'
+                : item.bulk === 'L'
+                ? 'Light'
+                : item.bulk) + ' bulk'
             }}</span>
           </p>
         </div>
+      </section>
+
+      <section>
+        <p v-if="!!item.itemCategory">
+          <strong>Category:</strong>{{ item.itemCategory }}
+        </p>
+        <p v-if="!!item.itemSubcategory">
+          <strong>Subcategory:</strong>{{ item.itemSubcategory }}
+        </p>
+        <p v-if="!!item.usage"><strong>Usage:</strong>{{ item.usage }}</p>
+      </section>
+
+      <section>
         <p v-if="!!item.description">
           {{ item.description }}
         </p>
@@ -84,17 +108,8 @@ lk
           </ul>
         </div>
       </section>
-      <section>
-        <p v-if="!!item.itemCategory">
-          <strong>Category:</strong>{{ item.itemCategory }}
-        </p>
-        <p v-if="!!item.itemSubcategory">
-          <strong>Subcategory:</strong>{{ item.itemSubcategory }}
-        </p>
-        <p v-if="!!item.usage"><strong>Usage:</strong>{{ item.usage }}</p>
-      </section>
 
-      <section>
+      <section v-if="!!item.links && item.links.length > 0">
         <p><strong>Links:</strong></p>
         <ul class="text">
           <li v-for="link in item.links || []">
@@ -252,9 +267,10 @@ function getSourceUrl(source: Source) {
 
     .overview {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       justify-content: center;
-      gap: 2rem;
+      gap: 2.4rem;
     }
 
     p {
@@ -262,7 +278,7 @@ function getSourceUrl(source: Source) {
       width: fit-content;
       > i {
         align-self: center;
-        margin-right: 0.4rem;
+        margin-right: 0.6rem;
       }
 
       > strong {
@@ -360,6 +376,10 @@ function getSourceUrl(source: Source) {
     height: 100%;
     max-width: 100%;
     max-height: 100%;
+  }
+
+  .overview {
+    row-gap: 1.2rem !important;
   }
 }
 </style>

@@ -123,4 +123,11 @@ header.app-header {
     }
   }
 }
+
+// Phone
+@media (max-width: 768px) {
+  .logo > span.nav {
+    display: none;
+  }
+}
 </style>

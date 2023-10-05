@@ -20,7 +20,7 @@
         <span>Level</span>
         <span>{{ item.level }}</span>
       </span>
-      <span class="single-line">{{ item.name.text }}</span>
+      <span class="one-line">{{ item.name.text }}</span>
       <span class="bulk hide-on-mobile">
         <span v-if="+item.bulk === 0">
           <i class="muted fas fa-feather-alt"></i>
@@ -30,7 +30,7 @@
           {{ item.bulk }}
         </span>
       </span>
-      <span class="category hide-on-mobile">
+      <span class="category one-line hide-on-mobile">
         {{ item.itemCategory }}
         {{ item.itemSubcategory ? ` (${item.itemSubcategory})` : '' }}
       </span>
@@ -101,13 +101,17 @@ button.item-grid-button {
     display: flex;
     align-items: center;
     padding: 0 0.8rem;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-
     &:not(:last-child) {
       border-right: 1px solid var(--surface-color-2);
     }
+  }
+  > .one-line {
+    height: initial;
+    display: initial;
+    text-align: left;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   > .rarity {
@@ -158,7 +162,9 @@ button.item-grid-button {
   > .favorite {
     font-size: 1.2rem;
     color: var(--red);
-    margin-right: 1rem;
+    position: absolute;
+    right: 0;
+    z-index: 1;
   }
 }
 

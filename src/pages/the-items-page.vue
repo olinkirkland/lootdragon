@@ -143,6 +143,7 @@
       <p class="item-count muted">Showing {{ filteredItems.length }} items</p>
     </header>
 
+    <item-header-card />
     <div class="item-list-container">
       <ul class="item-list">
         <item-card v-for="item in filteredItems" :key="item.id" :item="item" />
@@ -153,6 +154,7 @@
 
 <script setup lang="ts">
 import ItemCard from '@/components/item-card.vue';
+import ItemHeaderCard from '@/components/item-header-card.vue';
 import ItemModal from '@/components/modals/item-modal.vue';
 import { ModalController } from '@/controllers/modal-controller';
 import {

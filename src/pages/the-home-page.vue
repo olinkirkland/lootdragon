@@ -2,17 +2,17 @@
   <div class="home-container">
     <div class="wallpaper"></div>
     <div class="home">
-      <!-- <img src="/assets/images/logo.webp" id="logo" alt="logo" />
-      <h1>Loot Dragon</h1> -->
+      <h1>Loot Dragon</h1>
+      <p class="muted">Pathfinder 2E Items & Loot</p>
       <div class="actions">
         <button class="tile" @click="router.push({ name: 'items' })">
-          <img src="/assets/images/warehouse.png" />
+          <img src="/assets/images/warehouse.jpg" />
           <div class="tile__content">
             <h3>Pathfinder 2E<br />Items</h3>
           </div>
         </button>
         <button class="tile" @click="router.push({ name: 'treasures' })">
-          <img src="/assets/images/treasure.png" />
+          <img src="/assets/images/treasure.jpg" />
           <div class="tile__content">
             <h3>Treasures</h3>
           </div>
@@ -22,13 +22,13 @@
           class="tile"
           @click="ModalController.open(RegisterModal)"
         >
-          <img src="/assets/images/tavern.png" />
+          <img src="/assets/images/tavern.jpg" />
           <div class="tile__content">
             <h3>Sign up</h3>
           </div>
         </button>
         <button v-else class="tile" @click="ModalController.open(AccountModal)">
-          <img src="/assets/images/bazaar.png" />
+          <img src="/assets/images/bazaar.jpg" />
           <div class="tile__content">
             <h3>My Account</h3>
           </div>
@@ -87,20 +87,26 @@ const user = computed(() => {
 </script>
 
 <style scoped lang="scss">
+@mixin border-squares() {
+  border-top-left-radius: 0.4rem;
+  border-top-right-radius: 0.4rem;
+  border-bottom-left-radius: 0.4rem;
+  border-bottom-right-radius: 0.4rem;
+}
+
 .home-container {
   width: 100%;
   height: 100vh;
   max-height: -webkit-fill-available;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
   position: relative;
   overflow: hidden;
   justify-content: center;
   align-items: center;
 
   > .wallpaper {
-    background: url('/assets/images/wallpaper.webp');
+    background: url('/assets/images/wallpaper.jpg');
     width: 100%;
     height: 100%;
     background-size: cover;
@@ -121,6 +127,8 @@ const user = computed(() => {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    flex: 1;
+
     #logo {
       width: 100%;
       max-width: 20rem;
@@ -143,15 +151,12 @@ const user = computed(() => {
   }
 
   > .daily-item {
-    bottom: 0.4rem;
     width: 100%;
     padding: 1.2rem;
     background-color: var(--dark-translucent);
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: absolute;
-    bottom: 0;
 
     > .header {
       display: flex;
@@ -202,13 +207,16 @@ const user = computed(() => {
 button.tile {
   background-color: transparent;
   border: 1px solid var(--primary-color);
-  width: 16rem;
-  height: 28rem;
+  width: 20rem;
+  height: max-content;
+  max-height: 32rem;
   overflow: hidden;
   padding: 0;
   margin: 0;
   border-radius: 0;
   position: relative;
+
+  @include border-squares();
 
   * {
     color: var(--primary-color);
