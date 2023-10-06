@@ -38,11 +38,11 @@ import router from '@/router';
     font-weight: lighter;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: #fab44d;
+    color: var(--text-color);
   }
 
   > h2 {
-    color: #fab44d;
+    color: var(--text-color);
   }
 
   .actions {
@@ -55,7 +55,7 @@ import router from '@/router';
   > p {
     margin: 0 4rem;
     max-width: 64rem;
-    color: #fab44d;
+    color: var(--text-color);
     opacity: 0.8;
     font-size: 1.4rem;
     text-align: center;
