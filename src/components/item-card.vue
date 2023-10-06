@@ -22,6 +22,7 @@
       </span>
       <span class="one-line">{{ item.name.text }}</span>
       <span class="bulk hide-on-mobile">
+        <span v-if="item.bulk === 'N/A'">N/A</span>
         <span v-if="+item.bulk === 0">
           <i class="muted fas fa-feather-alt"></i>
         </span>

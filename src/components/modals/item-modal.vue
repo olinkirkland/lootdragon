@@ -18,21 +18,15 @@ lk
           </p>
           <p>Level {{ item.level }}</p>
           <p>
-            <i
-              class="muted fas"
-              :class="
-                item.bulk.toString() === '0'
-                  ? 'fa-feather-alt'
-                  : 'fa-balance-scale'
-              "
-            ></i>
-            <span>{{
-              (item.bulk.toString() === '0'
-                ? 'Negligible'
-                : item.bulk === 'L'
-                ? 'Light'
-                : item.bulk) + ' bulk'
-            }}</span>
+            <span v-if="item.bulk === 'N/A'">N/A</span>
+            <span v-if="+item.bulk === 0">
+              <i class="muted fas fa-feather-alt"></i>
+              Negligible
+            </span>
+            <span v-else>
+              <i class="muted fas fa-balance-scale"></i>
+              {{ item.bulk }}
+            </span>
           </p>
         </div>
       </section>

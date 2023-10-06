@@ -9,7 +9,7 @@
           <img src="/assets/images/warehouse.jpg" />
           <div class="tile__content">
             <h3>Pathfinder 2E<br />Items</h3>
-          </div>
+        </div>
           <ul class="decorative-squares">
             <li></li>
             <li></li>
@@ -17,7 +17,7 @@
             <li></li>
           </ul>
         </button>
-        <!-- <button class="tile" @click="router.push({ name: 'treasures' })">
+        <button class="tile" @click="router.push({ name: 'treasures' })">
           <img src="/assets/images/treasure.jpg" />
           <div class="tile__content">
             <h3>Treasures</h3>
@@ -28,7 +28,7 @@
             <li></li>
             <li></li>
           </ul>
-        </button> -->
+        </button>
         <button
           v-if="!user"
           class="tile"
