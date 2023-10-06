@@ -111,6 +111,7 @@ button.item-grid-button {
     }
   }
   .one-line {
+    overflow: hidden;
     > span {
       display: block;
       text-align: left;

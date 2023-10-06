@@ -53,7 +53,7 @@ button.item-grid-button {
     > span {
       width: 100%;
       text-align: center;
-      color: var(--light);
+      color: var(--light-color);
       padding: 0.2rem 0.8rem;
     }
   }

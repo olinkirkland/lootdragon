@@ -328,11 +328,10 @@ function getSourceUrl(source: Source) {
     display: inline-block;
     padding: 0.2rem 0.6rem;
     text-transform: capitalize;
-    color: var(--light);
+    color: var(--light-color);
 
     &--common {
       background-color: var(--common-color);
-      color: var(--dark);
     }
 
     &--uncommon {

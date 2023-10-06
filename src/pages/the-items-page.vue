@@ -435,7 +435,7 @@ function openRandomItem() {
           background-color: var(--select-color);
           > label > i,
           span {
-            color: var(--light);
+            color: var(--light-color);
           }
         }
 
