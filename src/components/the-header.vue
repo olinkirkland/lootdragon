@@ -82,12 +82,12 @@ header.app-header {
 
   h1,
   button.icon {
-    color: var(--primary-color);
+    color: var(--text-color);
   }
   > .logo {
     display: flex;
     align-items: center;
-    color: var(--primary-color);
+    color: var(--text-color);
     position: relative;
     cursor: pointer;
 
@@ -111,7 +111,7 @@ header.app-header {
       margin-left: 0.4rem;
       font-size: 1.2rem;
       opacity: 0.6;
-      color: var(--primary-color);
+      color: var(--text-color);
       box-shadow: var(--shadow);
       pointer-events: none;
       &::before {

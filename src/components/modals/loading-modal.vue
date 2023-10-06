@@ -50,11 +50,11 @@ import { useSettingsStore } from '@/stores/settingsStore';
       width: 100%;
       gap: 0.8rem;
       text-transform: uppercase;
-      color: var(--primary-color);
+      color: var(--text-color);
     }
 
     &:not(:last-child) {
-      border-bottom: 1px solid var(--primary-color);
+      border-bottom: 1px solid var(--text-color);
     }
   }
 }

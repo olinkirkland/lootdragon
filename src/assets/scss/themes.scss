@@ -16,10 +16,10 @@
   --light-color: #f1f1f1;
 
   // Rarities
-  --common-color: #cfd8eb;
-  --uncommon-color: #3251ff;
-  --rare-color: #8737bd;
-  --unique-color: #df4545;
+  --common-color: #d6336c;
+  --uncommon-color: #f76707;
+  --rare-color: #1098ad;
+  --unique-color: #6741d9;
 }
 
 .theme--dark {
@@ -39,8 +39,11 @@
   --dark-color: #222222;
   --light-color: #f1f1f1;
 
-  // Shades
-  --shadow: rgba(255, 255, 255, 0.4);
+  // Rarities
+  --common-color: #d6336c;
+  --uncommon-color: #f76707;
+  --rare-color: #1098ad;
+  --unique-color: #6741d9;
 }
 
 .theme--pathfinder {

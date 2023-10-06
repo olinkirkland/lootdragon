@@ -12,20 +12,23 @@
         <p>Customize how the app appears.</p>
 
         <!-- Theme -->
-        <div class="themes">
-          <ul class="themes-list">
-            <li v-for="theme in themes" :key="theme.id">
-              <label :class="{ active: theme.id === settingsStore.theme }">
-                <input
-                  type="radio"
-                  v-model="settingsStore.theme"
-                  :value="theme.id"
-                />
-                <color-bar :colors="theme.colors" />
-                <span>{{ theme.label }}</span>
-              </label>
-            </li>
-          </ul>
+        <div class="primary">
+          <p><strong>Theme</strong></p>
+          <div class="themes">
+            <ul class="themes-list">
+              <li v-for="theme in themes" :key="theme.id">
+                <label :class="{ active: theme.id === settingsStore.theme }">
+                  <input
+                    type="radio"
+                    v-model="settingsStore.theme"
+                    :value="theme.id"
+                  />
+                  <color-bar :colors="theme.colors" />
+                  <span>{{ theme.label }}</span>
+                </label>
+              </li>
+            </ul>
+          </div>
         </div>
 
         <!-- Large Number Abbreviation -->

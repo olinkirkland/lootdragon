@@ -3,13 +3,13 @@
     "id": "light",
     "label": "Light",
     "styleClass": "theme--light",
-    "colors": ["#d48611", "#f1f1f1", "#cfd8eb", "#3251ff", "#8737bd", "#df4545"]
+    "colors": ["#d48611", "#f1f1f1", "#d6336c", "#f76707", "#1098ad", "#6741d9"]
   },
   {
     "id": "dark",
     "label": "Dark",
     "styleClass": "theme--dark",
-    "colors": ["#d48611", "#222222", "#cfd8eb", "#3251ff", "#8737bd", "#df4545"]
+    "colors": ["#d48611", "#222222", "#d6336c", "#f76707", "#1098ad", "#6741d9"]
   },
   {
     "id": "pathfinder",
