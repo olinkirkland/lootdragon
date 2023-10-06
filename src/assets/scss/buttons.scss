@@ -18,6 +18,7 @@ button,
 
   &.primary {
     background-color: var(--primary-color);
+    color: var(--surface-color);
     border: none;
     > * {
       color: var(--dark);

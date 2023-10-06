@@ -26,7 +26,7 @@ import router from '@/router';
   width: 100%;
   height: 100vh;
   max-height: -webkit-fill-available;
-  background-color: #222;
+  background-color: var(--surface-color);
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
