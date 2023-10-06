@@ -36,7 +36,7 @@
       <div class="content">
         <button
           @click="ModalController.open(ItemModal, { item: dailyItem })"
-          class="text primary"
+          class="text"
         >
           <span>{{ dailyItem.name.text }}</span>
         </button>
@@ -85,10 +85,6 @@ const user = computed(() => {
   align-items: center;
   background-color: var(--surface-color);
 
-  p {
-    color: var(--primary-color);
-  }
-
   .home {
     padding: 2rem;
     display: flex;
@@ -122,7 +118,7 @@ const user = computed(() => {
     width: 100%;
     padding: 1.2rem;
     background-color: var(--surface-color);
-    border-top: 1px solid var(--surface-color-3);
+    border-top: 1px solid var(--surface-color-2);
     display: flex;
     flex-direction: column;
     align-items: center;
