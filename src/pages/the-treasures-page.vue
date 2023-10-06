@@ -1,6 +1,9 @@
 <template>
   <div class="treasures-container">
-    <h1>Treasures</h1>
+    <header class="page-header">
+      <div class="treasures-content"></div>
+    </header>
+    <footer class="page-footer"></footer>
   </div>
 </template>
 

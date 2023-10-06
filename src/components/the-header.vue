@@ -1,7 +1,10 @@
 <template>
   <header class="app-header">
     <div @click="router.push('/')" class="logo">
-      <img src="/assets/images/logo-primary.png" alt="logo" />
+      <img
+        :src="`/assets/images/logo-${useSettingsStore().theme}.png`"
+        alt="logo"
+      />
       <h1>Loot Dragon</h1>
       <span v-if="nav && nav !== 'home'" class="nav">
         {{ nav }}
@@ -44,6 +47,7 @@ import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 import AccountModal from './modals/account-modal.vue';
 import MenuModal from './modals/menu-modal.vue';
+import { useSettingsStore } from '@/stores/settingsStore';
 
 const router = useRouter();
 const user = computed(() => {
@@ -71,10 +75,10 @@ header.app-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--dark);
+  background-color: var(--surface-color);
   min-height: 6.4rem !important;
   padding: 0 1.4rem 0 2rem;
-  border-bottom: 1px solid var(--dark-translucent);
+  border-bottom: 1px solid var(--surface-color-3);
 
   h1,
   button.icon {
@@ -108,7 +112,7 @@ header.app-header {
       font-size: 1.2rem;
       opacity: 0.6;
       color: var(--primary-color);
-      box-shadow: 0 0 0.4rem var(--dark);
+      box-shadow: var(--shadow);
       pointer-events: none;
       &::before {
         content: '|';

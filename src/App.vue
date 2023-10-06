@@ -1,20 +1,27 @@
 <template>
-  <div class="app-container" :class="{ dark: settingsStore.darkTheme }">
+  <div class="app-container" :class="themeClass">
     <the-header />
     <router-view name="app"></router-view>
     <div class="page-container">
       <router-view name="page"></router-view>
     </div>
   </div>
-  <modal-container />
+  <modal-container :class="themeClass"/>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import ModalContainer from './components/modal-container.vue';
-import { useSettingsStore } from './stores/settingsStore';
 import TheHeader from './components/the-header.vue';
+import themes from './data/themes.json';
+import { useSettingsStore } from './stores/settingsStore';
 
 const settingsStore = useSettingsStore();
+
+const themeClass = computed(() => {
+  const theme = themes.find((t) => t.id === settingsStore.theme);
+  return theme?.styleClass || themes[0].styleClass;
+});
 </script>
 
 <style lang="scss">

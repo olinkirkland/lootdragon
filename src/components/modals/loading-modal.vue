@@ -1,7 +1,10 @@
 <template>
   <div class="modal">
     <section>
-      <img src="/assets/images/logo-primary.png" alt="logo" />
+      <img
+        :src="`/assets/images/logo-${useSettingsStore().theme}.png`"
+        alt="logo"
+      />
       <p class="loading-text">
         Loading
         <i class="fas fa-spinner fa-spin"></i>
@@ -10,7 +13,9 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useSettingsStore } from '@/stores/settingsStore';
+</script>
 
 <style scoped lang="scss">
 .modal {

@@ -70,7 +70,13 @@
           </li>
           <li>
             <p>
-              The logo and coin icons use vector graphics from
+              The
+              <a
+                href="https://icons8.com/icon/xjR5QLocktta/european-dragon"
+                target="_blank"
+                >logo</a
+              >
+              and coin icons use vector graphics from
               <a href="https://icons8.com/" target="_blank">Icons8.com</a>
             </p>
           </li>

@@ -12,20 +12,24 @@
         <p>Customize how the app appears.</p>
 
         <!-- Theme -->
-        <div class="checkbox-group">
-          <input
-            type="checkbox"
-            id="darkTheme"
-            v-model="settingsStore.darkTheme"
-          />
-          <label for="darkTheme">
-            <p><strong>Dark Theme</strong></p>
-            <p>Use a dark theme instead of a light theme.</p>
-          </label>
+        <div class="themes">
+          <ul class="themes-list">
+            <li v-for="theme in themes" :key="theme.id">
+              <label :class="{ active: theme.id === settingsStore.theme }">
+                <input
+                  type="radio"
+                  v-model="settingsStore.theme"
+                  :value="theme.id"
+                />
+                <color-bar :colors="theme.colors" />
+                <span>{{ theme.label }}</span>
+              </label>
+            </li>
+          </ul>
         </div>
 
         <!-- Large Number Abbreviation -->
-        <div class="checkbox-group">
+        <div class="checkbox-group checkbox-group--setting">
           <input
             type="checkbox"
             id="largeNumberAbbreviation"
@@ -64,10 +68,56 @@
 
 <script setup lang="ts">
 import { ModalController } from '@/controllers/modal-controller';
+import themes from '@/data/themes.json';
 import { useSettingsStore } from '@/stores/settingsStore';
+import ColorBar from '../color-bar.vue';
 import SourceBindingsModal from './source-bindings-modal.vue';
 
 const settingsStore = useSettingsStore();
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+ul.themes-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+
+  > li > label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    cursor: pointer;
+    padding: 2rem;
+    background-color: var(--surface-color);
+    border: 1px solid var(--surface-color-2);
+
+    > input {
+      display: none;
+    }
+
+    > span {
+      font-style: italic;
+      text-align: center;
+    }
+
+    &:hover {
+      border-color: var(--surface-color-3);
+    }
+
+    &.active {
+      background-color: var(--surface-color-2);
+      :deep(.color-rectangle) {
+        border-color: var(--surface-color-2);
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  ul.themes-list {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 0.8rem;
+  }
+}
+</style>

@@ -1,70 +1,31 @@
 <template>
   <div class="home-container">
-    <div class="wallpaper"></div>
     <div class="home">
-      <h1>Loot Dragon</h1>
-      <p class="muted">Pathfinder 2E Items & Loot</p>
+      <!-- <h1>Loot Dragon</h1> -->
+      <!-- <p class="muted">Pathfinder 2E Items & Loot</p> -->
       <div class="actions">
-        <button class="tile" @click="router.push({ name: 'items' })">
-          <img src="/assets/images/warehouse.jpg" />
-          <div class="tile__content">
-            <h3>Pathfinder 2E<br />Items</h3>
-        </div>
-          <ul class="decorative-squares">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>
-        </button>
-        <button class="tile" @click="router.push({ name: 'treasures' })">
-          <img src="/assets/images/treasure.jpg" />
-          <div class="tile__content">
-            <h3>Treasures</h3>
-          </div>
-          <ul class="decorative-squares">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>
-        </button>
-        <button
+        <home-button-tile
+          label="Pathfinder 2E Items"
+          image="/assets/images/warehouse.jpg"
+          @click="router.push({ name: 'items' })"
+        />
+        <!-- <home-button-tile
+          label="Treasures"
+          image="/assets/images/treasure.jpg"
+          @click="router.push({ name: 'treasures' })"
+        /> -->
+        <home-button-tile
           v-if="!user"
-          class="tile"
+          label="Sign up"
+          image="/assets/images/tavern.jpg"
           @click="ModalController.open(RegisterModal)"
-        >
-          <img src="/assets/images/tavern.jpg" />
-          <div class="tile__content">
-            <h3>Sign up</h3>
-          </div>
-          <ul class="decorative-squares">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>
-        </button>
-        <button v-else class="tile" @click="ModalController.open(AccountModal)">
-          <img src="/assets/images/bazaar.jpg" />
-          <div class="tile__content">
-            <h3>My Account</h3>
-          </div>
-          <ul class="decorative-squares">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>
-        </button>
-        <!-- <button
-          v-if="user"
-          class="primary"
-          @click="router.push({ name: 'collections' })"
-        >
-          <i class="fas fa-boxes"></i>
-          <span>My Collections</span>
-        </button> -->
+        />
+        <home-button-tile
+          v-else
+          label="My Account"
+          image="/assets/images/bazaar.jpg"
+          @click="ModalController.open(AccountModal)"
+        />
       </div>
     </div>
     <div class="daily-item">
@@ -85,6 +46,7 @@
 </template>
 
 <script setup lang="ts">
+import HomeButtonTile from '@/components/home-button-tile.vue';
 import AccountModal from '@/components/modals/account-modal.vue';
 import ItemModal from '@/components/modals/item-modal.vue';
 import RegisterModal from '@/components/modals/register-modal.vue';
@@ -121,18 +83,7 @@ const user = computed(() => {
   overflow: hidden;
   justify-content: center;
   align-items: center;
-
-  > .wallpaper {
-    background: url('/assets/images/wallpaper.jpg');
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    position: absolute;
-    z-index: -1;
-    -webkit-filter: blur(10px);
-    transform: scale(1.1);
-  }
+  background-color: var(--surface-color);
 
   p {
     color: var(--primary-color);
@@ -170,7 +121,8 @@ const user = computed(() => {
   > .daily-item {
     width: 100%;
     padding: 1.2rem;
-    background-color: var(--dark-translucent);
+    background-color: var(--surface-color);
+    border-top: 1px solid var(--surface-color-3);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -179,7 +131,7 @@ const user = computed(() => {
       display: flex;
       align-items: center;
       gap: 0.8rem;
-      color: var(--primary-color);
+      color: var(--text-color);
       opacity: 0.6;
       font-size: 1.4rem;
       font-style: italic;
@@ -195,105 +147,6 @@ const user = computed(() => {
   }
 }
 
-button.tile {
-  background-color: transparent;
-  border: 1px solid var(--primary-color);
-  width: 20rem;
-  height: 32rem;
-  overflow: hidden;
-  padding: 0;
-  margin: 0;
-  border-radius: 0;
-  position: relative;
-
-  > ul.decorative-squares {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    > li {
-      width: 1rem;
-      height: 1rem;
-      border: 1px solid var(--primary-color);
-      position: absolute;
-      margin: 0.2rem;
-      padding: 0.2rem;
-
-      &::after {
-        content: '';
-        background-color: var(--primary-color);
-        width: 100%;
-        height: 100%;
-        display: block;
-      }
-
-      &:nth-child(1) {
-        top: 0;
-        left: 0;
-      }
-
-      &:nth-child(2) {
-        top: 0;
-        right: 0;
-      }
-
-      &:nth-child(3) {
-        bottom: 0;
-        left: 0;
-      }
-
-      &:nth-child(4) {
-        bottom: 0;
-        right: 0;
-      }
-    }
-  }
-
-  * {
-    color: var(--primary-color);
-  }
-
-  > img {
-    filter: brightness(0.6);
-    height: 100%;
-    transition: filter 0.2s ease-in-out;
-  }
-
-  &:hover {
-    > img {
-      filter: brightness(0.8);
-    }
-
-    > .tile__content {
-      > * {
-        filter: drop-shadow(0 0 5px #000000);
-      }
-    }
-  }
-
-  > .tile__content {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.8rem;
-
-    h3 {
-      text-transform: uppercase;
-      font-size: 1.6rem;
-    }
-
-    > * {
-      transition: filter 0.4s ease-in-out;
-    }
-
-    > i {
-      font-size: 2rem;
-    }
-  }
-}
 @media (max-width: 768px) {
   .actions {
     flex-direction: column;
@@ -316,22 +169,11 @@ button.tile {
   .daily-item {
     position: static !important;
     bottom: unset;
-    background-color: var(--dark-translucent) !important;
+    background-color: var(--surface-color);
   }
 
   .actions {
     width: 100% !important;
-
-    button.tile {
-      height: 8rem;
-      width: 100%;
-
-      > img {
-        width: 100%;
-        height: initial;
-        filter: brightness(0.6);
-      }
-    }
   }
 }
 </style>

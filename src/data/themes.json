@@ -1,0 +1,20 @@
+[
+  {
+    "id": "light",
+    "label": "Light",
+    "styleClass": "theme--light",
+    "colors": ["#d48611", "#f1f1f1", "#cfd8eb", "#3251ff", "#8737bd", "#df4545"]
+  },
+  {
+    "id": "dark",
+    "label": "Dark",
+    "styleClass": "theme--dark",
+    "colors": ["#d48611", "#222222", "#cfd8eb", "#3251ff", "#8737bd", "#df4545"]
+  },
+  {
+    "id": "pathfinder",
+    "label": "Pathfinder",
+    "styleClass": "theme--pathfinder",
+    "colors": ["#5e0000", "#f5efe0", "#5e0000", "#c45500", "#0c1466", "#800080"]
+  }
+]

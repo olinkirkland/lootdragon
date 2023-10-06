@@ -20,20 +20,11 @@ html {
 
 // Fonts
 @import url('https://fonts.googleapis.com/css2?family=Croissant+One&display=swap');
+@import 'themes';
 
 // Variables
 :root {
-  // Colors
-  --primary-color: #d48611;
-  --text-color: #222;
-  --text-color-2: #333;
-  --text-color-3: #444;
-  --surface-color: #f1f1f1;
-  --surface-color-2: #e1e1e1;
-  --surface-color-3: #d1d1d1;
-  --select-color: #3251ff;
-  --danger-color: #df4545;
-
+  // Rainbow Colors
   --red: #df4545;
   --orange: #d48611;
   --yellow: #fab44d;
@@ -43,43 +34,31 @@ html {
 
   // Shades
   --shadow: rgba(0, 0, 0, 0.4);
-
-  // Variables
-  --wallpaper: url('/assets/images/prism-light.jpg');
-
-  // Rarities
-  --common-color: #cfd8eb;
-  --uncommon-color: #3251ff;
-  --rare-color: #8737bd;
-  --unique-color: #df4545;
-
-  // Non-theme Colors
-  --dark: #222;
-  --light: #f1f1f1;
-  --dark-translucent: rgba(0, 0, 0, 0.6);
 }
 
-.dark {
-  // Colors
-  --primary-color: #fab44d;
-  --text-color: #f1f1f1;
-  --text-color-2: #e1e1e1;
-  --text-color-3: #d1d1d1;
-  --surface-color: #222;
-  --surface-color-2: #333;
-  --surface-color-3: #444;
-  --select-color: #3251ff;
-  --danger-color: #df4545;
+input[type='checkbox'] {
+  width: 1.6rem;
+  min-width: 1.6rem;
+  height: 1.6rem;
+  min-height: 1.6rem;
+  line-height: 1;
+  appearance: none;
+  cursor: pointer;
 
-  // Shades
-  --shadow: rgba(255, 255, 255, 0.4);
+  &::after {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    content: '\f0c8';
+    color: var(--text-color);
+  }
 
-  // Variables
-  --wallpaper: url('/assets/images/prism-dark.jpg');
+  &:checked::after {
+    content: '\f14a';
+  }
 }
 
 body {
-  background-color: var(--dark);
+  background-color: var(--surface-color);
 }
 
 body,
@@ -205,20 +184,17 @@ pre {
 .checkbox-group {
   display: flex;
   align-items: top;
-  gap: 0.8rem;
   user-select: none;
+  gap: 0.4rem;
 
-  > input,
-  label {
+  > * {
     cursor: pointer;
   }
 
-  > input {
-    margin-top: 0.2rem;
-    width: 1.6rem;
-    min-width: 1.6rem;
-    height: 1.6rem;
-    min-height: 1.6rem;
+  &.checkbox-group--setting {
+    > input {
+      margin-top: 0.4rem;
+    }
   }
 }
 
@@ -249,6 +225,11 @@ header.page-header {
   overflow-y: auto;
   flex-shrink: 0;
   max-height: calc(100vh - 6.4rem);
+}
+
+footer.page-footer {
+  display: flex;
+  height: 6.4rem;
 }
 
 *:disabled {

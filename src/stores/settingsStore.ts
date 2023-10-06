@@ -8,14 +8,14 @@ export type SourceBinding = {
 export const useSettingsStore = defineStore({
   id: 'settings',
   state: () => ({
-    darkTheme: true,
+    theme: 'pathfinder',
     language: 'en',
     largeNumberAbbreviation: true,
     sourceBindings: {} as { [key: string]: SourceBinding }
   }),
   actions: {
-    setDarkTheme(darkTheme: boolean) {
-      this.darkTheme = darkTheme;
+    setTheme(theme: string) {
+      this.theme = theme;
     },
     setLanguage(language: string) {
       this.language = language;
@@ -30,7 +30,7 @@ export const useSettingsStore = defineStore({
       const settings = localStorage.getItem('settings');
       if (settings) {
         const parsedSettings = JSON.parse(settings);
-        this.darkTheme = parsedSettings.darkTheme;
+        this.theme = parsedSettings.theme;
         this.language = parsedSettings.language;
         this.largeNumberAbbreviation = parsedSettings.largeNumberAbbreviation;
         this.sourceBindings = parsedSettings.sourceBindings || {};
