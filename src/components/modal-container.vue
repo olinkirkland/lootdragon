@@ -1,9 +1,5 @@
 <template>
-  <div
-    v-if="!!currentModal"
-    class="modal-container"
-    :class="{ dark: settingsStore.darkTheme }"
-  >
+  <div v-if="!!currentModal" class="modal-container">
     <div class="modal-container__background"></div>
     <component :is="currentModal" v-bind="currentModalOptions" />
   </div>
@@ -11,10 +7,7 @@
 
 <script setup lang="ts">
 import { ModalController } from '@/controllers/modal-controller';
-import { useSettingsStore } from '@/stores/settingsStore';
 import { ComponentOptions, shallowRef } from 'vue';
-
-const settingsStore = useSettingsStore();
 
 const currentModal = shallowRef<ComponentOptions | null>(null);
 const currentModalOptions = shallowRef<Record<string, unknown> | null>(null);

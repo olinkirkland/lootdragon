@@ -20,7 +20,9 @@
         <span>Level</span>
         <span>{{ item.level }}</span>
       </span>
-      <span class="one-line">{{ item.name.text }}</span>
+      <span class="one-line"
+        ><span>{{ item.name.text }}</span></span
+      >
       <span class="bulk hide-on-mobile">
         <span v-if="item.bulk === 'N/A'">N/A</span>
         <span v-if="+item.bulk === 0">
@@ -31,10 +33,12 @@
           {{ item.bulk }}
         </span>
       </span>
-      <span class="category one-line hide-on-mobile">
-        {{ item.itemCategory }}
-        {{ item.itemSubcategory ? ` (${item.itemSubcategory})` : '' }}
-      </span>
+      <span class="category one-line hide-on-mobile"
+        ><span>
+          {{ item.itemCategory }}
+          {{ item.itemSubcategory ? ` (${item.itemSubcategory})` : '' }}
+        </span></span
+      >
       <span class="traits hide-on-mobile">
         <span v-for="t in item.trait.slice(0, 3)" :key="t.text" class="trait">
           {{ t.text }}
@@ -106,13 +110,14 @@ button.item-grid-button {
       border-right: 1px solid var(--surface-color-2);
     }
   }
-  > .one-line {
-    height: initial;
-    display: initial;
-    text-align: left;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  .one-line {
+    > span {
+      display: block;
+      text-align: left;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
   }
 
   > .rarity {
@@ -151,7 +156,6 @@ button.item-grid-button {
       background-color: var(--surface-color-2);
       padding: 0.2rem 0.6rem;
       font-size: 1.2rem;
-      border-radius: 99px;
     }
 
     > .trait-overflow-count {
@@ -176,7 +180,6 @@ button.item-grid-button {
   gap: 0.4rem;
   height: 2.8rem;
   overflow: hidden;
-  border-radius: 3px;
 
   @include alternating-shade();
 
