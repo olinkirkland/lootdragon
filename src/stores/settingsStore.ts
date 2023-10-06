@@ -30,7 +30,7 @@ export const useSettingsStore = defineStore({
       const settings = localStorage.getItem('settings');
       if (settings) {
         const parsedSettings = JSON.parse(settings);
-        this.theme = parsedSettings.theme;
+        this.theme = parsedSettings.theme || 'pathfinder';
         this.language = parsedSettings.language;
         this.largeNumberAbbreviation = parsedSettings.largeNumberAbbreviation;
         this.sourceBindings = parsedSettings.sourceBindings || {};
