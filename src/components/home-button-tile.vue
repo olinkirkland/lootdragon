@@ -43,7 +43,7 @@ button.tile {
   }
 
   > img {
-    filter: brightness(1);
+    filter: brightness(0.8);
     height: 100%;
     transition: filter 0.2s ease-in-out;
   }
@@ -93,13 +93,7 @@ button.tile {
 
   &:hover {
     > img {
-      filter: brightness(0.8);
-    }
-
-    > .tile__content {
-      > * {
-        filter: drop-shadow(0 0 5px #000000);
-      }
+      filter: brightness(0.6);
     }
   }
 
@@ -115,12 +109,21 @@ button.tile {
     padding: 1rem;
 
     h3 {
-      display: block;
       text-transform: uppercase;
-      font-size: 1.8rem;
+      font-size: 2rem;
       white-space: normal;
       width: 100%;
       color: var(--light-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 8rem;
+      background: linear-gradient(
+        180deg,
+        transparent 0%,
+        rgba(0, 0, 0, 0.6) 50%,
+        transparent 100%
+      );
     }
 
     > * {
@@ -141,7 +144,7 @@ button.tile {
     > img {
       width: 100%;
       height: initial;
-      filter: brightness(1);
+      filter: brightness(0.8);
     }
   }
 }
