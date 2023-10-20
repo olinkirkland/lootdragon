@@ -306,7 +306,7 @@ function getSourceUrl(source: Source) {
               padding: 0.2rem 0.6rem;
               text-transform: capitalize;
               color: var(--surface-color);
-              margin-right: 0.4rem;
+              margin-right: 0.6rem;
             }
           }
         }
