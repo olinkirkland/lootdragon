@@ -434,6 +434,7 @@ function getSourceUrl(source: Source) {
     border: 1px solid var(--surface-color-2);
 
     > p:first-child {
+      letter-spacing: 1px;
       text-transform: uppercase;
       font-size: 1.2rem;
       // color: var(--surface-color);
