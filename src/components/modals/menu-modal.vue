@@ -62,7 +62,7 @@
         <ul>
           <li>
             <p>
-              Logo and icons are provided by
+              Icons are from
               <a href="https://fontawesome.com/license/free" target="_blank"
                 >FontAwesome.com</a
               >
@@ -91,9 +91,8 @@
           </li>
           <li>
             <p>
-              <a href="https://www.midjourney.com/">Midjourney</a> is used for
-              various pieces of art like the navigation buttons on the home
-              page.
+              The images on the home page were created with
+              <a href="https://www.midjourney.com/">Midjourney</a>.
             </p>
           </li>
         </ul>
