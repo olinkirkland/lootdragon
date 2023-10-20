@@ -40,11 +40,11 @@
         </span></span
       >
       <span class="traits hide-on-mobile">
-        <span v-for="t in item.trait.slice(0, 3)" :key="t.text" class="trait">
+        <span v-for="t in item.traits.slice(0, 3)" :key="t.text" class="trait">
           {{ t.text }}
         </span>
-        <span class="trait-overflow-count muted" v-if="item.trait.length > 3">
-          +{{ item.trait.length - 3 }} more
+        <span class="trait-overflow-count muted" v-if="item.traits.length > 3">
+          +{{ item.traits.length - 3 }} more
         </span>
       </span>
       <i v-if="isFavorite" class="favorite fas fa-heart"></i>

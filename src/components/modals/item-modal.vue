@@ -1,4 +1,3 @@
-lk
 <template>
   <div class="modal">
     <header>
@@ -32,18 +31,26 @@ lk
       </section>
 
       <section>
-        <p v-if="!!item.itemCategory">
-          <strong>Category:</strong>{{ item.itemCategory }}
+        <div class="category-card-container">
+          <div v-if="!!item.itemCategory" class="category-card">
+            <p>Category</p>
+            <p>{{ item.itemCategory }}</p>
+          </div>
+
+          <div v-if="!!item.itemSubcategory" class="category-card">
+            <p>Subcategory</p>
+            <p>{{ item.itemSubcategory }}</p>
+          </div>
+        </div>
+
+        <p class="usage" v-if="!!item.usage">
+          {{ item.usage }}
         </p>
-        <p v-if="!!item.itemSubcategory">
-          <strong>Subcategory:</strong>{{ item.itemSubcategory }}
-        </p>
-        <p v-if="!!item.usage"><strong>Usage:</strong>{{ item.usage }}</p>
       </section>
 
       <section>
         <p v-if="!!item.description">
-          {{ item.description }}
+          <read-more :text="item.description" :limit="64" />
         </p>
       </section>
 
@@ -72,8 +79,29 @@ lk
       </section> -->
 
       <section>
+        <div class="detail-group detail-group--traits">
+          <h4>Traits</h4>
+          <ul>
+            <li v-for="trait in item.traits">
+              <p>
+                <span>
+                  {{ trait.text }}
+                </span>
+                <read-more
+                  :text="useItemsStore().traits[trait.slug].description"
+                />
+              </p>
+              <!-- <a :href="'https://2e.aonprd.com' + trait.url" target="_blank">{{
+                trait.text
+              }}</a> -->
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
         <div class="detail-group">
-          <p><strong>Sources:</strong></p>
+          <h4>Sources</h4>
           <ul class="text">
             <li
               v-for="source in item.source"
@@ -90,21 +118,10 @@ lk
             </li>
           </ul>
         </div>
-
-        <div class="detail-group">
-          <p><strong>Traits:</strong></p>
-          <ul class="text">
-            <li v-for="trait in item.trait">
-              <a :href="'https://2e.aonprd.com' + trait.url" target="_blank">{{
-                trait.text
-              }}</a>
-            </li>
-          </ul>
-        </div>
       </section>
 
       <section v-if="!!item.links && item.links.length > 0">
-        <p><strong>Links:</strong></p>
+        <h4>Links</h4>
         <ul class="text">
           <li v-for="link in item.links || []">
             <a :href="link.url" target="_blank">{{ link.text }}</a>
@@ -170,6 +187,8 @@ import mixpanel from 'mixpanel-browser';
 import { PropType, computed, ref } from 'vue';
 import PriceDisplay from '../price-display.vue';
 import ReportModal from './report-modal.vue';
+import { useItemsStore } from '@/stores/itemsStore';
+import ReadMore from '../read-more.vue';
 
 const settingsStore = useSettingsStore();
 
@@ -255,8 +274,48 @@ function getSourceUrl(source: Source) {
   max-height: 80%;
 
   section {
-    .detail-group:not(:last-child) {
+    h4 {
+      text-align: center;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
       margin-bottom: 0.8rem;
+      text-transform: uppercase;
+      color: var(--text-color-3);
+    }
+
+    .detail-group {
+      &:not(:last-child) {
+        margin-bottom: 0.8rem;
+      }
+
+      &--traits {
+        > ul {
+          background-color: var(--surface-color);
+          display: flex;
+          flex-direction: column;
+          gap: 2rem;
+
+          p {
+            display: block;
+            > span {
+              color: var(--text-color-3);
+            }
+
+            > span:first-child {
+              background-color: var(--text-color-3);
+              padding: 0.2rem 0.6rem;
+              text-transform: capitalize;
+              color: var(--light-color);
+              margin-right: 0.4rem;
+            }
+          }
+        }
+      }
+    }
+
+    p.usage {
+      font-style: italic;
+      margin: 0 auto;
     }
 
     .overview {
@@ -360,6 +419,35 @@ function getSourceUrl(source: Source) {
   i {
     font-size: 1.6rem;
     margin-right: 0.4rem;
+  }
+}
+
+.category-card-container {
+  display: flex;
+  gap: 0.4rem;
+  margin: 0 auto;
+  > .category-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    border: 1px solid var(--surface-color-2);
+
+    > p:first-child {
+      text-transform: uppercase;
+      font-size: 1.2rem;
+      // color: var(--surface-color);
+      background-color: transparent;
+    }
+
+    > p {
+      width: 100%;
+      display: block;
+      text-align: center;
+      padding: 0.4rem 1.2rem;
+      background-color: var(--surface-color-2);
+      color: var(--text-color-3);
+    }
   }
 }
 

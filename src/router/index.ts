@@ -96,13 +96,28 @@ router.beforeEach(async (to, from, next) => {
 
     ModalController.open(LoadingModal);
     try {
-      const response = await fetch('/assets/items.json');
+      const response = await fetch('/assets/equipment.json');
       const data = await response.json();
       useItemsStore().items = data;
       ModalController.close();
       console.log('Items loaded successfully');
     } catch (error) {
       console.error('Error loading items:', error);
+    }
+  }
+
+  if (Object.keys(useItemsStore().traits).length === 0) {
+    console.log('Loading traits JSON ...');
+
+    ModalController.open(LoadingModal);
+    try {
+      const response = await fetch('/assets/traits.json');
+      const data = await response.json();
+      useItemsStore().traits = data;
+      ModalController.close();
+      console.log('Traits loaded successfully');
+    } catch (error) {
+      console.error('Error loading traits:', error);
     }
   }
 

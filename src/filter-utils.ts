@@ -49,7 +49,7 @@ export function getTraitsFilters(
   const filters: { name: string; count: number }[] = [];
 
   items.forEach((item) => {
-    item.trait.forEach((trait) => {
+    item.traits.forEach((trait) => {
       const filter = filters.find((f) => trait.text === f.name);
       if (filter) filter.count++;
       else filters.push({ name: trait.text, count: 1 });

@@ -300,7 +300,7 @@ const filteredItems = computed(() => {
 
   // Filter by traits
   sortedItems = sortedItems.filter((item) => {
-    const itemTraits = item.trait.map((traitItem) => traitItem.text);
+    const itemTraits = item.traits.map((traitItem) => traitItem.text);
     return itemTraits.some((trait) => traitsFilter.value.includes(trait));
   });
 

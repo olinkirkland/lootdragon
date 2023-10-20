@@ -26,7 +26,7 @@ export type Item = {
   links?: Link[];
   source: Source[];
   rarity: string;
-  trait: Link[];
+  traits: { text: string; url: string; slug: string }[];
   itemCategory: string;
   itemSubcategory: string;
   level: number;
@@ -34,6 +34,11 @@ export type Item = {
   bulk: string;
   usage: string;
   spoilers: string;
+};
+
+export type Trait = {
+  description: string;
+  links: Link[];
 };
 
 // export type ItemAndQuantity = {
