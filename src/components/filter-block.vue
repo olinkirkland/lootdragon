@@ -5,8 +5,11 @@
         <i :class="caretClass"></i>
         <span>
           {{ props.name }}
-          ({{ choices.length }}/ {{ filters.length }})
         </span>
+        <span v-if="choices.length < filters.length"
+          >({{ choices.length }}/{{ filters.length }})</span
+        >
+        <span v-else>(All)</span>
       </p>
     </header>
 

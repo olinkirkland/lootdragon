@@ -208,7 +208,9 @@ const favorites = computed(() =>
 const initialFavoritesFilter = ref(['Favorited', 'Not Favorited']);
 
 // Rarity
-const rarities = computed(() => getFiltersByKey(items.value, 'rarity'));
+const rarities = computed(() =>
+  getFiltersByKey(items.value, 'rarity', filterSortings.value.rarities)
+);
 const initialRarityFilter = ref(['Common', 'Uncommon']);
 
 // Sources
@@ -222,13 +224,17 @@ const initialSourceFilter = computed(() =>
 );
 
 // Traits
-const traits = computed(() => getTraitsFilters(items.value));
+const traits = computed(() =>
+  getTraitsFilters(items.value, filterSortings.value.traits)
+);
 const initialTraitsFilter = computed(() =>
   traits.value.map((trait) => trait.name)
 );
 
 // Categories
-const categories = computed(() => getFiltersByKey(items.value, 'itemCategory'));
+const categories = computed(() =>
+  getFiltersByKey(items.value, 'itemCategory', filterSortings.value.categories)
+);
 const initialCategoryFilter = computed(() =>
   categories.value.map((category) => category.name)
 );

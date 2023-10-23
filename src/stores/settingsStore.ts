@@ -13,7 +13,10 @@ export const useSettingsStore = defineStore({
     largeNumberAbbreviation: true,
     sourceBindings: {} as { [key: string]: SourceBinding },
     filterSortings: {
-      sources: 'alpha'
+      rarity: 'numeric',
+      sources: 'alpha',
+      traits: 'alpha',
+      category: 'alpha'
     } as { [key: string]: 'alpha' | 'numeric' }
   }),
   actions: {

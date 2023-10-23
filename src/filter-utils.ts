@@ -2,7 +2,8 @@ import { Item } from './types';
 
 export function getFiltersByKey(
   items: Item[],
-  key: keyof Item
+  key: keyof Item,
+  sortBy: 'alpha' | 'numeric' = 'numeric'
 ): { name: string; count: number }[] {
   const filters: { name: string; count: number }[] = [];
   items.forEach((item) => {
@@ -13,7 +14,24 @@ export function getFiltersByKey(
     else filters.push({ name: filterValue, count: 1 });
   });
 
-  return filters;
+  return filters.sort((a, b) => {
+    if (sortBy === 'alpha') {
+      // Sort by name first
+      if (a.name < b.name) return -1;
+      if (a.name > b.name) return 1;
+      // Sort by count last
+      if (a.count < b.count) return 1;
+      if (a.count > b.count) return -1;
+    } else if (sortBy === 'numeric') {
+      // Sort by count first
+      if (a.count < b.count) return 1;
+      if (a.count > b.count) return -1;
+      // Sort by name last
+      if (a.name < b.name) return -1;
+      if (a.name > b.name) return 1;
+    }
+    return 0;
+  });
 }
 
 export function getSourcesFilters(
@@ -54,7 +72,8 @@ export function getSourcesFilters(
 }
 
 export function getTraitsFilters(
-  items: Item[]
+  items: Item[],
+  sortBy: 'alpha' | 'numeric'
 ): { name: string; count: number }[] {
   const filters: { name: string; count: number }[] = [];
 
@@ -67,12 +86,21 @@ export function getTraitsFilters(
   });
 
   return filters.sort((a, b) => {
-    // Sort by count
-    if (a.count < b.count) return 1;
-    if (a.count > b.count) return -1;
-    // Sort by name
-    if (a.name < b.name) return -1;
-    if (a.name > b.name) return 1;
+    if (sortBy === 'alpha') {
+      // Sort by name first
+      if (a.name < b.name) return -1;
+      if (a.name > b.name) return 1;
+      // Sort by count last
+      if (a.count < b.count) return 1;
+      if (a.count > b.count) return -1;
+    } else if (sortBy === 'numeric') {
+      // Sort by count first
+      if (a.count < b.count) return 1;
+      if (a.count > b.count) return -1;
+      // Sort by name last
+      if (a.name < b.name) return -1;
+      if (a.name > b.name) return 1;
+    }
     return 0;
   });
 }

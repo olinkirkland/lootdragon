@@ -8,7 +8,8 @@
 import { onMounted, ref } from 'vue';
 
 const props = defineProps({
-  modelValue: String
+  modelValue: String,
+  multiple: Boolean
 });
 
 const slotContainer = ref(<HTMLElement | null>null);
@@ -36,10 +37,18 @@ function updateButtons(button: HTMLButtonElement) {
   const buttons = Array.from(
     button.parentElement!.children
   ) as HTMLButtonElement[];
-  buttons.forEach((b) => b.classList.remove('active'));
-  button.classList.add('active');
-
-  emit('update:modelValue', button.value);
+  if (props.multiple) {
+    button.classList.toggle('active');
+    const activeButtons = buttons.filter((b) => b.classList.contains('active'));
+    emit(
+      'update:modelValue',
+      activeButtons.map((b) => b.value)
+    );
+  } else {
+    buttons.forEach((b) => b.classList.remove('active'));
+    button.classList.add('active');
+    emit('update:modelValue', button.value);
+  }
 }
 
 const emit = defineEmits(['update:modelValue']);

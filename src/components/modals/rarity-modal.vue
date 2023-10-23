@@ -16,6 +16,19 @@
         </p>
       </section>
       <section>
+        <p>Sort filter by:</p>
+        <button-group v-model="useSettingsStore().filterSortings.rarity">
+          <button value="alpha">
+            <i class="fas fa-sort-alpha-up"></i>
+            <span>Alphabetical</span>
+          </button>
+          <button value="numeric">
+            <i class="fas fa-sort-numeric-down-alt"></i>
+            <span>Quantity</span>
+          </button>
+        </button-group>
+      </section>
+      <section>
         <p>
           <strong>Common elements</strong> are prevalent enough, at least among
           adventurers, that a player is assumed to be able to access them
@@ -56,6 +69,7 @@
 
 <script setup lang="ts">
 import { ModalController } from '@/controllers/modal-controller';
+import { useSettingsStore } from '@/stores/settingsStore';
 </script>
 
 <style scoped lang="scss"></style>
