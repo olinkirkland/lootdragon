@@ -36,7 +36,7 @@ export function getFiltersByKey(
 
 export function getSourcesFilters(
   items: Item[],
-  sortBy: 'alpha' | 'numeric'
+  sortBy: 'alpha' | 'numeric' = 'numeric'
 ): { name: string; count: number }[] {
   const filters: { name: string; count: number }[] = [];
 
@@ -73,7 +73,7 @@ export function getSourcesFilters(
 
 export function getTraitsFilters(
   items: Item[],
-  sortBy: 'alpha' | 'numeric'
+  sortBy: 'alpha' | 'numeric' = 'numeric'
 ): { name: string; count: number }[] {
   const filters: { name: string; count: number }[] = [];
 
