@@ -140,7 +140,19 @@
         </ul>
       </div>
 
-      <p class="item-count muted">Showing {{ filteredItems.length }} items</p>
+      <div class="item-count-container">
+        <button
+          v-if="showFilters || showSorting"
+          class="icon muted"
+          @click="
+            showFilters = false;
+            showSorting = false;
+          "
+        >
+          <i class="fas fa-chevron-circle-up"></i>
+        </button>
+        <p class="item-count muted">Showing {{ filteredItems.length }} items</p>
+      </div>
     </header>
 
     <item-header-card />
@@ -407,9 +419,21 @@ function openRandomItem() {
       padding: 0.8rem;
     }
 
-    > p.item-count {
+    .item-count-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 0.8rem;
       padding-top: 0;
+      > button {
+        position: absolute;
+        right: 0;
+        z-index: 1;
+      }
+
+      > p.item-count {
+        width: 100%;
+      }
     }
 
     > .filters,
@@ -513,7 +537,7 @@ function openRandomItem() {
         }
       }
 
-      > p.item-count {
+      .item-count-container > p.item-count {
         text-align: center;
       }
     }
