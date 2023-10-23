@@ -17,7 +17,8 @@ export function getFiltersByKey(
 }
 
 export function getSourcesFilters(
-  items: Item[]
+  items: Item[],
+  sortBy: 'alpha' | 'numeric'
 ): { name: string; count: number }[] {
   const filters: { name: string; count: number }[] = [];
 
@@ -31,14 +32,23 @@ export function getSourcesFilters(
 
   return filters.sort((a, b) => {
     // if it contains '#', move it down
-    if (a.name.includes('#')) return 1;
-    if (b.name.includes('#')) return -1;
-    // Sort by count
-    if (a.count < b.count) return 1;
-    if (a.count > b.count) return -1;
-    // Sort by name
-    if (a.name < b.name) return -1;
-    if (a.name > b.name) return 1;
+    // if (a.name.includes('#')) return 1;
+    // if (b.name.includes('#')) return -1;
+    if (sortBy === 'alpha') {
+      // Sort by name first
+      if (a.name < b.name) return -1;
+      if (a.name > b.name) return 1;
+      // Sort by count last
+      if (a.count < b.count) return 1;
+      if (a.count > b.count) return -1;
+    } else if (sortBy === 'numeric') {
+      // Sort by count first
+      if (a.count < b.count) return 1;
+      if (a.count > b.count) return -1;
+      // Sort by name last
+      if (a.name < b.name) return -1;
+      if (a.name > b.name) return 1;
+    }
     return 0;
   });
 }

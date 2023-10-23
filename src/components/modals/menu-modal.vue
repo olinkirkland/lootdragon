@@ -1,18 +1,18 @@
 <template>
   <div class="modal">
     <header>
-      <!-- <h2>Menu</h2> -->
-      <div class="button-bar">
-        <button @click="router.push('/')">
+      <p>{{ activePage }}</p>
+      <button-group v-model="activePage">
+        <button @click="router.push('/')" value="home">
           <i class="fas fa-home"></i>
         </button>
-        <button @click="router.push('/items')">
+        <button @click="router.push('/items')" value="items">
           <i class="fas fa-box-open"></i>
         </button>
         <!-- <button @click="router.push('/collections')">
           <i class="fas fa-boxes"></i>
         </button> -->
-      </div>
+      </button-group>
       <button class="icon" @click="ModalController.close">
         <i class="fas fa-times"></i>
       </button>
@@ -136,9 +136,21 @@ import SettingsModal from './settings-modal.vue';
 import versionJson from '@/data/version.json';
 import { capitalize } from '@/utils';
 import router from '@/router';
+import { computed } from 'vue';
 
 const user = useUserStore().user;
 const version = versionJson.version;
+
+const activePage = computed(() => {
+  switch (router.currentRoute.value.path) {
+    case '/':
+      return 'home';
+    case '/items':
+      return 'items';
+  }
+
+  return 'home';
+});
 
 function logoutUser() {
   ModalController.open(ConfirmModal, {

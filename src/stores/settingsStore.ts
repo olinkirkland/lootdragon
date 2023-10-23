@@ -11,7 +11,10 @@ export const useSettingsStore = defineStore({
     theme: 'pathfinder',
     language: 'en',
     largeNumberAbbreviation: true,
-    sourceBindings: {} as { [key: string]: SourceBinding }
+    sourceBindings: {} as { [key: string]: SourceBinding },
+    filterSortings: {
+      sources: 'alpha'
+    } as { [key: string]: 'alpha' | 'numeric' }
   }),
   actions: {
     setTheme(theme: string) {
@@ -25,6 +28,9 @@ export const useSettingsStore = defineStore({
     },
     setSourceBindings(sourceBindings: { [key: string]: SourceBinding }) {
       this.sourceBindings = sourceBindings;
+    },
+    setFilterSortings(filterSortings: { [key: string]: 'alpha' | 'numeric' }) {
+      this.filterSortings = filterSortings;
     },
     loadFromLocalStorage() {
       const settings = localStorage.getItem('settings');

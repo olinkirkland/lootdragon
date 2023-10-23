@@ -165,6 +165,7 @@ import {
   getTraitsFilters
 } from '@/filter-utils';
 import { useItemsStore } from '@/stores/itemsStore';
+import { useSettingsStore } from '@/stores/settingsStore';
 import { useUserStore } from '@/stores/userStore';
 import { Item } from '@/types';
 import { computed, ref, watch } from 'vue';
@@ -191,6 +192,10 @@ const user = computed(() => {
   return useUserStore().user;
 });
 
+const filterSortings = computed(() => {
+  return useSettingsStore().filterSortings;
+});
+
 const sortBy = ref<string>('name-ascending');
 
 // Search
@@ -207,7 +212,9 @@ const rarities = computed(() => getFiltersByKey(items.value, 'rarity'));
 const initialRarityFilter = ref(['Common', 'Uncommon']);
 
 // Sources
-const sources = computed(() => getSourcesFilters(items.value));
+const sources = computed(() =>
+  getSourcesFilters(items.value, filterSortings.value.sources)
+);
 const initialSourceFilter = computed(() =>
   sources.value
     .filter((source) => !source.name.includes('#'))

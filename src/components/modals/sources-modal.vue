@@ -23,6 +23,19 @@
         </p>
       </section>
       <section>
+        <p>Sort filter by:</p>
+        <button-group v-model="useSettingsStore().filterSortings.sources">
+          <button value="alpha">
+            <i class="fas fa-sort-alpha-up"></i>
+            <span>Alphabetical</span>
+          </button>
+          <button value="numeric">
+            <i class="fas fa-sort-numeric-down-alt"></i>
+            <span>Quantity</span>
+          </button>
+        </button-group>
+      </section>
+      <section>
         <p>You can read more about sources on the Archives of Nethys page.</p>
         <a href="https://2e.aonprd.com/Sources.aspx" target="_blank">
           <span>Archives of Nethys: Sources</span>
@@ -34,7 +47,7 @@
 
 <script setup lang="ts">
 import { ModalController } from '@/controllers/modal-controller';
+import { useSettingsStore } from '@/stores/settingsStore';
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

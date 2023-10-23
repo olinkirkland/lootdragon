@@ -2,8 +2,8 @@ import mixpanel from 'mixpanel-browser';
 import { createPinia } from 'pinia';
 import { createApp } from 'vue';
 import App from './App.vue';
+import ButtonGroup from './components/button-group.vue';
 import Card from './components/card.vue';
-import TestModal from './components/modals/test-modal.vue';
 import router from './router';
 import { useItemsStore } from './stores/itemsStore';
 import { useSettingsStore } from './stores/settingsStore';
@@ -13,9 +13,7 @@ const app = createApp(App);
 
 // Register global components
 app.component('Card', Card);
-
-// Register modal components
-app.component('TestModal', TestModal);
+app.component('ButtonGroup', ButtonGroup);
 
 // Setup stores
 app.use(createPinia());
