@@ -34,6 +34,12 @@
             <i class="fas fa-sort-amount-up"></i>
             <span>Price</span>
           </button>
+
+          <!-- bulk-ascending -->
+          <button value="bulk-ascending">
+            <i class="fas fa-sort-amount-up"></i>
+            <span>Bulk</span>
+          </button>
         </drop-down>
 
         <!-- <button
@@ -158,6 +164,7 @@
 </template>
 
 <script setup lang="ts">
+import DropDown from '@/components/drop-down.vue';
 import ItemCard from '@/components/item-card.vue';
 import ItemHeaderCard from '@/components/item-header-card.vue';
 import ItemModal from '@/components/modals/item-modal.vue';
@@ -173,6 +180,7 @@ import { useItemsStore } from '@/stores/itemsStore';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { useUserStore } from '@/stores/userStore';
 import { Item } from '@/types';
+import { evaluateBulk } from '@/utils';
 import { computed, onMounted, ref, watch } from 'vue';
 import FilterBlock from '../components/filter-block.vue';
 import CategoryModal from '../components/modals/category-modal.vue';
@@ -181,12 +189,12 @@ import PriceModal from '../components/modals/price-modal.vue';
 import RarityModal from '../components/modals/rarity-modal.vue';
 import SourcesModal from '../components/modals/sources-modal.vue';
 import TraitsModal from '../components/modals/traits-modal.vue';
-import DropDown from '@/components/drop-down.vue';
 
 const items = ref<Item[]>([]);
 onMounted(() => {
   setTimeout(() => {
     items.value = useItemsStore().items;
+    ModalController.close();
   }, 200);
 });
 
@@ -339,18 +347,34 @@ const filteredItems = computed(() => {
     levelFilter.value.includes(item.level.toString())
   );
 
-  ModalController.close();
-
   return sortedItems.sort((a, b) => {
-    if (sortBy.value === 'price-ascending') {
+    const type = sortBy.value.split('-')[0];
+    const order = sortBy.value.split('-')[1];
+
+    // Price
+    if (type === 'price') {
       if (!a.price) return -1;
       if (!b.price) return 1;
-      return a.price - b.price;
-    } else if (sortBy.value === 'name-ascending') {
-      if (a.name.text < b.name.text) return -1;
-      if (a.name.text > b.name.text) return 1;
-      return 0;
-    } else return 0;
+      return order === 'ascending' ? a.price - b.price : b.price - a.price;
+    }
+
+    // Name
+    if (type === 'name') {
+      const aName = a.name.text.toLowerCase();
+      const bName = b.name.text.toLowerCase();
+      return order === 'ascending'
+        ? aName.localeCompare(bName)
+        : bName.localeCompare(aName);
+    }
+
+    // Bulk
+    if (type === 'bulk') {
+      const aBulk = evaluateBulk(a.bulk);
+      const bBulk = evaluateBulk(b.bulk);
+      return order === 'ascending' ? aBulk - bBulk : bBulk - aBulk;
+    }
+
+    return 0;
   });
 });
 

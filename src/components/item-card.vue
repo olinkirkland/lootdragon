@@ -25,7 +25,7 @@
       >
       <span class="bulk hide-on-mobile">
         <span v-if="item.bulk === 'N/A'">N/A</span>
-        <span v-if="+item.bulk === 0">
+        <span v-else-if="+item.bulk === 0">
           <i class="muted fas fa-feather-alt"></i>
         </span>
         <span v-else>

@@ -66,3 +66,10 @@ export function deepMerge<T>(target: T, source: Partial<T>): T {
 
   return target;
 }
+
+export function evaluateBulk(bulk: string): number {
+  if (bulk === 'N/A') return -1;
+  if (!bulk || +bulk === 0) return 0;
+  if (bulk === 'L') return 0.1;
+  return +bulk;
+}
