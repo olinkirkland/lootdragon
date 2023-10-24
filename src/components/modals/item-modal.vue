@@ -85,10 +85,10 @@
             <li v-for="trait in item.traits">
               <p>
                 <span class="trait-badge">
-                  <i
+                  <!-- <i
                     v-if="!!useItemsStore().traitsIcons[trait.slug]"
                     :class="`fas fa-${useItemsStore().traitsIcons[trait.slug]}`"
-                  ></i>
+                  ></i> -->
                   <span>{{ trait.text }}</span>
                 </span>
                 <read-more
