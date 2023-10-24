@@ -84,8 +84,12 @@
           <ul>
             <li v-for="trait in item.traits">
               <p>
-                <span>
-                  {{ trait.text }}
+                <span class="trait-badge">
+                  <i
+                    v-if="!!useItemsStore().traitsIcons[trait.slug]"
+                    :class="`fas fa-${useItemsStore().traitsIcons[trait.slug]}`"
+                  ></i>
+                  <span>{{ trait.text }}</span>
                 </span>
                 <read-more
                   :text="useItemsStore().traits[trait.slug].description"
@@ -301,12 +305,24 @@ function getSourceUrl(source: Source) {
               color: var(--text-color-3);
             }
 
-            > span:first-child {
+            > span.trait-badge {
               background-color: var(--text-color-3);
-              padding: 0.2rem 0.6rem;
-              text-transform: capitalize;
-              color: var(--surface-color);
               margin-right: 0.6rem;
+              padding: 0.2rem 0.4rem;
+
+              > span {
+                text-transform: capitalize;
+                color: var(--surface-color);
+              }
+
+              > i {
+                // font-size: 1.2rem;
+                color: var(--surface-color);
+              }
+
+              > i + span {
+                margin-left: 0.6rem;
+              }
             }
           }
         }

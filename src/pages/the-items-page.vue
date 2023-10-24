@@ -1,6 +1,6 @@
 <template>
   <div class="library-container">
-    <header class="page-header">
+    <header class="page-header" :disabled="items.length === 0">
       <div class="search-container">
         <div class="search-box">
           <input type="text" v-model="search" placeholder="Search..." />
@@ -157,9 +157,19 @@
 
     <item-header-card />
     <div class="item-list-container">
-      <ul class="item-list">
+      <ul v-if="items.length > 0" class="item-list">
         <item-card v-for="item in filteredItems" :key="item.id" :item="item" />
       </ul>
+      <p class="item-list-text" v-else>
+        <i class="fas fa-spinner fa-spin"></i>
+      </p>
+      <p
+        class="item-list-text"
+        v-if="items.length > 0 && filteredItems.length === 0"
+      >
+        <i class="fas fa-exclamation-circle"></i>
+        <span>No items found</span>
+      </p>
     </div>
   </div>
 </template>
@@ -180,7 +190,7 @@ import { useItemsStore } from '@/stores/itemsStore';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { useUserStore } from '@/stores/userStore';
 import { Item } from '@/types';
-import { computed, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import FilterBlock from '../components/filter-block.vue';
 import CategoryModal from '../components/modals/category-modal.vue';
 import LevelsModal from '../components/modals/levels-modal.vue';
@@ -189,7 +199,12 @@ import RarityModal from '../components/modals/rarity-modal.vue';
 import SourcesModal from '../components/modals/sources-modal.vue';
 import TraitsModal from '../components/modals/traits-modal.vue';
 
-const items = ref<Item[]>(useItemsStore().items);
+const items = ref<Item[]>([]);
+onMounted(() => {
+  setTimeout(() => {
+    items.value = useItemsStore().items;
+  }, 200);
+});
 
 // Get the initial filters from local storage
 const localFilters =
@@ -278,6 +293,7 @@ const favoritesFilter = ref<string[]>(initialFavoritesFilter.value);
 
 const filteredItems = computed(() => {
   let sortedItems = [...items.value];
+  // let sortedItems = [] as Item[];
 
   // Filter by search
   if (search.value.length > 0) {
@@ -338,6 +354,8 @@ const filteredItems = computed(() => {
   sortedItems = sortedItems.filter((item) =>
     levelFilter.value.includes(item.level.toString())
   );
+
+  ModalController.close();
 
   return sortedItems.sort((a, b) => {
     if (sortBy.value === 'price-ascending') {
@@ -511,6 +529,15 @@ function openRandomItem() {
       flex-direction: column;
     }
   }
+}
+
+.item-list-text {
+  width: 100%;
+  height: 100%;
+  gap: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (max-width: 768px) {

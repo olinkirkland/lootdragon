@@ -92,36 +92,49 @@ router.beforeEach(async (to, from, next) => {
 
   console.log('Page routed from', from.name, '➡️', to.name);
   if (useItemsStore().items.length === 0) {
-    console.log('Loading items JSON ...');
-
+    useNavStore().loadingText = 'Loading items';
     ModalController.open(LoadingModal);
     try {
       const response = await fetch('/assets/equipment.json');
       const data = await response.json();
       useItemsStore().items = data;
+      useNavStore().loadingText = null;
       ModalController.close();
-      console.log('Items loaded successfully');
     } catch (error) {
       console.error('Error loading items:', error);
     }
   }
 
   if (Object.keys(useItemsStore().traits).length === 0) {
-    console.log('Loading traits JSON ...');
-
+    useNavStore().loadingText = 'Loading traits';
     ModalController.open(LoadingModal);
     try {
       const response = await fetch('/assets/traits.json');
       const data = await response.json();
       useItemsStore().traits = data;
+      useNavStore().loadingText = null;
       ModalController.close();
-      console.log('Traits loaded successfully');
     } catch (error) {
       console.error('Error loading traits:', error);
     }
   }
 
+  if (Object.keys(useItemsStore().traitsIcons).length === 0) {
+    useNavStore().loadingText = 'Loading traits icons';
+    ModalController.open(LoadingModal);
+    try {
+      const response = await fetch('/assets/traits-icons.json');
+      const data = await response.json();
+      useItemsStore().traitsIcons = data;
+      useNavStore().loadingText = null;
+      ModalController.close();
+    } catch (error) {
+      console.error('Error loading traits icons:', error);
+    }
+  }
+
   if (useUserStore().user === null && !!localStorage.getItem('refreshToken')) {
+    useNavStore().loadingText = 'Logging in';
     ModalController.open(LoadingModal);
 
     // Login with the saved credentials if in development mode
@@ -139,7 +152,10 @@ router.beforeEach(async (to, from, next) => {
       await login(username, password);
     }
 
-    if (await fetchAccessToken()) await fetchMe();
+    useNavStore().loadingText = 'Loading profile';
+    if ((await fetchAccessToken()) && useUserStore().user === null)
+      await fetchMe();
+    useNavStore().loadingText = null;
     ModalController.close();
   }
 

@@ -6,7 +6,9 @@
         alt="logo"
       />
       <p class="loading-text">
-        Loading
+        <span v-if="!!useNavStore().loadingText">{{
+          useNavStore().loadingText
+        }}</span>
         <i class="fas fa-spinner fa-spin"></i>
       </p>
     </section>
@@ -14,6 +16,7 @@
 </template>
 
 <script setup lang="ts">
+import { useNavStore } from '@/stores/navStore';
 import { useSettingsStore } from '@/stores/settingsStore';
 </script>
 
@@ -49,7 +52,6 @@ import { useSettingsStore } from '@/stores/settingsStore';
       align-items: center;
       width: 100%;
       gap: 0.8rem;
-      text-transform: uppercase;
       color: var(--text-color);
     }
 
