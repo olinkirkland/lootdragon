@@ -54,29 +54,20 @@
         </p>
       </section>
 
-      <!-- <section class="collection" v-if="!!user">
-        <drawer title="Add to Collection">
-          <div class="collections-drawer">
-            <ul v-if="user?.collections.length > 0">
-              <li v-for="collection in user?.collections">
-                <p>{{ collection }}</p>
-                <button
-                  class="icon"
-                  @click="addItemToCollection(collection, item.id)"
-                >
-                  <i class="fas fa-plus"></i>
-                </button>
-              </li>
-            </ul>
-            <p v-else>
-              <span
-                >You don't have any collections yet. Create a new collection
-                <a class="primary" href="/collections">here</a>.</span
-              >
-            </p>
-          </div>
-        </drawer>
-      </section> -->
+      <section class="collection" v-if="!!user && false">
+        <h4>Add to collection</h4>
+        <div class="flex">
+          <drop-down v-model="selectedCollection" class="flex-1">
+            <button v-for="collection in user?.collections" :key="collection">
+              <span>{{ collection }}</span>
+            </button>
+          </drop-down>
+          <button>
+            <i class="fas fa-plus"></i>
+            <span>Add</span>
+          </button>
+        </div>
+      </section>
 
       <section>
         <div class="detail-group detail-group--traits">
@@ -85,19 +76,12 @@
             <li v-for="trait in item.traits">
               <p>
                 <span class="trait-badge">
-                  <!-- <i
-                    v-if="!!useItemsStore().traitsIcons[trait.slug]"
-                    :class="`fas fa-${useItemsStore().traitsIcons[trait.slug]}`"
-                  ></i> -->
-                  <span>{{ trait.text }}</span>
+                  {{ trait.text }}
                 </span>
                 <read-more
                   :text="useItemsStore().traits[trait.slug].description"
                 />
               </p>
-              <!-- <a :href="'https://2e.aonprd.com' + trait.url" target="_blank">{{
-                trait.text
-              }}</a> -->
             </li>
           </ul>
         </div>
@@ -123,28 +107,6 @@
           </ul>
         </div>
       </section>
-
-      <section v-if="!!item.links && item.links.length > 0">
-        <h4>Links</h4>
-        <ul class="text">
-          <li v-for="link in item.links || []">
-            <a :href="link.url" target="_blank">{{ link.text }}</a>
-          </li>
-        </ul>
-      </section>
-
-      <!-- <section class="links">
-        <drawer title="Links">
-          <div class="links-drawer">
-            <copy-text label="Direct Link" :text="directLink" :link="true" />
-            <copy-text
-              label="Archives of Nethys"
-              :text="nethysLink"
-              :link="true"
-            />
-          </div>
-        </drawer>
-      </section> -->
 
       <section>
         <div class="spread">
@@ -184,23 +146,29 @@
 <script setup lang="ts">
 import { favoriteItem } from '@/controllers/connection';
 import { ModalController } from '@/controllers/modal-controller';
+import { useItemsStore } from '@/stores/itemsStore';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { useUserStore } from '@/stores/userStore';
 import { Item, Source } from '@/types';
 import mixpanel from 'mixpanel-browser';
-import { PropType, computed, ref } from 'vue';
+import { PropType, computed, onMounted, ref } from 'vue';
 import PriceDisplay from '../price-display.vue';
-import ReportModal from './report-modal.vue';
-import { useItemsStore } from '@/stores/itemsStore';
 import ReadMore from '../read-more.vue';
+import ReportModal from './report-modal.vue';
 
 const settingsStore = useSettingsStore();
+const selectedCollection = ref(null as string | null);
 
 const props = defineProps({
   item: {
     type: Object as PropType<Item>,
     required: true
   }
+});
+
+onMounted(() => {
+  // if (!!useUserStore().user)
+  //   selectedCollection.value = useUserStore().user?.collections[0];
 });
 
 const user = computed(() => {
@@ -301,28 +269,13 @@ function getSourceUrl(source: Source) {
 
           p {
             display: block;
-            > span {
-              color: var(--text-color-3);
-            }
-
-            > span.trait-badge {
+            .trait-badge {
               background-color: var(--text-color-3);
               margin-right: 0.6rem;
               padding: 0.2rem 0.4rem;
 
-              > span {
-                text-transform: capitalize;
-                color: var(--surface-color);
-              }
-
-              > i {
-                // font-size: 1.2rem;
-                color: var(--surface-color);
-              }
-
-              > i + span {
-                margin-left: 0.6rem;
-              }
+              text-transform: capitalize;
+              color: var(--surface-color);
             }
           }
         }
@@ -362,39 +315,6 @@ function getSourceUrl(source: Source) {
       li:not(:last-child)::after {
         content: ', ';
         margin-right: 0.2rem;
-      }
-    }
-
-    &.links,
-    &.collection {
-      padding: 0;
-
-      .links-drawer,
-      .collections-drawer {
-        display: flex;
-        flex-direction: column;
-        padding: 1.2rem;
-        gap: 0.8rem;
-      }
-      .collections-drawer > ul {
-        border: 1px solid var(--surface-color-3);
-
-        > li {
-          position: relative;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-
-          > p {
-            padding-left: 1.2rem;
-          }
-
-          @include alternating-shade();
-
-          &:not(:last-child) {
-            border-bottom: 1px solid var(--surface-color-3);
-          }
-        }
       }
     }
   }

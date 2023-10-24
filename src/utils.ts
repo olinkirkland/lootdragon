@@ -1,9 +1,15 @@
 import { useSettingsStore } from './stores/settingsStore';
 
-export function formatNumber(number: number) {
-  return useSettingsStore().largeNumberAbbreviation
-    ? abbreviateNumber(number)
-    : numberWithCommas(number);
+export function formatNumber(
+  number: number,
+  largeNumberAbbreviation?: boolean
+) {
+  const b =
+    largeNumberAbbreviation === undefined
+      ? useSettingsStore().largeNumberAbbreviation
+      : largeNumberAbbreviation;
+
+  return b ? abbreviateNumber(number) : numberWithCommas(number);
 }
 
 export function numberWithCommas(number: number) {

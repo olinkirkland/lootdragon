@@ -4,6 +4,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import ButtonGroup from './components/button-group.vue';
 import Card from './components/card.vue';
+import DropDown from './components/drop-down.vue';
 import router from './router';
 import { useItemsStore } from './stores/itemsStore';
 import { useSettingsStore } from './stores/settingsStore';
@@ -14,6 +15,7 @@ const app = createApp(App);
 // Register global components
 app.component('Card', Card);
 app.component('ButtonGroup', ButtonGroup);
+app.component('DropDown', DropDown);
 
 // Setup stores
 app.use(createPinia());

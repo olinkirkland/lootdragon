@@ -19,15 +19,19 @@
     <div class="collection-content">
       <div class="overview">
         <p>
-          <span class="primary">{{ totalItems }}</span>
-          <span class="muted"> items </span>
-          <span class="muted">({{ totalUniqueItems }} unique) </span>
+          <span>{{ totalItems }}</span>
+          <span class="muted"> items ({{ totalUniqueItems }} unique) </span>
           <span> · </span>
-          <span class="primary">{{ totalBulk }}</span>
-          <span class="muted"> bulk</span>
+          <span>
+            <i class="muted fas fa-balance-scale"></i>
+            {{ totalBulk }}
+          </span>
         </p>
 
-        <price-display :value="totalValue" />
+        <price-display
+          :value="totalValue"
+          :use-large-number-abbreviation="false"
+        ></price-display>
       </div>
 
       <div class="item-list-container">

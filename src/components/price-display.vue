@@ -2,15 +2,15 @@
   <p class="price">
     <span class="price__group" v-if="gold > 0">
       <img src="/assets/images/gold.png" />
-      <span>{{ formatNumber(gold) }}</span>
+      <span>{{ formatNumber(gold, useLargeNumberAbbreviation) }}</span>
     </span>
     <span class="price__group" v-if="silver > 0">
       <img src="/assets/images/silver.png" />
-      <span>{{ formatNumber(silver) }}</span>
+      <span>{{ formatNumber(silver, useLargeNumberAbbreviation) }}</span>
     </span>
     <span class="price__group" v-if="copper > 0">
       <img src="/assets/images/copper.png" />
-      <span>{{ formatNumber(copper) }}</span>
+      <span>{{ formatNumber(copper, useLargeNumberAbbreviation) }}</span>
     </span>
     <span
       class="price__group"
@@ -23,11 +23,17 @@
 
 <script setup lang="ts">
 import { formatNumber } from '@/utils';
+import { PropType } from 'vue';
 
 const props = defineProps({
   value: {
     type: Number,
     required: true
+  },
+  useLargeNumberAbbreviation: {
+    type: Boolean as PropType<boolean | undefined>,
+    required: false,
+    default: undefined
   }
 });
 

@@ -20,8 +20,23 @@
         >
           <i class="fas fa-filter"></i>
         </button>
+
         <!-- Sort by -->
-        <button
+        <drop-down v-model="sortBy" class="sort-by-drop-down">
+          <!-- name-ascending -->
+          <button value="name-ascending">
+            <i class="fas fa-sort-amount-up"></i>
+            <span>Name</span>
+          </button>
+
+          <!-- price-ascending -->
+          <button value="price-ascending">
+            <i class="fas fa-sort-amount-up"></i>
+            <span>Price</span>
+          </button>
+        </drop-down>
+
+        <!-- <button
           class="icon"
           :class="{ active: showSorting }"
           @click="
@@ -30,12 +45,13 @@
           "
         >
           <i class="fas fa-sort-amount-down"></i>
-        </button>
+        </button> -->
         <!-- Random -->
         <button class="icon" @click="openRandomItem">
           <i class="fas fa-dice-five"></i>
         </button>
       </div>
+
       <div v-if="showFilters" class="filters">
         <p>
           <span>Filter</span>
@@ -117,53 +133,6 @@
         />
       </div>
 
-      <div v-if="showSorting" class="sortings">
-        <p>
-          <span>Sort</span>
-          <button
-            v-if="showFilters || showSorting"
-            class="icon icon--mini muted"
-            @click="
-              showFilters = false;
-              showSorting = false;
-            "
-          >
-            <i class="fas fa-times"></i>
-          </button>
-        </p>
-        <ul>
-          <!-- Ascending Name -->
-          <li :class="{ active: sortBy === 'name-ascending' }">
-            <input
-              id="sort-name-ascending"
-              type="radio"
-              name="sort-by"
-              value="name-ascending"
-              v-model="sortBy"
-            />
-            <label for="sort-name-ascending">
-              <i class="fas fa-sort-amount-up"></i>
-              <span>Name</span>
-            </label>
-          </li>
-
-          <!-- Ascending Price -->
-          <li :class="{ active: sortBy === 'price-ascending' }">
-            <input
-              id="sort-price-ascending"
-              type="radio"
-              name="sort-by"
-              value="price-ascending"
-              v-model="sortBy"
-            />
-            <label for="sort-price-ascending">
-              <i class="fas fa-sort-amount-up"></i>
-              <span>Price</span>
-            </label>
-          </li>
-        </ul>
-      </div>
-
       <div class="item-count-container">
         <p class="item-count muted">Showing {{ filteredItems.length }} items</p>
       </div>
@@ -212,6 +181,7 @@ import PriceModal from '../components/modals/price-modal.vue';
 import RarityModal from '../components/modals/rarity-modal.vue';
 import SourcesModal from '../components/modals/sources-modal.vue';
 import TraitsModal from '../components/modals/traits-modal.vue';
+import DropDown from '@/components/drop-down.vue';
 
 const items = ref<Item[]>([]);
 onMounted(() => {
@@ -499,48 +469,6 @@ function openRandomItem() {
     }
   }
 
-  .sortings {
-    ul {
-      width: 100%;
-      li {
-        padding: 0.8rem 1.2rem;
-        display: flex;
-        gap: 0.6rem;
-        align-items: center;
-
-        &.active {
-          background-color: var(--select-color);
-          > label > i,
-          span {
-            color: var(--light-color);
-          }
-        }
-
-        input[type='radio'] {
-          display: none;
-        }
-
-        * {
-          cursor: pointer;
-        }
-
-        &:not(:last-child) {
-          border-bottom: 1px solid var(--surface-color-2);
-        }
-
-        > label {
-          display: flex;
-          align-items: center;
-          width: 100%;
-          gap: 0.4rem;
-          > i {
-            font-size: 1.2rem;
-          }
-        }
-      }
-    }
-  }
-
   > .item-list-container {
     flex: 1;
     // padding: 1.6rem;
@@ -591,5 +519,9 @@ function openRandomItem() {
       }
     }
   }
+}
+
+.sort-by-drop-down {
+  width: 12rem;
 }
 </style>

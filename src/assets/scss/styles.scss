@@ -211,6 +211,10 @@ pre {
   }
 }
 
+.flex-1 {
+  flex: 1;
+}
+
 .wrap {
   flex-wrap: wrap;
 }
@@ -222,7 +226,7 @@ header.page-header {
   display: flex;
   flex-direction: column;
 
-  overflow-y: auto;
+  // overflow-y: auto;
   flex-shrink: 0;
   max-height: calc(100vh - 6.4rem);
 }
