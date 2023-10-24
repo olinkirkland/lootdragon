@@ -31,17 +31,17 @@
         <drop-down v-model="sortByType" class="sort-by-drop-down">
           <!-- name-ascending -->
           <button value="name">
-            <span>Name</span>
+            <span>by Name</span>
           </button>
 
           <!-- price-ascending -->
           <button value="price">
-            <span>Price</span>
+            <span>by Price</span>
           </button>
 
           <!-- bulk-ascending -->
           <button value="bulk">
-            <span>Bulk</span>
+            <span>by Bulk</span>
           </button>
         </drop-down>
       </div>
