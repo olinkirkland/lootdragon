@@ -9,6 +9,19 @@ import router from './router';
 import { useItemsStore } from './stores/itemsStore';
 import { useSettingsStore } from './stores/settingsStore';
 
+// Force a redirect to HTTPS if the user is not on localhost
+if (
+  window.location.hostname !== 'localhost' &&
+  window.location.protocol !== 'https:'
+) {
+  // Redirect to HTTPS
+  window.location.href =
+    'https://' +
+    window.location.host +
+    window.location.pathname +
+    window.location.search;
+}
+
 // Create the app
 const app = createApp(App);
 
