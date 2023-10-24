@@ -37,7 +37,19 @@
         </button>
       </div>
       <div v-if="showFilters" class="filters">
-        <p>Filter</p>
+        <p>
+          <span>Filter</span>
+          <button
+            v-if="showFilters || showSorting"
+            class="icon icon--mini muted"
+            @click="
+              showFilters = false;
+              showSorting = false;
+            "
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </p>
 
         <!-- Favorites -->
         <filter-block
@@ -106,7 +118,19 @@
       </div>
 
       <div v-if="showSorting" class="sortings">
-        <p>Sort</p>
+        <p>
+          <span>Sort</span>
+          <button
+            v-if="showFilters || showSorting"
+            class="icon icon--mini muted"
+            @click="
+              showFilters = false;
+              showSorting = false;
+            "
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </p>
         <ul>
           <!-- Ascending Name -->
           <li :class="{ active: sortBy === 'name-ascending' }">
@@ -141,16 +165,6 @@
       </div>
 
       <div class="item-count-container">
-        <button
-          v-if="showFilters || showSorting"
-          class="icon muted"
-          @click="
-            showFilters = false;
-            showSorting = false;
-          "
-        >
-          <i class="fas fa-chevron-circle-up"></i>
-        </button>
         <p class="item-count muted">Showing {{ filteredItems.length }} items</p>
       </div>
     </header>
@@ -473,6 +487,14 @@ function openRandomItem() {
         width: 100%;
         text-align: center;
         border-bottom: 1px solid var(--surface-color-2);
+        position: relative;
+        > button {
+          position: absolute;
+          right: 0.6rem;
+          top: 50%;
+          transform: translate(0, -50%);
+          z-index: 1;
+        }
       }
     }
   }
