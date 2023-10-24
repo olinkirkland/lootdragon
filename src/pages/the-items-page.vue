@@ -2,13 +2,6 @@
   <div class="library-container">
     <header class="page-header" :disabled="items.length === 0">
       <div class="search-container">
-        <div class="search-box">
-          <input type="text" v-model="search" placeholder="Search..." />
-          <i class="fas fa-search"></i>
-          <button @click="search = ''" v-if="search.length > 0" class="icon">
-            <i class="fas fa-times-circle"></i>
-          </button>
-        </div>
         <!-- Filter by -->
         <button
           class="icon"
@@ -21,41 +14,36 @@
           <i class="fas fa-filter"></i>
         </button>
 
+        <!-- Search -->
+        <div class="search-box">
+          <input type="text" v-model="search" placeholder="Search..." />
+          <i class="fas fa-search"></i>
+          <button @click="search = ''" v-if="search.length > 0" class="icon">
+            <i class="fas fa-times-circle"></i>
+          </button>
+        </div>
+
+        <button class="icon" @click="sortByOrder = !sortByOrder">
+          <i :class="`fas fa-sort-amount-${sortByOrder ? 'down' : 'up'}`"></i>
+        </button>
+
         <!-- Sort by -->
-        <drop-down v-model="sortBy" class="sort-by-drop-down">
+        <drop-down v-model="sortByType" class="sort-by-drop-down">
           <!-- name-ascending -->
-          <button value="name-ascending">
-            <i class="fas fa-sort-amount-up"></i>
+          <button value="name">
             <span>Name</span>
           </button>
 
           <!-- price-ascending -->
-          <button value="price-ascending">
-            <i class="fas fa-sort-amount-up"></i>
+          <button value="price">
             <span>Price</span>
           </button>
 
           <!-- bulk-ascending -->
-          <button value="bulk-ascending">
-            <i class="fas fa-sort-amount-up"></i>
+          <button value="bulk">
             <span>Bulk</span>
           </button>
         </drop-down>
-
-        <!-- <button
-          class="icon"
-          :class="{ active: showSorting }"
-          @click="
-            showSorting = !showSorting;
-            showFilters = false;
-          "
-        >
-          <i class="fas fa-sort-amount-down"></i>
-        </button> -->
-        <!-- Random -->
-        <button class="icon" @click="openRandomItem">
-          <i class="fas fa-dice-five"></i>
-        </button>
       </div>
 
       <div v-if="showFilters" class="filters">
@@ -160,6 +148,10 @@
         <span>No items found</span>
       </p>
     </div>
+    <!-- Random -->
+    <button class="random-item" @click="openRandomItem">
+      <i class="fas fa-dice-five"></i>
+    </button>
   </div>
 </template>
 
@@ -215,7 +207,8 @@ const filterSortings = computed(() => {
   return useSettingsStore().filterSortings;
 });
 
-const sortBy = ref<string>('name-ascending');
+const sortByType = ref<string>('name');
+const sortByOrder = ref<boolean>(true); // true = ascending, false = descending
 
 // Search
 const search = ref<string>('');
@@ -348,30 +341,27 @@ const filteredItems = computed(() => {
   );
 
   return sortedItems.sort((a, b) => {
-    const type = sortBy.value.split('-')[0];
-    const order = sortBy.value.split('-')[1];
-
     // Price
-    if (type === 'price') {
+    if (sortByType.value === 'price') {
       if (!a.price) return -1;
       if (!b.price) return 1;
-      return order === 'ascending' ? a.price - b.price : b.price - a.price;
+      return sortByOrder.value ? a.price - b.price : b.price - a.price;
     }
 
     // Name
-    if (type === 'name') {
+    if (sortByType.value === 'name') {
       const aName = a.name.text.toLowerCase();
       const bName = b.name.text.toLowerCase();
-      return order === 'ascending'
+      return sortByOrder.value
         ? aName.localeCompare(bName)
         : bName.localeCompare(aName);
     }
 
     // Bulk
-    if (type === 'bulk') {
+    if (sortByType.value === 'bulk') {
       const aBulk = evaluateBulk(a.bulk);
       const bBulk = evaluateBulk(b.bulk);
-      return order === 'ascending' ? aBulk - bBulk : bBulk - aBulk;
+      return sortByOrder.value ? aBulk - bBulk : bBulk - aBulk;
     }
 
     return 0;
@@ -547,5 +537,11 @@ function openRandomItem() {
 
 .sort-by-drop-down {
   width: 12rem;
+}
+
+button.random-item {
+  position: absolute;
+  bottom: 0.8rem;
+  right: 0.8rem;
 }
 </style>

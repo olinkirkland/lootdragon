@@ -119,19 +119,19 @@ router.beforeEach(async (to, from, next) => {
     }
   }
 
-  if (Object.keys(useItemsStore().traitsIcons).length === 0) {
-    useNavStore().loadingText = 'Loading traits icons';
-    ModalController.open(LoadingModal);
-    try {
-      const response = await fetch('/assets/traits-icons.json');
-      const data = await response.json();
-      useItemsStore().traitsIcons = data;
-      useNavStore().loadingText = null;
-      ModalController.close();
-    } catch (error) {
-      console.error('Error loading traits icons:', error);
-    }
-  }
+  // if (Object.keys(useItemsStore().traitsIcons).length === 0) {
+  //   useNavStore().loadingText = 'Loading traits icons';
+  //   ModalController.open(LoadingModal);
+  //   try {
+  //     const response = await fetch('/assets/traits-icons.json');
+  //     const data = await response.json();
+  //     useItemsStore().traitsIcons = data;
+  //     useNavStore().loadingText = null;
+  //     ModalController.close();
+  //   } catch (error) {
+  //     console.error('Error loading traits icons:', error);
+  //   }
+  // }
 
   if (useUserStore().user === null && !!localStorage.getItem('refreshToken')) {
     useNavStore().loadingText = 'Logging in';
