@@ -79,7 +79,7 @@
                   {{ trait.text }}
                 </span>
                 <read-more
-                  :text="useItemsStore().traits[trait.slug].description"
+                  :text="useItemsStore().traits[trait.slug]?.description || ''"
                 />
               </p>
             </li>
@@ -176,6 +176,7 @@ const user = computed(() => {
 });
 
 const item = props.item;
+console.log(item.traits);
 const directLink = computed(() => {
   return window.location.origin + '/items?i=' + item.id;
 });
