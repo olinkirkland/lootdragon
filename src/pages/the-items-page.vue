@@ -326,8 +326,8 @@ const filteredItems = computed(() => {
   const newSortedItems = sortedItems.sort((a, b) => {
     switch (sortByType.value) {
       case 'price':
-        if (!a.price) return -1;
-        if (!b.price) return 1;
+        if (a.price === null) return -1;
+        if (b.price === null) return 1;
         return sortByOrder.value ? a.price - b.price : b.price - a.price;
       case 'rarity':
         const rarities = ['Common', 'Uncommon', 'Rare', 'Unique'];
@@ -361,7 +361,7 @@ const filteredItems = computed(() => {
 
   setTimeout(() => {
     isBusy.value = false;
-  }, 200);
+  }, 100);
   return newSortedItems;
 });
 
