@@ -15,10 +15,7 @@
         <button
           class="icon"
           :class="{ active: showFilters }"
-          @click="
-            showFilters = !showFilters;
-            showSorting = false;
-          "
+          @click="showFilters = !showFilters"
         >
           <i class="fas fa-filter"></i>
         </button>
@@ -32,12 +29,9 @@
         <p>
           <span>Filter</span>
           <button
-            v-if="showFilters || showSorting"
+            v-if="showFilters"
             class="icon icon--mini muted"
-            @click="
-              showFilters = false;
-              showSorting = false;
-            "
+            @click="showFilters = false"
           >
             <i class="fas fa-times"></i>
           </button>
@@ -116,7 +110,7 @@
 
     <item-header-card v-model="sortBy" />
     <div class="item-list-container">
-      <ul v-if="items.length > 0" class="item-list">
+      <ul v-if="items.length > 0 && !isBusy" class="item-list">
         <item-card v-for="item in filteredItems" :key="item.id" :item="item" />
       </ul>
       <p class="item-list-text" v-else>
@@ -159,6 +153,8 @@ import RarityModal from '../components/modals/rarity-modal.vue';
 import SourcesModal from '../components/modals/sources-modal.vue';
 import TraitsModal from '../components/modals/traits-modal.vue';
 
+const isBusy = ref<boolean>(false);
+
 const items = ref<Item[]>([]);
 onMounted(() => {
   setTimeout(() => {
@@ -184,7 +180,6 @@ const localFilters =
   '{}';
 
 const showFilters = ref<boolean>(false);
-const showSorting = ref<boolean>(false);
 
 const user = computed(() => {
   return useUserStore().user;
@@ -265,8 +260,8 @@ const levelFilter = ref<string[]>(initialLevelFilter.value);
 const favoritesFilter = ref<string[]>(initialFavoritesFilter.value);
 
 const filteredItems = computed(() => {
+  isBusy.value = true;
   let sortedItems = [...items.value];
-  // let sortedItems = [] as Item[];
 
   // Filter by search
   if (search.value.length > 0) {
@@ -328,7 +323,7 @@ const filteredItems = computed(() => {
     levelFilter.value.includes(item.level.toString())
   );
 
-  return sortedItems.sort((a, b) => {
+  const newSortedItems = sortedItems.sort((a, b) => {
     switch (sortByType.value) {
       case 'price':
         if (!a.price) return -1;
@@ -363,6 +358,11 @@ const filteredItems = computed(() => {
 
     return 0;
   });
+
+  setTimeout(() => {
+    isBusy.value = false;
+  }, 200);
+  return newSortedItems;
 });
 
 // Set initial filters
