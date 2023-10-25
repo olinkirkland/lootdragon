@@ -2,6 +2,15 @@
   <div class="library-container">
     <header class="page-header" :disabled="items.length === 0">
       <div class="search-container">
+        <!-- Search -->
+        <div class="search-box">
+          <input type="text" v-model="search" placeholder="Search..." />
+          <i class="fas fa-search"></i>
+          <button @click="search = ''" v-if="search.length > 0" class="icon">
+            <i class="fas fa-times-circle"></i>
+          </button>
+        </div>
+
         <!-- Filter by -->
         <button
           class="icon"
@@ -13,37 +22,10 @@
         >
           <i class="fas fa-filter"></i>
         </button>
-
-        <!-- Search -->
-        <div class="search-box">
-          <input type="text" v-model="search" placeholder="Search..." />
-          <i class="fas fa-search"></i>
-          <button @click="search = ''" v-if="search.length > 0" class="icon">
-            <i class="fas fa-times-circle"></i>
-          </button>
-        </div>
-
-        <button class="icon" @click="sortByOrder = !sortByOrder">
-          <i :class="`fas fa-sort-amount-${sortByOrder ? 'down' : 'up'}`"></i>
+        <!-- Random -->
+        <button class="icon" @click="openRandomItem">
+          <i class="fas fa-dice-five"></i>
         </button>
-
-        <!-- Sort by -->
-        <drop-down v-model="sortByType" class="sort-by-drop-down">
-          <!-- name-ascending -->
-          <button value="name">
-            <span>by Name</span>
-          </button>
-
-          <!-- price-ascending -->
-          <button value="price">
-            <span>by Price</span>
-          </button>
-
-          <!-- bulk-ascending -->
-          <button value="bulk">
-            <span>by Bulk</span>
-          </button>
-        </drop-down>
       </div>
 
       <div v-if="showFilters" class="filters">
@@ -132,7 +114,7 @@
       </div>
     </header>
 
-    <item-header-card />
+    <item-header-card :v-model="sortBy" />
     <div class="item-list-container">
       <ul v-if="items.length > 0" class="item-list">
         <item-card v-for="item in filteredItems" :key="item.id" :item="item" />
@@ -148,15 +130,10 @@
         <span>No items found</span>
       </p>
     </div>
-    <!-- Random -->
-    <button class="random-item" @click="openRandomItem">
-      <i class="fas fa-dice-five"></i>
-    </button>
   </div>
 </template>
 
 <script setup lang="ts">
-import DropDown from '@/components/drop-down.vue';
 import ItemCard from '@/components/item-card.vue';
 import ItemHeaderCard from '@/components/item-header-card.vue';
 import ItemModal from '@/components/modals/item-modal.vue';
@@ -187,6 +164,16 @@ onMounted(() => {
   setTimeout(() => {
     items.value = useItemsStore().items;
     ModalController.close();
+    
+    // ?i=SOME_ID
+    const urlParams = new URLSearchParams(window.location.search);
+    const itemId = urlParams.get('i');
+    if (itemId) {
+      const item = items.value.find((item) => item.id === itemId);
+      if (item) {
+        ModalController.open(ItemModal, { item });
+      }
+    }
   }, 200);
 });
 
@@ -207,8 +194,9 @@ const filterSortings = computed(() => {
   return useSettingsStore().filterSortings;
 });
 
-const sortByType = ref<string>('name');
-const sortByOrder = ref<boolean>(true); // true = ascending, false = descending
+const sortBy = ref<string>('name-ascending');
+const sortByType = computed(() => sortBy.value.split('-')[0]);
+const sortByOrder = computed(() => sortBy.value.split('-')[1] === 'ascending');
 
 // Search
 const search = ref<string>('');
@@ -401,16 +389,6 @@ watch(
   }
 );
 
-// ?i=SOME_ID
-const urlParams = new URLSearchParams(window.location.search);
-const itemId = urlParams.get('i');
-if (itemId) {
-  const item = items.value.find((item) => item.id === itemId);
-  if (item) {
-    ModalController.open(ItemModal, { item });
-  }
-}
-
 function openRandomItem() {
   const randomItem =
     filteredItems.value[Math.floor(Math.random() * filteredItems.value.length)];
@@ -533,15 +511,5 @@ function openRandomItem() {
       }
     }
   }
-}
-
-.sort-by-drop-down {
-  width: 12rem;
-}
-
-button.random-item {
-  position: absolute;
-  bottom: 0.8rem;
-  right: 0.8rem;
 }
 </style>

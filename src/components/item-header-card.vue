@@ -1,19 +1,72 @@
 <template>
   <div class="item-card item-card--header">
-    <button class="item-grid-button">
-      <p>Value</p>
-      <p>Rarity</p>
-      <p class="level hide-on-mobile">Level</p>
-      <p>Name</p>
-      <p class="bulk hide-on-mobile">Bulk</p>
-      <p class="category hide-on-mobile">Category</p>
-      <p class="traits hide-on-mobile">Traits</p>
-    </button>
+    <div class="item-grid-button">
+      <p
+        v-for="column in columns"
+        :key="column.name"
+        @click="updateSort(column.name)"
+        class="one-line"
+        :class="{ 'item-card--active': props.modelValue === column.name }"
+      >
+        <span :class="column.hiddenOnMobile ? 'hide-on-mobile' : ''">
+          {{ column.name }}
+        </span>
+      </p>
+    </div>
   </div>
 </template>
 
+<script setup lang="ts">
+import { onMounted } from 'vue';
+
+const columns = [
+  {
+    name: 'value',
+    hiddenOnMobile: false
+  },
+  {
+    name: 'rarity',
+    hiddenOnMobile: false
+  },
+  {
+    name: 'level',
+    hiddenOnMobile: true
+  },
+  {
+    name: 'name',
+    hiddenOnMobile: false
+  },
+  {
+    name: 'bulk',
+    hiddenOnMobile: true
+  },
+  {
+    name: 'category',
+    hiddenOnMobile: true
+  },
+  {
+    name: 'traits',
+    hiddenOnMobile: true
+  }
+];
+
+const props = defineProps({
+  modelValue: String
+});
+
+onMounted(() => {
+  console.log(props.modelValue);
+});
+
+function updateSort(type: string) {
+  emit('update:modelValue', type);
+}
+
+const emit = defineEmits(['update:modelValue']);
+</script>
+
 <style scoped lang="scss">
-button.item-grid-button {
+div.item-grid-button {
   align-items: center;
   width: 100%;
   height: 100%;
@@ -102,23 +155,19 @@ button.item-grid-button {
   border-radius: 3px;
 
   border-bottom: 1px solid var(--surface-color-2);
-
-  &--header {
-    pointer-events: none;
-  }
 }
 
 @media (max-width: 1200px) {
   .traits {
     display: none !important;
   }
-  button.item-grid-button {
+  div.item-grid-button {
     grid-template-columns: 10rem 8rem 8rem 24rem 8rem 1fr;
   }
 }
 
 @media (max-width: 768px) {
-  button.item-grid-button {
+  div.item-grid-button {
     width: 100%;
     grid-template-columns: 9.2rem 8rem 1fr;
   }
