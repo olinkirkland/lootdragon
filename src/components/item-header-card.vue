@@ -5,10 +5,21 @@
         v-for="column in columns"
         :key="column.name"
         @click="updateSort(column.name)"
-        class="one-line"
-        :class="{ 'item-card--active': props.modelValue === column.name }"
+        :class="{
+          active: sortByType === column.name,
+          'hide-on-mobile': column.hiddenOnMobile,
+          'hide-on-tablet': column.hiddenOnTablet
+        }"
       >
-        <span :class="column.hiddenOnMobile ? 'hide-on-mobile' : ''">
+        <i
+          v-if="sortByType === column.name"
+          :class="
+            sortByOrder === 'ascending'
+              ? 'fas fa-long-arrow-alt-up'
+              : 'fas fa-long-arrow-alt-down'
+          "
+        ></i>
+        <span>
           {{ column.name }}
         </span>
       </p>
@@ -17,24 +28,21 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
 
 const columns = [
   {
-    name: 'value',
-    hiddenOnMobile: false
+    name: 'price'
   },
   {
-    name: 'rarity',
-    hiddenOnMobile: false
+    name: 'rarity'
   },
   {
     name: 'level',
     hiddenOnMobile: true
   },
   {
-    name: 'name',
-    hiddenOnMobile: false
+    name: 'name'
   },
   {
     name: 'bulk',
@@ -46,6 +54,7 @@ const columns = [
   },
   {
     name: 'traits',
+    hiddenOnTablet: true,
     hiddenOnMobile: true
   }
 ];
@@ -55,11 +64,23 @@ const props = defineProps({
 });
 
 onMounted(() => {
-  console.log(props.modelValue);
+  console.log('modelValue:', props.modelValue);
+});
+
+const sortByType = computed(() => {
+  return props.modelValue?.split('-')[0];
+});
+const sortByOrder = computed(() => {
+  return props.modelValue?.split('-')[1];
 });
 
 function updateSort(type: string) {
-  emit('update:modelValue', type);
+  let order = sortByOrder.value;
+  if (sortByType.value === type)
+    order = sortByOrder.value === 'ascending' ? 'descending' : 'ascending';
+  else order = 'ascending';
+
+  emit('update:modelValue', type + '-' + order);
 }
 
 const emit = defineEmits(['update:modelValue']);
@@ -90,14 +111,6 @@ div.item-grid-button {
       border-right: 1px solid var(--surface-color-2);
     }
   }
-  > .one-line {
-    height: initial;
-    display: initial;
-    text-align: left;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
 
   > .rarity {
     font-size: 1.2rem;
@@ -121,11 +134,9 @@ div.item-grid-button {
     }
   }
 
-  > .bulk {
-    i {
-      font-size: 1.2rem;
-      margin-right: 0.2rem;
-    }
+  > .bulk > i {
+    font-size: 1.2rem;
+    margin-right: 0.2rem;
   }
 
   > .traits {
@@ -155,10 +166,26 @@ div.item-grid-button {
   border-radius: 3px;
 
   border-bottom: 1px solid var(--surface-color-2);
+
+  p {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    text-transform: capitalize;
+    gap: 0.4rem;
+
+    > i {
+      font-size: 1.2rem;
+    }
+    &.active {
+      font-weight: bold;
+      background-color: var(--surface-color-2);
+    }
+  }
 }
 
 @media (max-width: 1200px) {
-  .traits {
+  .hide-on-tablet {
     display: none !important;
   }
   div.item-grid-button {
@@ -167,6 +194,9 @@ div.item-grid-button {
 }
 
 @media (max-width: 768px) {
+  .hide-on-mobile {
+    display: none !important;
+  }
   div.item-grid-button {
     width: 100%;
     grid-template-columns: 9.2rem 8rem 1fr;
@@ -178,10 +208,6 @@ div.item-grid-button {
       border: none;
       border-bottom: 1px solid var(--surface-color-3);
     }
-  }
-
-  .hide-on-mobile {
-    display: none !important;
   }
 }
 </style>

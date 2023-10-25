@@ -114,7 +114,7 @@
       </div>
     </header>
 
-    <item-header-card :v-model="sortBy" />
+    <item-header-card v-model="sortBy" />
     <div class="item-list-container">
       <ul v-if="items.length > 0" class="item-list">
         <item-card v-for="item in filteredItems" :key="item.id" :item="item" />
@@ -164,7 +164,7 @@ onMounted(() => {
   setTimeout(() => {
     items.value = useItemsStore().items;
     ModalController.close();
-    
+
     // ?i=SOME_ID
     const urlParams = new URLSearchParams(window.location.search);
     const itemId = urlParams.get('i');
@@ -329,27 +329,36 @@ const filteredItems = computed(() => {
   );
 
   return sortedItems.sort((a, b) => {
-    // Price
-    if (sortByType.value === 'price') {
-      if (!a.price) return -1;
-      if (!b.price) return 1;
-      return sortByOrder.value ? a.price - b.price : b.price - a.price;
-    }
-
-    // Name
-    if (sortByType.value === 'name') {
-      const aName = a.name.text.toLowerCase();
-      const bName = b.name.text.toLowerCase();
-      return sortByOrder.value
-        ? aName.localeCompare(bName)
-        : bName.localeCompare(aName);
-    }
-
-    // Bulk
-    if (sortByType.value === 'bulk') {
-      const aBulk = evaluateBulk(a.bulk);
-      const bBulk = evaluateBulk(b.bulk);
-      return sortByOrder.value ? aBulk - bBulk : bBulk - aBulk;
+    switch (sortByType.value) {
+      case 'price':
+        if (!a.price) return -1;
+        if (!b.price) return 1;
+        return sortByOrder.value ? a.price - b.price : b.price - a.price;
+      case 'rarity':
+        const rarities = ['Common', 'Uncommon', 'Rare', 'Unique'];
+        const aRarity = rarities.indexOf(a.rarity);
+        const bRarity = rarities.indexOf(b.rarity);
+        return sortByOrder.value ? aRarity - bRarity : bRarity - aRarity;
+      case 'level':
+        return sortByOrder.value ? a.level - b.level : b.level - a.level;
+      case 'name':
+        const aName = a.name.text;
+        const bName = b.name.text;
+        return sortByOrder.value
+          ? aName.localeCompare(bName)
+          : bName.localeCompare(aName);
+      case 'bulk':
+        const aBulk = evaluateBulk(a.bulk);
+        const bBulk = evaluateBulk(b.bulk);
+        return sortByOrder.value ? aBulk - bBulk : bBulk - aBulk;
+      case 'category':
+        return sortByOrder.value
+          ? a.itemCategory.localeCompare(b.itemCategory)
+          : b.itemCategory.localeCompare(a.itemCategory);
+      case 'traits':
+        return sortByOrder.value
+          ? a.traits.length - b.traits.length
+          : b.traits.length - a.traits.length;
     }
 
     return 0;
