@@ -114,3 +114,4 @@ async function tryDeleteCollection() {
   }
 }
 </style>
+@/router/router@/router/router@/index@/index

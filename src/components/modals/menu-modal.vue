@@ -1,7 +1,6 @@
 <template>
   <div class="modal">
     <header>
-      <p>{{ activePage }}</p>
       <button-group v-model="activePage">
         <button @click="router.push('/')" value="home">
           <i class="fas fa-home"></i>
@@ -205,3 +204,4 @@ ul {
   }
 }
 </style>
+@/router/router@/router/router@/index@/index
