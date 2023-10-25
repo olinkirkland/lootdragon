@@ -172,7 +172,7 @@ onMounted(() => {
         ModalController.open(ItemModal, { item });
       }
     }
-    
+
     rarityFilter.value = initialRarityFilter.value;
     sourceFilter.value = initialSourceFilter.value;
     traitsFilter.value = initialTraitsFilter.value;
@@ -261,13 +261,13 @@ const initialLevelFilter = computed(() =>
 );
 
 // Filter refs
-const rarityFilter = ref<string[]>();
-const sourceFilter = ref<string[]>();
-const traitsFilter = ref<string[]>();
-const categoryFilter = ref<string[]>();
-const priceFilter = ref<string[]>();
-const levelFilter = ref<string[]>();
-const favoritesFilter = ref<string[]>();
+const rarityFilter = ref<string[]>([]);
+const sourceFilter = ref<string[]>([]);
+const traitsFilter = ref<string[]>([]);
+const categoryFilter = ref<string[]>([]);
+const priceFilter = ref<string[]>([]);
+const levelFilter = ref<string[]>([]);
+const favoritesFilter = ref<string[]>([]);
 
 const filteredItems = computed(() => {
   isBusy.value = true;
