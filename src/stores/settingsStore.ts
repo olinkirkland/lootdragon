@@ -15,9 +15,9 @@ export const useSettingsStore = defineStore({
     filterSortings: {
       rarity: 'numeric',
       sources: 'alpha',
-      traits: 'alpha',
+      traits: 'groups',
       category: 'alpha'
-    } as { [key: string]: 'alpha' | 'numeric' }
+    } as { [key: string]: string } // alpha, numeric, groups
   }),
   actions: {
     setTheme(theme: string) {
@@ -42,6 +42,12 @@ export const useSettingsStore = defineStore({
         this.theme = parsedSettings.theme || 'pathfinder';
         this.language = parsedSettings.language;
         this.largeNumberAbbreviation = parsedSettings.largeNumberAbbreviation;
+        this.filterSortings = parsedSettings.filterSortings || {
+          rarity: 'numeric',
+          sources: 'alpha',
+          traits: 'alpha',
+          category: 'alpha'
+        };
         this.sourceBindings = parsedSettings.sourceBindings || {};
       }
     },

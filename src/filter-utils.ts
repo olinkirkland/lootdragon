@@ -3,7 +3,7 @@ import { Item } from './types';
 export function getFiltersByKey(
   items: Item[],
   key: keyof Item,
-  sortBy: 'alpha' | 'numeric' = 'numeric'
+  sortBy: string = 'numeric'
 ): { name: string; count: number }[] {
   const filters: { name: string; count: number }[] = [];
   items.forEach((item) => {
@@ -36,7 +36,7 @@ export function getFiltersByKey(
 
 export function getSourcesFilters(
   items: Item[],
-  sortBy: 'alpha' | 'numeric' = 'numeric'
+  sortBy: string = 'numeric'
 ): { name: string; count: number }[] {
   const filters: { name: string; count: number }[] = [];
 
@@ -73,7 +73,7 @@ export function getSourcesFilters(
 
 export function getTraitsFilters(
   items: Item[],
-  sortBy: 'alpha' | 'numeric' = 'numeric'
+  sortBy: string = 'numeric'
 ): { name: string; count: number }[] {
   const filters: { name: string; count: number }[] = [];
 
