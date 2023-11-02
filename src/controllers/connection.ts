@@ -1,5 +1,4 @@
 import { useUserStore } from '@/stores/userStore';
-import { GameState } from '@/types';
 import axios, { AxiosError } from 'axios';
 import StatusCode from 'status-code-enum';
 
@@ -146,6 +145,10 @@ export async function fetchMe() {
 
   try {
     const response = await server.get('me');
+    const data = response.data;
+    data.savedSearches = data.savedSearches.map((savedSearch) =>
+      JSON.parse(savedSearch)
+    );
     useUserStore().user = response.data;
     didFetch = true;
   } catch (error) {
@@ -209,102 +212,14 @@ export async function clearFavorites() {
   }
 }
 
-export async function createCollection() {
-  console.log('Create Collection');
+export async function addSavedSearch(name: string, icon: string, filters: any) {
   try {
-    const response = await server.post(`collection`);
-    const newCollections = response.data;
-    useUserStore().user!.collections = newCollections;
-    return response.status === StatusCode.SuccessOK ? null : response.status;
+    await server.post(`saved-search`, {
+      name,
+      icon,
+      filters: filters
+    });
   } catch (error) {
-    return (error as AxiosError).response!.status;
+    console.error(error);
   }
 }
-
-export async function deleteCollection(id: string) {
-  console.log('Delete Collection');
-  try {
-    const response = await server.delete(`collection/${id}`);
-    const newCollections = response.data;
-    useUserStore().user!.collections = newCollections;
-    return response.status === StatusCode.SuccessOK ? null : response.status;
-  } catch (error) {
-    return (error as AxiosError).response!.status;
-  }
-}
-
-export async function cloneCollection(id: string) {
-  console.log('Clone Collection');
-  try {
-    const response = await server.post(`collection/${id}/clone`);
-    const newCollections = response.data;
-    useUserStore().user!.collections = newCollections;
-    return response.status === StatusCode.SuccessOK ? null : response.status;
-  } catch (error) {
-    return (error as AxiosError).response!.status;
-  }
-}
-
-export async function addItemToCollection(
-  collectionId: string,
-  itemId: string
-) {
-  console.log(`Add Item ${itemId} to Collection ${collectionId}`);
-  try {
-    const response = await server.post(
-      `collection/${collectionId}/item/${itemId}`
-    );
-    // TODO update collections > collectionId store
-
-    return response.status === StatusCode.SuccessOK ? null : response.status;
-  } catch (error) {
-    return (error as AxiosError).response!.status;
-  }
-}
-
-export async function createGame() {
-  console.log('Create Game');
-  // Try post request to /game
-  try {
-    const response = await server.post('game');
-    return response.status === StatusCode.SuccessOK ? null : response.status;
-  } catch (error) {
-    return (error as AxiosError).response!.status;
-  }
-}
-
-export async function deleteGame(id: string) {
-  console.log('Delete Game');
-  // Try delete request to /game
-  try {
-    const response = await server.delete(`game/${id}`);
-    return response.status === StatusCode.SuccessOK ? null : response.status;
-  } catch (error) {
-    return (error as AxiosError).response!.status;
-  }
-}
-
-export async function fetchGame(id: string): Promise<GameState | null> {
-  // Try get request to /game
-  try {
-    const response = await server.get(`game/${id}`);
-    if (response.status === StatusCode.SuccessOK) {
-      const game = response.data as GameState;
-      return game;
-    }
-
-    return null;
-  } catch (error) {
-    return null;
-  }
-}
-
-// export async function addPlayer(gameId: string) {
-//   console.log('Add Player');
-//   try {
-//     const response = await server.post(`game/${gameId}/player`);
-//     return response.status === StatusCode.SuccessOK ? null : response.status;
-//   } catch (error) {
-//     return (error as AxiosError).response!.status;
-//   }
-// }

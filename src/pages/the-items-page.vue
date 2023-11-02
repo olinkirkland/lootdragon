@@ -21,7 +21,15 @@
         </button>
 
         <!-- Saved Searches -->
-        <button class="icon" @click="ModalController.open(SavedSearchesModal)">
+        <button
+          class="icon"
+          @click="
+            ModalController.open(SavedSearchesModal, {
+              filters: toSavedSearchObject(),
+              applyFromSavedSearchObject
+            })
+          "
+        >
           <i class="fas fa-book"></i>
         </button>
 
@@ -136,10 +144,10 @@
 </template>
 
 <script setup lang="ts">
-import SavedSearchesModal from '@/components/modals/saved-searches-modal.vue';
 import ItemCard from '@/components/item-card.vue';
 import ItemHeaderCard from '@/components/item-header-card.vue';
 import ItemModal from '@/components/modals/item-modal.vue';
+import SavedSearchesModal from '@/components/modals/saved-searches-modal.vue';
 import { ModalController } from '@/controllers/modal-controller';
 import {
   getFavoritesFilters,
@@ -375,16 +383,35 @@ const filteredItems = computed(() => {
   return newSortedItems;
 });
 
+function applyFromSavedSearchObject(obj: any) {
+  rarityFilter.value = obj.rarity || initialRarityFilter.value;
+  sourceFilter.value = obj.source || initialSourceFilter.value;
+  traitsFilter.value = obj.traits || initialTraitsFilter.value;
+  categoryFilter.value = obj.category || initialCategoryFilter.value;
+  priceFilter.value = obj.price || initialPriceFilter.value;
+  levelFilter.value = obj.level || initialLevelFilter.value;
+  favoritesFilter.value = obj.favorites || initialFavoritesFilter.value;
+  search.value = obj.search || '';
+  sortBy.value = obj.sortBy || 'name-ascending';
+}
+
+// to saved search obj
+function toSavedSearchObject() {
+  return {
+    rarity: rarityFilter.value,
+    source: sourceFilter.value,
+    traits: traitsFilter.value,
+    category: categoryFilter.value,
+    price: priceFilter.value,
+    level: levelFilter.value,
+    favorites: favoritesFilter.value,
+    search: search.value,
+    sortBy: sortBy.value
+  };
+}
+
 // Set initial filters
-rarityFilter.value = localFilters.rarity || initialRarityFilter.value;
-sourceFilter.value = localFilters.source || initialSourceFilter.value;
-traitsFilter.value = localFilters.traits || initialTraitsFilter.value;
-categoryFilter.value = localFilters.category || initialCategoryFilter.value;
-priceFilter.value = localFilters.price || initialPriceFilter.value;
-levelFilter.value = localFilters.level || initialLevelFilter.value;
-favoritesFilter.value = localFilters.favorites || initialFavoritesFilter.value;
-search.value = localFilters.search || '';
-sortBy.value = localFilters.sortBy || 'name-ascending';
+applyFromSavedSearchObject(localFilters);
 
 // Save filters to local storage when they change
 watch(
@@ -400,20 +427,7 @@ watch(
     sortBy
   ],
   () => {
-    localStorage.setItem(
-      'filters',
-      JSON.stringify({
-        rarity: rarityFilter.value,
-        source: sourceFilter.value,
-        traits: traitsFilter.value,
-        category: categoryFilter.value,
-        price: priceFilter.value,
-        level: levelFilter.value,
-        favorites: favoritesFilter.value,
-        search: search.value,
-        sortBy: sortBy.value
-      })
-    );
+    localStorage.setItem('filters', JSON.stringify(toSavedSearchObject()));
     console.log('Saved filters to local storage');
   }
 );
@@ -439,7 +453,7 @@ function openRandomItem() {
     > .search-container {
       display: flex;
       gap: 0.8rem;
-      padding: 0.8rem;
+      padding: 0.8rem 1.4rem;
     }
 
     .item-count-container {

@@ -3,8 +3,14 @@ export type User = {
   username: string;
   password: string;
   favorites: string[]; // The ids of the items the user has bookmarked
-  collections: string[]; // The ids of the collections the user owns
-  games: string[]; // The ids of the games the user owns
+  savedSearches: SavedSearch[]; // The saved searches the user has stored
+};
+
+export type SavedSearch = {
+  id: string;
+  name: string;
+  icon: string;
+  filters: string; // JSON string of the filters
 };
 
 export type Link = {
