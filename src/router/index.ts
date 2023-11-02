@@ -6,68 +6,27 @@ import {
   login
 } from '@/controllers/connection';
 import { ModalController } from '@/controllers/modal-controller';
-import Home from '@/pages/the-home-page.vue';
 import ItemsPage from '@/pages/the-items-page.vue';
 import Lost from '@/pages/the-lost-page.vue';
 import { useItemsStore } from '@/stores/itemsStore';
 import { useNavStore } from '@/stores/navStore';
 import { useUserStore } from '@/stores/userStore';
 import { createRouter, createWebHistory } from 'vue-router';
-import CollectionPage from '../pages/the-collection-page.vue';
-import CollectionsPage from '../pages/the-collections-page.vue';
-import GamePage from '../pages/the-game-page.vue';
-import GamesPage from '../pages/the-games-page.vue';
-import TreasuresPage from '../pages/the-treasures-page.vue';
 
 const routes = [
+  // {
+  //   path: '/',
+  //   components: {
+  //     app: Home
+  //   },
+  //   name: 'home'
+  // },
   {
     path: '/',
-    components: {
-      app: Home
-    },
-    name: 'home'
-  },
-  {
-    path: '/items',
     components: {
       app: ItemsPage
     },
     name: 'items'
-  },
-  {
-    path: '/treasures',
-    components: {
-      app: TreasuresPage
-    },
-    name: 'treasures'
-  },
-  {
-    path: '/collections',
-    components: {
-      app: CollectionsPage
-    },
-    name: 'collections'
-  },
-  {
-    path: '/collection/:id',
-    components: {
-      app: CollectionPage
-    },
-    name: 'collection'
-  },
-  {
-    path: '/games',
-    components: {
-      app: GamesPage
-    },
-    name: 'games'
-  },
-  {
-    path: '/game/:id',
-    components: {
-      app: GamePage
-    },
-    name: 'game'
   },
   {
     path: '/:pathMatch(.*)*',

@@ -172,14 +172,6 @@ onMounted(() => {
         ModalController.open(ItemModal, { item });
       }
     }
-
-    rarityFilter.value = initialRarityFilter.value;
-    sourceFilter.value = initialSourceFilter.value;
-    traitsFilter.value = initialTraitsFilter.value;
-    categoryFilter.value = initialCategoryFilter.value;
-    priceFilter.value = initialPriceFilter.value;
-    levelFilter.value = initialLevelFilter.value;
-    favoritesFilter.value = initialFavoritesFilter.value;
   }, 200);
 });
 
@@ -383,6 +375,7 @@ traitsFilter.value = localFilters.traits || initialTraitsFilter.value;
 categoryFilter.value = localFilters.category || initialCategoryFilter.value;
 priceFilter.value = localFilters.price || initialPriceFilter.value;
 levelFilter.value = localFilters.level || initialLevelFilter.value;
+favoritesFilter.value = localFilters.favorites || initialFavoritesFilter.value;
 
 // Save filters to local storage when they change
 watch(
@@ -392,7 +385,8 @@ watch(
     traitsFilter,
     categoryFilter,
     priceFilter,
-    levelFilter
+    levelFilter,
+    favoritesFilter
   ],
   () => {
     localStorage.setItem(
@@ -403,9 +397,11 @@ watch(
         traits: traitsFilter.value,
         category: categoryFilter.value,
         price: priceFilter.value,
-        level: levelFilter.value
+        level: levelFilter.value,
+        favorites: favoritesFilter.value
       })
     );
+    console.log('Saved filters to local storage');
   }
 );
 

@@ -151,7 +151,7 @@ import { useSettingsStore } from '@/stores/settingsStore';
 import { useUserStore } from '@/stores/userStore';
 import { Item, Source } from '@/types';
 import mixpanel from 'mixpanel-browser';
-import { PropType, computed, onMounted, ref } from 'vue';
+import { PropType, computed, ref } from 'vue';
 import PriceDisplay from '../price-display.vue';
 import ReadMore from '../read-more.vue';
 import ReportModal from './report-modal.vue';
@@ -166,19 +166,13 @@ const props = defineProps({
   }
 });
 
-onMounted(() => {
-  // if (!!useUserStore().user)
-  //   selectedCollection.value = useUserStore().user?.collections[0];
-});
-
 const user = computed(() => {
   return useUserStore().user || null;
 });
 
 const item = props.item;
-console.log(item.traits);
 const directLink = computed(() => {
-  return window.location.origin + '/items?i=' + item.id;
+  return window.location.origin + '?i=' + item.id;
 });
 
 const nethysLink = computed(() => {

@@ -7,7 +7,7 @@
       />
       <h1>Loot Dragon</h1>
       <span v-if="nav && nav !== 'home'" class="nav">
-        {{ nav }}
+        <!-- {{ nav }} -->
       </span>
     </div>
     <div class="flex">
@@ -114,10 +114,10 @@ header.app-header {
       color: var(--text-color);
       box-shadow: var(--shadow);
       pointer-events: none;
-      &::before {
-        content: '|';
-        margin-right: 0.2rem;
-      }
+      // &::before {
+      //   content: '|';
+      //   margin-right: 0.2rem;
+      // }
     }
 
     > img {

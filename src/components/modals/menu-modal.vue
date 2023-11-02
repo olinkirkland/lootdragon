@@ -1,17 +1,7 @@
 <template>
   <div class="modal">
     <header>
-      <button-group v-model="activePage">
-        <button @click="router.push('/')" value="home">
-          <i class="fas fa-home"></i>
-        </button>
-        <button @click="router.push('/items')" value="items">
-          <i class="fas fa-box-open"></i>
-        </button>
-        <!-- <button @click="router.push('/collections')">
-          <i class="fas fa-boxes"></i>
-        </button> -->
-      </button-group>
+      <h2>Menu</h2>
       <button class="icon" @click="ModalController.close">
         <i class="fas fa-times"></i>
       </button>
@@ -125,31 +115,18 @@
 <script setup lang="ts">
 import { logout } from '@/controllers/connection';
 import { ModalController } from '@/controllers/modal-controller';
+import versionJson from '@/data/version.json';
 import { useUserStore } from '@/stores/userStore';
+import { capitalize } from '@/utils';
 import AccountModal from './account-modal.vue';
 import ConfirmModal from './confirm-modal.vue';
 import LicenseModal from './license-modal.vue';
 import LoginModal from './login-modal.vue';
 import RegisterModal from './register-modal.vue';
 import SettingsModal from './settings-modal.vue';
-import versionJson from '@/data/version.json';
-import { capitalize } from '@/utils';
-import router from '@/router';
-import { computed } from 'vue';
 
 const user = useUserStore().user;
 const version = versionJson.version;
-
-const activePage = computed(() => {
-  switch (router.currentRoute.value.path) {
-    case '/':
-      return 'home';
-    case '/items':
-      return 'items';
-  }
-
-  return 'home';
-});
 
 function logoutUser() {
   ModalController.open(ConfirmModal, {
