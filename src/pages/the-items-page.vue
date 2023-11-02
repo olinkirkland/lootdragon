@@ -376,6 +376,7 @@ categoryFilter.value = localFilters.category || initialCategoryFilter.value;
 priceFilter.value = localFilters.price || initialPriceFilter.value;
 levelFilter.value = localFilters.level || initialLevelFilter.value;
 favoritesFilter.value = localFilters.favorites || initialFavoritesFilter.value;
+sortBy.value = localFilters.sortBy || 'name-ascending';
 
 // Save filters to local storage when they change
 watch(
@@ -386,7 +387,8 @@ watch(
     categoryFilter,
     priceFilter,
     levelFilter,
-    favoritesFilter
+    favoritesFilter,
+    sortBy
   ],
   () => {
     localStorage.setItem(
@@ -398,7 +400,8 @@ watch(
         category: categoryFilter.value,
         price: priceFilter.value,
         level: levelFilter.value,
-        favorites: favoritesFilter.value
+        favorites: favoritesFilter.value,
+        sortBy: sortBy.value
       })
     );
     console.log('Saved filters to local storage');
