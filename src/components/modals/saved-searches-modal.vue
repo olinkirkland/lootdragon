@@ -44,15 +44,20 @@
         "
       >
         <p>Load a previously saved search.</p>
-        <ul
-          v-if="!!useUserStore().user"
-          v-for="savedSearch in useUserStore()?.user?.savedSearches"
-        >
-          <li>
+        <ul class="saved-searches" v-if="!!useUserStore().user">
+          <li v-for="savedSearch in useUserStore()?.user?.savedSearches">
             <p>{{ savedSearch.name }}</p>
-            <button class="text" @click="applySavedSearch(savedSearch.filters)">
-              <span>Apply</span>
-            </button>
+            <div class="flex">
+              <button
+                class="text"
+                @click="applySavedSearch(savedSearch.filters)"
+              >
+                <span>Apply</span>
+              </button>
+              <button class="text" @click="removeSavedSearch(savedSearch.id)">
+                <span>Remove</span>
+              </button>
+            </div>
           </li>
         </ul>
         <!-- <pre>{{ useUserStore()?.user?.savedSearches }}</pre> -->
@@ -68,7 +73,11 @@
 </template>
 
 <script setup lang="ts">
-import { addSavedSearch, fetchMe } from '@/controllers/connection';
+import {
+  addSavedSearch,
+  fetchMe,
+  removeSavedSearch
+} from '@/controllers/connection';
 import { ModalController } from '@/controllers/modal-controller';
 import { useUserStore } from '@/stores/userStore';
 import { ref } from 'vue';
@@ -99,5 +108,15 @@ async function tryAddSavedSearch() {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+ul.saved-searches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  gap: 0.4rem;
+  > li {
+    padding: 0.8rem 2rem;
+    background-color: var(--surface-color-2);
+  }
 }
 </style>

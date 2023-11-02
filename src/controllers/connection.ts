@@ -223,3 +223,11 @@ export async function addSavedSearch(name: string, icon: string, filters: any) {
     console.error(error);
   }
 }
+
+export async function removeSavedSearch(id: string) {
+  try {
+    await server.delete(`saved-search/${id}`);
+  } catch (error) {
+    console.error(error);
+  }
+}
