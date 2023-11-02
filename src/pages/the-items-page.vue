@@ -19,6 +19,12 @@
         >
           <i class="fas fa-filter"></i>
         </button>
+
+        <!-- Saved Searches -->
+        <button class="icon" @click="ModalController.open(SavedSearchesModal)">
+          <i class="fas fa-book"></i>
+        </button>
+
         <!-- Random -->
         <button class="icon" @click="openRandomItem">
           <i class="fas fa-dice-five"></i>
@@ -130,6 +136,7 @@
 </template>
 
 <script setup lang="ts">
+import SavedSearchesModal from '@/components/modals/saved-searches-modal.vue';
 import ItemCard from '@/components/item-card.vue';
 import ItemHeaderCard from '@/components/item-header-card.vue';
 import ItemModal from '@/components/modals/item-modal.vue';
@@ -376,6 +383,7 @@ categoryFilter.value = localFilters.category || initialCategoryFilter.value;
 priceFilter.value = localFilters.price || initialPriceFilter.value;
 levelFilter.value = localFilters.level || initialLevelFilter.value;
 favoritesFilter.value = localFilters.favorites || initialFavoritesFilter.value;
+search.value = localFilters.search || '';
 sortBy.value = localFilters.sortBy || 'name-ascending';
 
 // Save filters to local storage when they change
@@ -388,6 +396,7 @@ watch(
     priceFilter,
     levelFilter,
     favoritesFilter,
+    search,
     sortBy
   ],
   () => {
@@ -401,6 +410,7 @@ watch(
         price: priceFilter.value,
         level: levelFilter.value,
         favorites: favoritesFilter.value,
+        search: search.value,
         sortBy: sortBy.value
       })
     );
