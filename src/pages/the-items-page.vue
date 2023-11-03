@@ -178,6 +178,8 @@ onMounted(() => {
     items.value = useItemsStore().items;
     ModalController.close();
 
+    applyFromSavedSearchObject(localFilters);
+
     // ?i=SOME_ID
     const urlParams = new URLSearchParams(window.location.search);
     const itemId = urlParams.get('i');
@@ -194,7 +196,7 @@ onMounted(() => {
 const localFilters =
   (localStorage.getItem('filters') &&
     JSON.parse(localStorage.getItem('filters')!)) ||
-  '{}';
+  {};
 
 const showFilters = ref<boolean>(false);
 
@@ -385,7 +387,6 @@ const filteredItems = computed(() => {
 });
 
 function applyFromSavedSearchObject(obj: any) {
-  if (Object.keys(obj).length === 0) return;
   rarityFilter.value = obj.rarity || initialRarityFilter.value;
   sourceFilter.value = obj.source || initialSourceFilter.value;
   traitsFilter.value = obj.traits || initialTraitsFilter.value;
@@ -412,9 +413,6 @@ function toSavedSearchObject() {
     sortBy: sortBy.value
   };
 }
-
-// Set initial filters
-applyFromSavedSearchObject(localFilters);
 
 // Save filters to local storage when they change
 watch(
