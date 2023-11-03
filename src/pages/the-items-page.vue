@@ -393,6 +393,7 @@ function applyFromSavedSearchObject(obj: any) {
   favoritesFilter.value = obj.favorites || initialFavoritesFilter.value;
   search.value = obj.search || '';
   sortBy.value = obj.sortBy || 'name-ascending';
+  showFilters.value = false;
 }
 
 // to saved search obj

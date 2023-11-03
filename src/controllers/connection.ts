@@ -146,7 +146,7 @@ export async function fetchMe() {
   try {
     const response = await server.get('me');
     const data = response.data;
-    data.savedSearches = data.savedSearches.map((savedSearch) =>
+    data.savedSearches = data.savedSearches.map((savedSearch: string) =>
       JSON.parse(savedSearch)
     );
     useUserStore().user = response.data;
@@ -219,6 +219,7 @@ export async function addSavedSearch(name: string, icon: string, filters: any) {
       icon,
       filters: filters
     });
+    await fetchMe();
   } catch (error) {
     console.error(error);
   }
@@ -227,6 +228,7 @@ export async function addSavedSearch(name: string, icon: string, filters: any) {
 export async function removeSavedSearch(id: string) {
   try {
     await server.delete(`saved-search/${id}`);
+    await fetchMe();
   } catch (error) {
     console.error(error);
   }
