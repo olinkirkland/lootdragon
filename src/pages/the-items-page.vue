@@ -282,10 +282,11 @@ const filteredItems = computed(() => {
 
   // Filter by search
   if (search.value.length > 0) {
-    const searchText = search.value.toLowerCase().trim();
-    sortedItems = sortedItems.filter((item) =>
-      item.name.text.toLowerCase().includes(searchText)
-    );
+    // const searchText = search.value ? search.value.toLowerCase().trim() : '';
+    const searchText = '';
+    sortedItems = sortedItems.filter((item) => {
+      item.name.text.toLowerCase().includes(searchText);
+    });
   }
 
   // Filter by favorites
@@ -384,6 +385,7 @@ const filteredItems = computed(() => {
 });
 
 function applyFromSavedSearchObject(obj: any) {
+  if (Object.keys(obj).length === 0) return;
   rarityFilter.value = obj.rarity || initialRarityFilter.value;
   sourceFilter.value = obj.source || initialSourceFilter.value;
   traitsFilter.value = obj.traits || initialTraitsFilter.value;
@@ -391,7 +393,7 @@ function applyFromSavedSearchObject(obj: any) {
   priceFilter.value = obj.price || initialPriceFilter.value;
   levelFilter.value = obj.level || initialLevelFilter.value;
   favoritesFilter.value = obj.favorites || initialFavoritesFilter.value;
-  search.value = obj.search || '';
+  search.value = obj.searchText || '';
   sortBy.value = obj.sortBy || 'name-ascending';
   showFilters.value = false;
 }
@@ -406,7 +408,7 @@ function toSavedSearchObject() {
     price: priceFilter.value,
     level: levelFilter.value,
     favorites: favoritesFilter.value,
-    search: search.value,
+    searchText: search.value,
     sortBy: sortBy.value
   };
 }
