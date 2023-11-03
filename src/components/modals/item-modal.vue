@@ -54,7 +54,7 @@
         </p>
       </section>
 
-      <section class="collection" v-if="!!user && false">
+      <!-- <section class="collection" v-if="!!user && false">
         <h4>Add to collection</h4>
         <div class="flex">
           <drop-down v-model="selectedCollection" class="flex-1">
@@ -67,7 +67,7 @@
             <span>Add</span>
           </button>
         </div>
-      </section>
+      </section> -->
 
       <section>
         <div class="detail-group detail-group--traits">
@@ -157,7 +157,7 @@ import ReadMore from '../read-more.vue';
 import ReportModal from './report-modal.vue';
 
 const settingsStore = useSettingsStore();
-const selectedCollection = ref(null as string | null);
+// const selectedCollection = ref(null as string | null);
 
 const props = defineProps({
   item: {
