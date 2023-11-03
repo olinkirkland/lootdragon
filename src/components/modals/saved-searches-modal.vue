@@ -32,7 +32,6 @@
             <button class="text" @click="ModalController.open(RegisterModal)">
               Register
             </button>
-            .
           </p>
         </div>
       </section>

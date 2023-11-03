@@ -15,8 +15,9 @@ export const useSettingsStore = defineStore({
     filterSortings: {
       rarity: 'numeric',
       sources: 'alpha',
-      traits: 'groups',
-      category: 'alpha'
+      traits: 'numeric',
+      category: 'alpha',
+      
     } as { [key: string]: string } // alpha, numeric, groups
   }),
   actions: {

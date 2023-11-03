@@ -51,9 +51,9 @@
         <ul>
           <li>
             <p>
-              Icons are from
-              <a href="https://fontawesome.com/license/free" target="_blank"
-                >FontAwesome.com</a
+              Interface icons are from
+              <a href="https://fontawesome.com/license/free" target="_blank">
+                FontAwesome.com</a
               >
             </p>
           </li>
@@ -65,7 +65,7 @@
                 target="_blank"
                 >logo</a
               >
-              and coin icons use vector graphics from
+              and coin icons are from
               <a href="https://icons8.com/" target="_blank">Icons8.com</a>
             </p>
           </li>
@@ -75,13 +75,15 @@
               <a href="https://fonts.google.com/specimen/Croissant+One"
                 >Croissant One</a
               >
-              by Eduardo Tunni, provided by Google Fonts.
+              by Eduardo Tunni
             </p>
           </li>
           <li>
             <p>
-              The images on the home page were created with
-              <a href="https://www.midjourney.com/">Midjourney</a>.
+              Most of the content is parsed from
+              <a href="https://2e.aonprd.com/Equipment.aspx"
+                >Archives of Nethys</a
+              >
             </p>
           </li>
         </ul>

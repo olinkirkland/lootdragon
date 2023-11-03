@@ -221,7 +221,7 @@ const initialFavoritesFilter = ref(['Favorited', 'Not Favorited']);
 
 // Rarity
 const rarities = computed(() =>
-  getFiltersByKey(items.value, 'rarity', filterSortings.value.rarities)
+  getFiltersByKey(items.value, 'rarity', filterSortings.value.rarity)
 );
 const initialRarityFilter = ref(['Common', 'Uncommon']);
 
@@ -245,7 +245,7 @@ const initialTraitsFilter = computed(() =>
 
 // Categories
 const categories = computed(() =>
-  getFiltersByKey(items.value, 'itemCategory', filterSortings.value.categories)
+  getFiltersByKey(items.value, 'itemCategory', filterSortings.value.category)
 );
 const initialCategoryFilter = computed(() =>
   categories.value.map((category) => category.name)
