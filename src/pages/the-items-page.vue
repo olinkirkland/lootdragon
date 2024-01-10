@@ -284,10 +284,9 @@ const filteredItems = computed(() => {
 
   // Filter by search
   if (search.value.length > 0) {
-    // const searchText = search.value ? search.value.toLowerCase().trim() : '';
-    const searchText = '';
+    const searchText = search.value ? search.value.toLowerCase().trim() : '';
     sortedItems = sortedItems.filter((item) => {
-      item.name.text.toLowerCase().includes(searchText);
+      return item.name.text.toLowerCase().includes(searchText);
     });
   }
 
