@@ -99,8 +99,10 @@ export async function login(
     return null; // Return null if success
   } catch (error) {
     const response = (error as AxiosError).response!;
-    console.error('Login failed:', response.data);
-    return response.data!.toString() || response.status.toString();
+    if (!response)
+      return 'Failed to connect to the server: ' + server.defaults.baseURL;
+    console.error('Login failed!', response);
+    return response.data?.toString() || response.status?.toString();
   }
 }
 
