@@ -6,24 +6,19 @@
       <div class="actions">
         <home-button-tile
           label="Pathfinder 2E Items"
-          image="/assets/images/warehouse.jpg"
+          :image="BASE_URL + 'assets/images/warehouse.jpg'"
           @click="router.push({ name: 'items' })"
         />
-        <!-- <home-button-tile
-          label="Treasures"
-          image="/assets/images/treasure.jpg"
-          @click="router.push({ name: 'treasures' })"
-        /> -->
         <home-button-tile
           v-if="!user"
           label="Sign up"
-          image="/assets/images/tavern.jpg"
+          :image="BASE_URL + 'assets/images/tavern.jpg'"
           @click="ModalController.open(RegisterModal)"
         />
         <home-button-tile
           v-else
           label="My Account"
-          image="/assets/images/bazaar.jpg"
+          :image="BASE_URL + 'assets/images/bazaar.jpg'"
           @click="ModalController.open(AccountModal)"
         />
       </div>
@@ -51,7 +46,7 @@ import AccountModal from '@/components/modals/account-modal.vue';
 import ItemModal from '@/components/modals/item-modal.vue';
 import RegisterModal from '@/components/modals/register-modal.vue';
 import { ModalController } from '@/controllers/modal-controller';
-import router from '@/router';
+import router, { BASE_URL } from '@/router';
 import { useItemsStore } from '@/stores/itemsStore';
 import { useUserStore } from '@/stores/userStore';
 import seedrandom from 'seedrandom';

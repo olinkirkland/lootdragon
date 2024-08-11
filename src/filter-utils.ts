@@ -1,3 +1,4 @@
+import { BASE_URL } from './router';
 import { Item } from './types';
 
 export function getFiltersByKey(
@@ -135,7 +136,7 @@ export function getPriceFilters(
   });
 
   // Set html
-  const imgPath = '/assets/images/';
+  const imgPath = BASE_URL + 'assets/images/';
   filters[0].html = `<span>N/A</span>`;
   filters[1].html = `<span><img class="coin" src="${imgPath}copper.png" />1 - <img class="coin" src="${imgPath}copper.png" />9</span>`;
   filters[2].html = `<span><img class="coin" src="${imgPath}silver.png" />1 - <img class="coin" src="${imgPath}silver.png" />9</span>`;

@@ -6,7 +6,7 @@
       <router-view name="page"></router-view>
     </div>
   </div>
-  <modal-container :class="themeClass"/>
+  <modal-container :class="themeClass" />
 </template>
 
 <script setup lang="ts">

@@ -2,7 +2,7 @@
   <div class="modal">
     <section>
       <img
-        :src="`/assets/images/logo-${useSettingsStore().theme}.png`"
+        :src="BASE_URL + `assets/images/logo-${useSettingsStore().theme}.png`"
         alt="logo"
       />
       <p class="loading-text">
@@ -18,6 +18,7 @@
 <script setup lang="ts">
 import { useNavStore } from '@/stores/navStore';
 import { useSettingsStore } from '@/stores/settingsStore';
+import { BASE_URL } from '@/router';
 </script>
 
 <style scoped lang="scss">

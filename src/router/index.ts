@@ -13,6 +13,9 @@ import { useNavStore } from '@/stores/navStore';
 import { useUserStore } from '@/stores/userStore';
 import { createRouter, createWebHistory } from 'vue-router';
 
+export const BASE_URL =
+  window.location.hostname === 'localhost' ? './lootdragon/' : './';
+
 const routes = [
   // {
   //   path: '/',
@@ -54,7 +57,7 @@ router.beforeEach(async (to, from, next) => {
     useNavStore().loadingText = 'Loading items';
     ModalController.open(LoadingModal);
     try {
-      const response = await fetch('/assets/equipment.json');
+      const response = await fetch(BASE_URL + 'assets/equipment.json');
       const data = await response.json();
       useItemsStore().items = data;
       useNavStore().loadingText = null;
@@ -68,7 +71,7 @@ router.beforeEach(async (to, from, next) => {
     useNavStore().loadingText = 'Loading traits';
     ModalController.open(LoadingModal);
     try {
-      const response = await fetch('/assets/traits.json');
+      const response = await fetch(BASE_URL + 'assets/traits.json');
       const data = await response.json();
       useItemsStore().traits = data;
       useNavStore().loadingText = null;
@@ -77,20 +80,6 @@ router.beforeEach(async (to, from, next) => {
       console.error('Error loading traits:', error);
     }
   }
-
-  // if (Object.keys(useItemsStore().traitsIcons).length === 0) {
-  //   useNavStore().loadingText = 'Loading traits icons';
-  //   ModalController.open(LoadingModal);
-  //   try {
-  //     const response = await fetch('/assets/traits-icons.json');
-  //     const data = await response.json();
-  //     useItemsStore().traitsIcons = data;
-  //     useNavStore().loadingText = null;
-  //     ModalController.close();
-  //   } catch (error) {
-  //     console.error('Error loading traits icons:', error);
-  //   }
-  // }
 
   if (useUserStore().user === null && !!localStorage.getItem('refreshToken')) {
     useNavStore().loadingText = 'Logging in';

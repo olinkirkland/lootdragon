@@ -2,7 +2,7 @@
   <header class="app-header">
     <div @click="router.push('/')" class="logo">
       <img
-        :src="`/assets/images/logo-${useSettingsStore().theme}.png`"
+        :src="BASE_URL + `assets/images/logo-${useSettingsStore().theme}.png`"
         alt="logo"
       />
       <h1>Loot Dragon</h1>

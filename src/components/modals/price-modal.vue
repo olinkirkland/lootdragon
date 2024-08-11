@@ -30,16 +30,16 @@
       <div class="coin-legend-container">
         <span class="coin-legend">
           <span class="coin-legend__diagram">
-            <img class="coin" src="/assets/images/copper.png" />
+            <img class="coin" :src="BASE_URL + 'assets/images/copper.png'" />
             <span>10 =</span>
-            <img class="coin" src="/assets/images/silver.png" />
+            <img class="coin" :src="BASE_URL + 'assets/images/silver.png'" />
             <span>1</span>
           </span>
           <span>and</span>
           <span class="coin-legend__diagram">
-            <img class="coin" src="/assets/images/silver.png" />
+            <img class="coin" :src="BASE_URL + 'assets/images/silver.png'" />
             <span>10 =</span>
-            <img class="coin" src="/assets/images/gold.png" />
+            <img class="coin" :src="BASE_URL + 'assets/images/gold.png'" />
             <span>1</span>
           </span>
         </span>
@@ -56,6 +56,7 @@
 
 <script setup lang="ts">
 import { ModalController } from '@/controllers/modal-controller';
+import { BASE_URL } from '@/router';
 </script>
 
 <style scoped lang="scss">
