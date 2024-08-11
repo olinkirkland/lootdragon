@@ -25,7 +25,7 @@ const routes = [
   //   name: 'home'
   // },
   {
-    path: '/',
+    path: '/lootdragon/',
     components: {
       app: ItemsPage
     },
