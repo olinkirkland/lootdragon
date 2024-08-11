@@ -1,6 +1,6 @@
 <template>
   <header class="app-header">
-    <div @click="router.push('/')" class="logo">
+    <div @click="router.push(BASE_URL)" class="logo">
       <img
         :src="BASE_URL + `assets/images/logo-${useSettingsStore().theme}.png`"
         alt="logo"
@@ -14,7 +14,7 @@
       <button v-if="isLocalHost" class="icon" @click="toggleBaseUrlAndReload">
         <i
           :class="
-            BASE_URL === PROD_BASE_URL
+            REMOTE_BASE_URL === PROD_BASE_URL
               ? 'fas fa-satellite-dish'
               : 'fas fa-laptop'
           "
@@ -35,8 +35,9 @@
 </template>
 
 <script setup lang="ts">
+import { BASE_URL } from '@/router';
 import {
-  BASE_URL,
+  REMOTE_BASE_URL,
   DEV_BASE_URL,
   PROD_BASE_URL
 } from '@/controllers/connection';
@@ -63,7 +64,7 @@ const isLocalHost = window.location.hostname === 'localhost';
 function toggleBaseUrlAndReload() {
   localStorage.setItem(
     'baseUrl',
-    BASE_URL === PROD_BASE_URL ? DEV_BASE_URL : PROD_BASE_URL
+    REMOTE_BASE_URL === PROD_BASE_URL ? DEV_BASE_URL : PROD_BASE_URL
   );
   location.reload();
 }

@@ -4,10 +4,10 @@ import StatusCode from 'status-code-enum';
 
 export const DEV_BASE_URL = 'http://localhost:3005/';
 export const PROD_BASE_URL = 'https://stash-server-production.up.railway.app/';
-export const BASE_URL = localStorage.getItem('baseUrl') || PROD_BASE_URL;
+export const REMOTE_BASE_URL = localStorage.getItem('baseUrl') || PROD_BASE_URL;
 
 const server = axios.create({
-  baseURL: BASE_URL,
+  baseURL: REMOTE_BASE_URL,
   timeout: 10000,
   withCredentials: true
 });
